@@ -1,20 +1,27 @@
 // ==========================================================================
-// Typography — Supplements theme.json global styles
+// Typography
 // ==========================================================================
 
-// Smooth font rendering
-body {
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	text-rendering: optimizeLegibility;
+@font-face {
+	font-family: 'Inter';
+	src: url('../../../assets/fonts/inter/Inter-VariableFont_opsz,wght.ttf') format('truetype');
+	font-weight: 100 900;
+	font-style: normal;
+	font-display: swap;
 }
 
-// Balanced text wrapping for headings (modern browsers)
+@font-face {
+	font-family: 'Inter';
+	src: url('../../../assets/fonts/inter/Inter-Italic-VariableFont_opsz,wght.ttf') format('truetype');
+	font-weight: 100 900;
+	font-style: italic;
+	font-display: swap;
+}
+
 h1, h2, h3, h4, h5, h6 {
 	text-wrap: balance;
 }
 
-// Readable paragraphs
 p {
 	text-wrap: pretty;
 	max-width: 75ch;
