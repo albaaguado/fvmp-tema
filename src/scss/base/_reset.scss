@@ -1,0 +1,26 @@
+// ==========================================================================
+// Reset — Minimal normalization (WP handles most via theme.json)
+// ==========================================================================
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+img,
+picture,
+video,
+svg {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+// Remove default list styles on doo- prefixed lists
+[class^='doo-'] ul,
+[class^='doo-'] ol {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}

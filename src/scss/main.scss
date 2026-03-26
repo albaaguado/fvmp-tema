@@ -1,0 +1,27 @@
+// ==========================================================================
+// FVMP Theme — Main Stylesheet
+// Compiled by Vite from SCSS → CSS
+// ==========================================================================
+
+// --- Abstracts (no output, just tools) ---
+@use 'abstracts/variables' as *;
+@use 'abstracts/mixins' as *;
+
+// --- Base (global resets and defaults) ---
+@use 'base/reset';
+@use 'base/typography';
+
+// --- Layout (structural sections) ---
+@use 'layout/header';
+@use 'layout/footer';
+@use 'layout/hero';
+
+// --- Components (reusable UI pieces) ---
+@use 'components/buttons';
+@use 'components/cards';
+
+// --- Pages (page-specific overrides) ---
+@use 'pages/home';
+
+// --- Vendors (third-party) ---
+// @use 'vendors/lucide';
