@@ -1,0 +1,21 @@
+// ==========================================================================
+// Typography — Supplements theme.json global styles
+// ==========================================================================
+
+// Smooth font rendering
+body {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
+}
+
+// Balanced text wrapping for headings (modern browsers)
+h1, h2, h3, h4, h5, h6 {
+	text-wrap: balance;
+}
+
+// Readable paragraphs
+p {
+	text-wrap: pretty;
+	max-width: 75ch;
+}
