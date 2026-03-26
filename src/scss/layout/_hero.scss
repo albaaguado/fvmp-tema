@@ -1,0 +1,112 @@
+// ==========================================================================
+// Hero — Home page hero section
+// ==========================================================================
+
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.doo-hero {
+	position: relative;
+	width: 100%;
+	height: 560px;
+	background: #f7f8fa;
+	overflow: hidden;
+	font-family: $font-inter;
+
+	// Left panel — white, text + CTA
+	&__left {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 749px;
+		height: 560px;
+		background: #fff;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding: 0 40px 0 120px;
+	}
+
+	// Eyebrow label
+	&__eyebrow {
+		font-size: 11px;
+		font-weight: 600;
+		color: $color-teal;
+		letter-spacing: 2px;
+		margin-bottom: 16px;
+		text-transform: uppercase;
+	}
+
+	// Main heading
+	&__title {
+		font-size: 40px;
+		font-weight: 700;
+		color: $color-navy;
+		line-height: 47px;
+		margin-bottom: 24px;
+	}
+
+	// Description
+	&__desc {
+		font-size: 17px;
+		color: #6b7280;
+		line-height: 29px;
+		margin-bottom: 40px;
+	}
+
+	// CTA button
+	&__btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		align-self: flex-start;
+		height: 48px;
+		padding: 0 28px;
+		background: $color-teal;
+		color: #fff;
+		font-size: 13px;
+		font-weight: 600;
+		border-radius: 4px;
+		text-decoration: none;
+		letter-spacing: 0.5px;
+		@include transition( opacity );
+
+		&:hover {
+			opacity: 0.88;
+			color: #fff;
+		}
+	}
+
+	// Right panel — photo
+	&__photo {
+		position: absolute;
+		left: 749px;
+		top: 0;
+		width: 691px;
+		height: 554px;
+		overflow: hidden;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			object-position: center;
+			display: block;
+		}
+	}
+
+	// Gradient overlay — soft fade from photo into left panel
+	&__gradient {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 160px;
+		height: 560px;
+		background: linear-gradient(
+			to right,
+			rgba( 255, 255, 255, 0.9 ) 0%,
+			rgba( 255, 255, 255, 0.3 ) 50%,
+			rgba( 255, 255, 255, 0 ) 100%
+		);
+	}
+}
