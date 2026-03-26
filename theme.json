@@ -13,145 +13,63 @@
 			"defaultGradients": false,
 			"defaultPalette": false,
 			"palette": [
-				{
-					"slug": "teal",
-					"color": "#00A9A5",
-					"name": "Teal — Acento principal"
-				},
-				{
-					"slug": "orange",
-					"color": "#F5A623",
-					"name": "Orange — Acento secundario"
-				},
-				{
-					"slug": "red-cta",
-					"color": "#8B1F1F",
-					"name": "Red CTA — Llamadas a la acción"
-				},
-				{
-					"slug": "navy",
-					"color": "#1A2B4A",
-					"name": "Navy — Títulos y texto destacado"
-				},
-				{
-					"slug": "bg-light",
-					"color": "#F0F0F0",
-					"name": "Background Light"
-				},
-				{
-					"slug": "bg-med",
-					"color": "#F7F8FA",
-					"name": "Background Medium"
-				},
-				{
-					"slug": "white",
-					"color": "#FFFFFF",
-					"name": "White"
-				},
-				{
-					"slug": "text-body",
-					"color": "#333333",
-					"name": "Text Body"
-				},
-				{
-					"slug": "text-muted",
-					"color": "#666666",
-					"name": "Text Muted"
-				}
+				{ "slug": "teal",      "color": "#00A9A5", "name": "Teal" },
+				{ "slug": "orange",    "color": "#F5A623", "name": "Orange" },
+				{ "slug": "red-cta",   "color": "#8B1F1F", "name": "Red CTA" },
+				{ "slug": "navy",      "color": "#1A2B4A", "name": "Navy" },
+				{ "slug": "bg-light",  "color": "#F0F0F0", "name": "Background Light" },
+				{ "slug": "bg-med",    "color": "#F7F8FA", "name": "Background Medium" },
+				{ "slug": "white",     "color": "#FFFFFF", "name": "White" },
+				{ "slug": "text-body", "color": "#333333", "name": "Text Body" },
+				{ "slug": "text-muted","color": "#666666", "name": "Text Muted" }
 			]
 		},
 		"typography": {
 			"defaultFontSizes": false,
-			"fluid": true,
-                "fontFamilies": [
-                    {
-                        "fontFamily": "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-                        "slug": "inter",
-                        "name": "Inter",
-                        "fontFace": [
-                            {
-                                "fontFamily": "Inter",
-                                "fontWeight": "100 900",
-                                "fontStyle": "normal",
-                                "src": ["file:./assets/fonts/inter/Inter-VariableFont_opsz,wght.ttf"]
-                            },
-                            {
-                                "fontFamily": "Inter",
-                                "fontWeight": "100 900",
-                                "fontStyle": "italic",
-                                "src": ["file:./assets/fonts/inter/Inter-Italic-VariableFont_opsz,wght.ttf"]
-                            }
-                        ]
-                    }
-                ],
-			"fontSizes": [
+			"fluid": false,
+			"fontFamilies": [
 				{
-					"slug": "small",
-					"size": "0.875rem",
-					"name": "Small — 14px",
-					"fluid": {
-						"min": "0.813rem",
-						"max": "0.875rem"
-					}
-				},
-				{
-					"slug": "medium",
-					"size": "1rem",
-					"name": "Medium — 16px",
-					"fluid": {
-						"min": "0.938rem",
-						"max": "1rem"
-					}
-				},
-				{
-					"slug": "large",
-					"size": "1.25rem",
-					"name": "Large — 20px",
-					"fluid": {
-						"min": "1.125rem",
-						"max": "1.25rem"
-					}
-				},
-				{
-					"slug": "x-large",
-					"size": "1.5rem",
-					"name": "XL — 24px",
-					"fluid": {
-						"min": "1.25rem",
-						"max": "1.5rem"
-					}
-				},
-				{
-					"slug": "xx-large",
-					"size": "2.25rem",
-					"name": "2XL — 36px",
-					"fluid": {
-						"min": "1.75rem",
-						"max": "2.25rem"
-					}
-				},
-				{
-					"slug": "hero",
-					"size": "3rem",
-					"name": "Hero — 48px",
-					"fluid": {
-						"min": "2rem",
-						"max": "3rem"
-					}
+					"fontFamily": "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+					"slug": "inter",
+					"name": "Inter",
+					"fontFace": [
+						{
+							"fontFamily": "Inter",
+							"fontWeight": "100 900",
+							"fontStyle": "normal",
+							"fontDisplay": "swap",
+							"src": ["file:./assets/fonts/inter/Inter-VariableFont_opsz,wght.ttf"]
+						},
+						{
+							"fontFamily": "Inter",
+							"fontWeight": "100 900",
+							"fontStyle": "italic",
+							"fontDisplay": "swap",
+							"src": ["file:./assets/fonts/inter/Inter-Italic-VariableFont_opsz,wght.ttf"]
+						}
+					]
 				}
+			],
+			"fontSizes": [
+				{ "slug": "small",    "size": "0.875rem", "name": "Small - 14px" },
+				{ "slug": "medium",   "size": "1rem",     "name": "Medium - 16px" },
+				{ "slug": "large",    "size": "1.25rem",  "name": "Large - 20px" },
+				{ "slug": "x-large",  "size": "1.5rem",   "name": "XL - 24px" },
+				{ "slug": "xx-large", "size": "2.25rem",  "name": "2XL - 36px" },
+				{ "slug": "hero",     "size": "3rem",     "name": "Hero - 48px" }
 			]
 		},
 		"spacing": {
 			"defaultSpacingSizes": false,
 			"spacingSizes": [
 				{ "slug": "10", "size": "0.25rem", "name": "4px" },
-				{ "slug": "20", "size": "0.5rem", "name": "8px" },
-				{ "slug": "30", "size": "1rem", "name": "16px" },
-				{ "slug": "40", "size": "1.5rem", "name": "24px" },
-				{ "slug": "50", "size": "2rem", "name": "32px" },
-				{ "slug": "60", "size": "3rem", "name": "48px" },
-				{ "slug": "70", "size": "4rem", "name": "64px" },
-				{ "slug": "80", "size": "6rem", "name": "96px" }
+				{ "slug": "20", "size": "0.5rem",  "name": "8px" },
+				{ "slug": "30", "size": "1rem",    "name": "16px" },
+				{ "slug": "40", "size": "1.5rem",  "name": "24px" },
+				{ "slug": "50", "size": "2rem",    "name": "32px" },
+				{ "slug": "60", "size": "3rem",    "name": "48px" },
+				{ "slug": "70", "size": "4rem",    "name": "64px" },
+				{ "slug": "80", "size": "6rem",    "name": "96px" }
 			]
 		},
 		"custom": {
@@ -159,12 +77,6 @@
 				"tight": 1.2,
 				"normal": 1.5,
 				"relaxed": 1.75
-			},
-			"borderRadius": {
-				"small": "4px",
-				"medium": "8px",
-				"large": "16px",
-				"full": "9999px"
 			}
 		}
 	},
@@ -189,56 +101,24 @@
 		},
 		"elements": {
 			"heading": {
-				"color": {
-					"text": "var(--wp--preset--color--navy)"
-				},
-				"typography": {
-					"fontWeight": "700",
-					"lineHeight": "1.2"
-				}
+				"color": { "text": "var(--wp--preset--color--navy)" },
+				"typography": { "fontWeight": "700", "lineHeight": "1.2" }
 			},
-			"h1": {
-				"typography": {
-					"fontSize": "var(--wp--preset--font-size--hero)"
-				}
-			},
-			"h2": {
-				"typography": {
-					"fontSize": "var(--wp--preset--font-size--xx-large)"
-				}
-			},
-			"h3": {
-				"typography": {
-					"fontSize": "var(--wp--preset--font-size--x-large)"
-				}
-			},
-			"h4": {
-				"typography": {
-					"fontSize": "var(--wp--preset--font-size--large)"
-				}
-			},
+			"h1": { "typography": { "fontSize": "var(--wp--preset--font-size--hero)" } },
+			"h2": { "typography": { "fontSize": "var(--wp--preset--font-size--xx-large)" } },
+			"h3": { "typography": { "fontSize": "var(--wp--preset--font-size--x-large)" } },
+			"h4": { "typography": { "fontSize": "var(--wp--preset--font-size--large)" } },
 			"link": {
-				"color": {
-					"text": "var(--wp--preset--color--teal)"
-				},
-				":hover": {
-					"color": {
-						"text": "var(--wp--preset--color--navy)"
-					}
-				}
+				"color": { "text": "var(--wp--preset--color--teal)" },
+				":hover": { "color": { "text": "var(--wp--preset--color--navy)" } }
 			},
 			"button": {
 				"color": {
 					"background": "var(--wp--preset--color--red-cta)",
 					"text": "var(--wp--preset--color--white)"
 				},
-				"typography": {
-					"fontWeight": "600",
-					"fontSize": "var(--wp--preset--font-size--medium)"
-				},
-				"border": {
-					"radius": "4px"
-				},
+				"typography": { "fontWeight": "600", "fontSize": "var(--wp--preset--font-size--medium)" },
+				"border": { "radius": "4px" },
 				":hover": {
 					"color": {
 						"background": "var(--wp--preset--color--navy)",
@@ -250,70 +130,34 @@
 		"blocks": {
 			"core/navigation": {
 				"typography": {
-					"fontSize": "var(--wp--preset--font-size--small)",
-					"fontWeight": "500"
+					"fontFamily": "var(--wp--preset--font-family--inter)",
+					"fontSize": "0.8125rem",
+					"fontWeight": "400"
 				},
-				"color": {
-					"text": "var(--wp--preset--color--navy)"
-				}
+				"color": { "text": "var(--wp--preset--color--text-body)" }
 			},
 			"core/site-title": {
-				"typography": {
-					"fontSize": "var(--wp--preset--font-size--large)",
-					"fontWeight": "700"
-				},
-				"color": {
-					"text": "var(--wp--preset--color--navy)"
-				}
+				"typography": { "fontSize": "var(--wp--preset--font-size--large)", "fontWeight": "700" },
+				"color": { "text": "var(--wp--preset--color--navy)" }
 			},
 			"core/quote": {
 				"border": {
-					"left": {
-						"color": "var(--wp--preset--color--teal)",
-						"width": "4px",
-						"style": "solid"
-					}
+					"left": { "color": "var(--wp--preset--color--teal)", "width": "4px", "style": "solid" }
 				}
 			},
 			"core/separator": {
-				"color": {
-					"background": "var(--wp--preset--color--bg-light)"
-				}
+				"color": { "background": "var(--wp--preset--color--bg-light)" }
 			}
 		}
 	},
 	"templateParts": [
-		{
-			"name": "header",
-			"title": "Header",
-			"area": "header"
-		},
-		{
-			"name": "footer",
-			"title": "Footer",
-			"area": "footer"
-		}
+		{ "name": "header", "title": "Header", "area": "header" },
+		{ "name": "footer", "title": "Footer", "area": "footer" }
 	],
 	"customTemplates": [
-		{
-			"name": "page-home",
-			"title": "Home",
-			"postTypes": ["page"]
-		},
-		{
-			"name": "page-formacion-continua",
-			"title": "Formación Continua",
-			"postTypes": ["page"]
-		},
-		{
-			"name": "page-fap",
-			"title": "FAP",
-			"postTypes": ["page"]
-		},
-		{
-			"name": "page-pim",
-			"title": "PIM",
-			"postTypes": ["page"]
-		}
+		{ "name": "page-home",               "title": "Home",               "postTypes": ["page"] },
+		{ "name": "page-formacion-continua", "title": "Formacion Continua", "postTypes": ["page"] },
+		{ "name": "page-fap",                "title": "FAP",                "postTypes": ["page"] },
+		{ "name": "page-pim",                "title": "PIM",                "postTypes": ["page"] }
 	]
 }

@@ -132,15 +132,51 @@ src/scss/
 └── main.scss               ← Imports everything
 ```
 
-- Use WordPress CSS custom properties from theme.json in SCSS:
+- Use WordPress CSS custom properties from theme.json in SCSS for colors and spacing:
 
 ```scss
 // In _variables.scss — reference WP design tokens
 $color-teal: var(--wp--preset--color--teal);
 $color-navy: var(--wp--preset--color--navy);
 $color-red-cta: var(--wp--preset--color--red-cta);
-$font-inter: var(--wp--preset--font-family--inter);
 $spacing-30: var(--wp--preset--spacing--30);
+
+// ⚠️ IMPORTANT: font-family must use a direct stack, NOT var(--wp--preset--font-family--inter).
+// WordPress does not reliably output @font-face or --wp--preset--font-family--* variables
+// on the frontend — it depends on cache and global styles processing.
+// The font is loaded via @font-face in _typography.scss (bundled by Vite).
+$font-inter: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+```
+
+### Font Loading Rules
+
+- NEVER rely on `theme.json` `fontFace` entries to load fonts on the frontend. WordPress caches
+  the global styles processing and may not output `@font-face` or `--wp--preset--font-family--*`
+  variables reliably.
+- ALWAYS declare `@font-face` explicitly in `src/scss/base/_typography.scss` so Vite bundles
+  the font files into `dist/assets/` and the CSS references them with correct relative paths.
+- ALWAYS use a direct font stack in `$font-inter` (and any other font variable), never a
+  `var(--wp--preset--font-family--*)` reference.
+- `theme.json` `fontFace` entries are still useful for the block editor (Gutenberg) — keep them —
+  but they are not sufficient for frontend font loading.
+
+```scss
+// In _typography.scss — explicit @font-face so Vite bundles the fonts
+@font-face {
+    font-family: 'Inter';
+    src: url('../../../assets/fonts/inter/Inter-VariableFont_opsz,wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('../../../assets/fonts/inter/Inter-Italic-VariableFont_opsz,wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: italic;
+    font-display: swap;
+}
 ```
 
 ## 7. Code Language — English Only
@@ -168,6 +204,9 @@ function doo_obtener_programas_formacion() { ... }
 - Vite generates a `manifest.json` for cache-busted asset paths.
 - In development: Vite dev server with HMR (Hot Module Replacement).
 - In production: `npm run build` generates optimized files.
+- **`base: './'` is required** so that asset URLs (fonts, images) in compiled CSS are relative
+  paths (`./Inter-....ttf`) instead of absolute paths (`/assets/Inter-....ttf`). Absolute paths
+  break in WordPress because the theme is not at the site root.
 
 ### Vite Dev Server (development)
 

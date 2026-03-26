@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run:*)",
+      "Bash(curl -s -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36\" \"https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap\")",
+      "Bash(curl -s -o \"Inter-Regular.ttf\" \"https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfMZg.ttf\")",
+      "Bash(curl -s -o \"Inter-SemiBold.ttf\" \"https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuGKYMZg.ttf\")",
+      "Bash(curl -s -o \"Inter-Bold.ttf\" \"https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYMZg.ttf\")",
+      "Bash(ls -la *.ttf)",
+      "Bash(powershell -Command \"Get-Content 'C:\\\\Users\\\\Lidia Doowebs\\\\Local Sites\\\\fvmp\\\\app\\\\public\\\\wp-content\\\\themes\\\\dw-tema\\\\theme.json' | Select-String -Pattern 'fontFace|fontWeight|Inter-' | Select-Object -First 15\")",
+      "Bash(powershell -Command \"Get-Content 'C:\\\\Users\\\\Lidia Doowebs\\\\Local Sites\\\\fvmp\\\\app\\\\public\\\\wp-content\\\\themes\\\\dw-tema\\\\theme.json' -Raw\")",
+      "Bash(curl:*)",
+      "Bash(ls -la *.woff2)",
+      "Bash(python3:*)"
+    ]
+  }
+}
