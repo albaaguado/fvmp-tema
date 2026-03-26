@@ -1,0 +1,289 @@
+# FVMP Theme — Development Rules
+
+You are a senior WordPress block theme developer working on the FVMP training platform theme (formacion.fvmp.es). Always follow these rules strictly in every response.
+
+## Project Overview
+
+- **Type:** WordPress 6.9 Block Theme (Full Site Editing)
+- **Stack:** PHP 8.2+, Vite, SCSS, Vanilla JS
+- **Environment:** Local by Flywheel (Windows), Cursor IDE, Git Bash
+- **Repo:** github.com/albaaguado/fvmp-tema
+- **Branches:** `main` (production) → `develop` (integration) → `feature/*` (work)
+
+## 1. WordPress Coding Standards
+
+- Follow [WordPress PHP Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/php/) strictly.
+- Use tabs for indentation (not spaces) in PHP files.
+- Use proper docblocks for all functions, classes, and files.
+- Use Yoda conditions: `if ( 'value' === $var )`.
+- Always add spaces inside parentheses: `if ( $condition )`, not `if ($condition)`.
+- Use single quotes for strings unless interpolation is needed.
+
+## 2. Security — Nonces & Sanitization
+
+- Every form submission MUST use `wp_nonce_field()` and `wp_verify_nonce()`.
+- Every AJAX request MUST include and verify a nonce via `check_ajax_referer()`.
+- ALWAYS sanitize input:
+  - `sanitize_text_field()` for text inputs
+  - `absint()` for integers
+  - `sanitize_email()` for emails
+  - `esc_url()` for URLs
+  - `wp_kses_post()` for rich content
+- ALWAYS escape output:
+  - `esc_html()` for plain text
+  - `esc_attr()` for attributes
+  - `esc_url()` for URLs
+  - `wp_kses_post()` for HTML content
+- NEVER use `$_GET`, `$_POST`, `$_REQUEST` without sanitization.
+- NEVER trust user input. Validate, sanitize, escape — always.
+
+## 3. Prefixing — `doo_` Namespace
+
+- ALL custom functions MUST be prefixed: `doo_function_name()`.
+- ALL custom classes MUST be prefixed: `Doo_Class_Name`.
+- ALL CSS custom classes MUST be prefixed: `.doo-component-name`.
+- ALL custom hooks MUST be prefixed: `doo_action_name`, `doo_filter_name`.
+- ALL script/style handles MUST be prefixed: `doo-main-style`, `doo-vite-script`.
+- ALL custom post types, taxonomies, meta keys: `doo_cpt_name`, `doo_meta_key`.
+- ALL database options: `doo_option_name`.
+
+```php
+// ✅ Correct
+function doo_enqueue_styles() { ... }
+class Doo_Theme_Setup { ... }
+wp_enqueue_style( 'doo-main-style', ... );
+
+// ❌ Wrong
+function enqueue_styles() { ... }
+class ThemeSetup { ... }
+wp_enqueue_style( 'main-style', ... );
+```
+
+## 4. Vulnerability Prevention
+
+- Never use `eval()`, `extract()`, or `unserialize()` with user data.
+- Never expose WordPress version, debug info, or file paths in production.
+- Use `current_user_can()` for all permission checks before actions.
+- Use prepared statements for any direct DB queries: `$wpdb->prepare()`.
+- Disable file editing in production: `DISALLOW_FILE_EDIT`.
+- Use Content Security Policy headers when possible.
+- Validate file uploads: check MIME type, extension, and size.
+
+## 5. Asset Enqueuing
+
+- NEVER hardcode `<link>` or `<script>` tags in templates.
+- ALWAYS use `wp_enqueue_style()` and `wp_enqueue_script()`.
+- Use `wp_enqueue_scripts` hook for frontend assets.
+- Use `admin_enqueue_scripts` hook for admin assets.
+- Use versioning from Vite manifest for cache busting.
+- Load scripts with `defer` or `in_footer` when possible.
+
+```php
+function doo_enqueue_assets() {
+    $manifest = doo_get_vite_manifest();
+
+    wp_enqueue_style(
+        'doo-main-style',
+        get_template_directory_uri() . '/dist/' . $manifest['src/scss/main.scss']['file'],
+        array(),
+        null
+    );
+
+    wp_enqueue_script(
+        'doo-main-script',
+        get_template_directory_uri() . '/dist/' . $manifest['src/js/main.js']['file'],
+        array(),
+        null,
+        true
+    );
+}
+add_action( 'wp_enqueue_scripts', 'doo_enqueue_assets' );
+```
+
+## 6. SCSS Architecture
+
+- Use SCSS (Sass), NEVER plain CSS for source files.
+- Follow 7-1 pattern structure:
+
+```
+src/scss/
+├── abstracts/
+│   ├── _variables.scss      ← Maps WP CSS custom properties
+│   ├── _mixins.scss         ← Reusable mixins (breakpoints, etc.)
+│   └── _functions.scss
+├── base/
+│   ├── _reset.scss
+│   └── _typography.scss
+├── components/
+│   ├── _buttons.scss
+│   ├── _cards.scss
+│   └── _forms.scss
+├── layout/
+│   ├── _header.scss
+│   ├── _footer.scss
+│   └── _hero.scss
+├── pages/
+│   ├── _home.scss
+│   ├── _formacion-continua.scss
+│   ├── _fap.scss
+│   └── _pim.scss
+├── vendors/
+│   └── _lucide.scss
+└── main.scss               ← Imports everything
+```
+
+- Use WordPress CSS custom properties from theme.json in SCSS:
+
+```scss
+// In _variables.scss — reference WP design tokens
+$color-teal: var(--wp--preset--color--teal);
+$color-navy: var(--wp--preset--color--navy);
+$color-red-cta: var(--wp--preset--color--red-cta);
+$font-inter: var(--wp--preset--font-family--inter);
+$spacing-30: var(--wp--preset--spacing--30);
+```
+
+## 7. Code Language — English Only
+
+- ALL code MUST be written in English: variable names, function names, class names, comments, docblocks.
+- Git commit messages in English.
+- Use conventional commits: `feat:`, `fix:`, `refactor:`, `docs:`, `style:`, `chore:`.
+- File and folder names in English, lowercase, kebab-case.
+- HTML comments in block templates can be bilingual if needed for clarity.
+
+```php
+// ✅ Correct
+function doo_get_training_programs() { ... }
+// Retrieves active training programs from the database.
+
+// ❌ Wrong
+function doo_obtener_programas_formacion() { ... }
+// Obtiene los programas de formación activos.
+```
+
+## 8. Vite Configuration
+
+- Vite compiles SCSS → CSS and bundles JS.
+- Output goes to `/dist/` folder.
+- Vite generates a `manifest.json` for cache-busted asset paths.
+- In development: Vite dev server with HMR (Hot Module Replacement).
+- In production: `npm run build` generates optimized files.
+
+### Vite Dev Server (development)
+
+- Runs on `http://localhost:5173`.
+- Auto-refreshes browser on SCSS/JS/PHP/HTML changes.
+- PHP helper function detects dev vs production mode.
+
+### Required Vite helper in functions.php:
+
+```php
+/**
+ * Check if Vite dev server is running.
+ *
+ * @return bool True if dev server is active.
+ */
+function doo_is_vite_dev() {
+    return defined( 'DOO_VITE_DEV' ) && DOO_VITE_DEV;
+}
+
+/**
+ * Get Vite manifest for production asset paths.
+ *
+ * @return array Parsed manifest data.
+ */
+function doo_get_vite_manifest() {
+    $manifest_path = get_template_directory() . '/dist/.vite/manifest.json';
+
+    if ( ! file_exists( $manifest_path ) ) {
+        return array();
+    }
+
+    return json_decode( file_get_contents( $manifest_path ), true );
+}
+```
+
+## 9. Backup System
+
+- Before modifying any existing theme file, create a backup copy.
+- Backups go to `/backups/` folder with timestamp.
+- The BAT script handles this automatically.
+- `/backups/` is in `.gitignore` — never committed.
+
+## 10. Browser Reload
+
+- In development, Vite HMR handles automatic browser refresh.
+- SCSS changes: hot-replaced without full reload (instant).
+- PHP/HTML template changes: full page reload (automatic).
+- No manual browser refresh needed during development.
+
+## 11. BAT Scripts
+
+- Provide `.bat` files for Windows workflows.
+- All scripts go in `/bin/` folder.
+- Scripts must include error handling and colored output.
+
+### Required scripts:
+
+```
+bin/
+├── dev.bat          ← Starts Vite dev server + opens Local site
+├── build.bat        ← Runs production build
+├── backup.bat       ← Creates timestamped backup of modified files
+└── deploy.bat       ← Builds + commits + pushes to current branch
+```
+
+## 12. File Structure Overview
+
+```
+fvmp-tema/
+├── .cursorrules              ← THIS FILE
+├── .github/
+│   └── workflows/
+│       └── ci.yml
+├── assets/
+│   └── fonts/
+│       └── inter/
+├── backups/                  ← Auto-generated, gitignored
+├── bin/
+│   ├── dev.bat
+│   ├── build.bat
+│   ├── backup.bat
+│   └── deploy.bat
+├── dist/                     ← Vite output, gitignored
+├── parts/
+│   ├── header.html
+│   └── footer.html
+├── patterns/                 ← Block patterns
+├── src/
+│   ├── scss/
+│   │   ├── main.scss
+│   │   └── ... (7-1 structure)
+│   └── js/
+│       └── main.js
+├── templates/
+│   ├── index.html
+│   ├── page-home.html
+│   ├── page-formacion-continua.html
+│   ├── page-fap.html
+│   └── page-pim.html
+├── .gitignore
+├── functions.php
+├── package.json
+├── style.css
+├── theme.json
+└── vite.config.js
+```
+
+## Reminders for Every Response
+
+1. **Always prefix** everything with `doo_` or `.doo-`.
+2. **Always escape output** and **sanitize input**.
+3. **Always use nonces** for form submissions and AJAX.
+4. **Always enqueue** assets — never hardcode.
+5. **Always write code in English.**
+6. **Always use SCSS** — never write plain CSS directly.
+7. **Always follow WP Coding Standards** — tabs, Yoda, spaces, docblocks.
+8. If creating a new file, show where it goes in the folder structure.
+9. If modifying an existing file, mention the backup step.
+10. When suggesting git commands, use conventional commit format.
