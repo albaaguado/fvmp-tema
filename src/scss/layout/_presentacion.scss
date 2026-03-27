@@ -1,0 +1,131 @@
+// ==========================================================================
+// Presentación — Secretary General section
+// ==========================================================================
+
+@use '../abstracts/variables' as *;
+
+.doo-presentacion {
+	background: $color-bg-med;
+	padding: 96px 0;
+
+	&__container {
+		width: 1200px;
+		margin: 0 auto;
+	}
+
+	&__inner {
+		display: flex;
+		gap: 64px;
+		align-items: flex-start;
+	}
+
+	// ── Left column: photo + name ──────────────
+	&__left {
+		width: 220px;
+		flex-shrink: 0;
+		text-align: center;
+	}
+
+	&__photo {
+		width: 220px;
+		height: 264px;
+		background: #d1d6de;
+		border-radius: 6px;
+		overflow: hidden;
+		margin-bottom: 12px;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			object-position: top;
+		}
+	}
+
+	&__name {
+		font-size: 16px !important;
+		font-weight: 700;
+		color: #1a2b4a;
+		margin-bottom: 4px;
+		max-width: none !important;
+	}
+
+	&__role {
+		font-size: 14px !important;
+		color: $color-teal;
+		max-width: none !important;
+	}
+
+	// ── Right column: text ─────────────────────
+	&__right {
+		flex: 1;
+	}
+
+	&__eyebrow {
+		font-size: 11px !important;
+		font-weight: 600;
+		color: $color-teal;
+		letter-spacing: 2px;
+		text-transform: uppercase;
+		text-align: left !important;
+		margin-bottom: 12px;
+		max-width: none !important;
+	}
+
+	&__title {
+		font-size: 36px;
+		font-weight: 700;
+		color: #1a2b4a;
+		line-height: 43px;
+		text-align: left !important;
+		margin-bottom: 16px;
+	}
+
+	&__body {
+		font-size: 17px !important;
+		color: #333;
+		line-height: 29px;
+		margin-bottom: 16px;
+		max-width: none !important;
+		transition: color 0.3s ease;
+
+		.is-expanded & {
+			color: #888;
+			font-style: italic;
+		}
+	}
+
+	// Full message — hidden by default, shown via JS toggle
+	&__full {
+		overflow: hidden;
+		max-height: 0;
+		opacity: 0;
+		transition: max-height 0.4s ease, opacity 0.3s ease;
+
+		p {
+			font-size: 17px !important;
+			color: #333;
+			line-height: 29px;
+			margin-bottom: 16px;
+			max-width: none !important;
+		}
+
+		&.is-open {
+			max-height: 2000px;
+			opacity: 1;
+		}
+	}
+
+	&__link {
+		font-size: 15px;
+		font-weight: 600;
+		color: $color-teal;
+		text-decoration: none;
+		display: inline-block;
+		margin-top: 4px;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+}

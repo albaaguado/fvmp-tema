@@ -1,0 +1,154 @@
+// ==========================================================================
+// Impacto — Stats section + CTA banner
+// ==========================================================================
+
+@use '../abstracts/variables' as *;
+
+// ── Impacto (stats) ────────────────────────────────────────────────────────
+
+.doo-impacto {
+	background: #fff;
+	padding: 50px 0 0;
+
+	&__container {
+		width: 1200px;
+		margin: 0 auto;
+	}
+
+	&__header {
+		text-align: center;
+		margin-bottom: 40px;
+	}
+
+	&__eyebrow {
+		font-size: 11px !important;
+		font-weight: 600;
+		color: $color-teal;
+		letter-spacing: 2px;
+		text-transform: uppercase;
+		margin-bottom: 12px;
+		max-width: none !important;
+	}
+
+	&__title {
+		font-size: 40px;
+		font-weight: 700;
+		color: $color-navy;
+		text-align: center !important;
+		margin-bottom: 16px;
+	}
+
+	&__desc {
+		font-size: 18.5px !important;
+		color: #666;
+		line-height: 29px;
+		text-align: center;
+		max-width: 808px;
+		margin: 0 auto 48px !important;
+	}
+
+	&__stats {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 24px;
+		margin-bottom: 48px;
+	}
+
+	&__divider {
+		height: 1px;
+		background: #e2e4e8;
+		margin-bottom: 48px;
+	}
+}
+
+// ── Stat card ──────────────────────────────────────────────────────────────
+
+.doo-stat-card {
+	background: $color-bg-light;
+	border: 1px solid #e2e4e8;
+	border-radius: 4px;
+	padding: 40px 32px 24px;
+	text-align: center;
+	position: relative;
+	overflow: hidden;
+
+	&::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 4px;
+		background: $color-teal;
+	}
+
+	&__num {
+		font-size: 48px !important;
+		font-weight: 700;
+		color: $color-navy;
+		line-height: 1.2;
+		display: block;
+	}
+
+	&__label {
+		font-size: 14px !important;
+		color: #666;
+		margin-top: 8px;
+		max-width: none !important;
+	}
+}
+
+// ── CTA banner ─────────────────────────────────────────────────────────────
+
+.doo-cta {
+	background: $color-navy;
+	padding: 60px 0;
+	text-align: center;
+
+	&__eyebrow {
+		font-size: 11px !important;
+		font-weight: 600;
+		color: $color-teal;
+		letter-spacing: 2px;
+		text-transform: uppercase;
+		margin-bottom: 16px;
+		max-width: none !important;
+	}
+
+	&__title {
+		font-size: 36px;
+		font-weight: 700;
+		color: #fff;
+		line-height: 54px;
+		max-width: 760px;
+		margin: 0 auto 16px;
+		text-align: center !important;
+	}
+
+	&__desc {
+		font-size: 15px !important;
+		color: rgba(255, 255, 255, 0.8);
+		line-height: 24px;
+		max-width: 616px;
+		margin: 0 auto 32px !important;
+	}
+
+	&__btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		height: 48px;
+		padding: 0 28px;
+		background: $color-teal;
+		color: #fff;
+		font-size: 13px;
+		font-weight: 600;
+		border-radius: 4px;
+		text-decoration: none;
+		white-space: nowrap;
+
+		&:hover {
+			opacity: 0.9;
+		}
+	}
+}

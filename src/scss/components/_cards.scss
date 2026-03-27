@@ -1,0 +1,121 @@
+// ==========================================================================
+// Plan Card — Oferta formativa card component
+// ==========================================================================
+
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.doo-plan-card {
+	background: #fff;
+	border: 1px solid #e2e4e8;
+	border-radius: 8px;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+
+	// ── Header ────────────────────────────────
+	&__header {
+		border-top: 4px solid $color-teal;
+		border-bottom: 1px solid #e2e4e8;
+		padding: 5px 20px 0px;
+
+		&--orange { border-top-color: $color-orange; }
+		&--navy   { border-top-color: $color-navy; }
+	}
+
+	&__tag {
+		font-size: 11px !important;
+		font-weight: 600;
+		letter-spacing: 2px;
+		color: $color-teal;
+		margin-bottom: 8px;
+		max-width: none !important;
+
+		&--orange { color: $color-orange; }
+		&--navy   { color: #1a2b4a; }
+	}
+
+	&__name {
+		font-size: 20px;
+		font-weight: 700;
+		color: #1a2b4a;
+	}
+
+	// ── Stats strip ───────────────────────────
+	&__stats {
+		background: #fafbfc;
+		border-bottom: 1px solid #e2e4e8;
+		padding: 5px 24px;
+		display: flex;
+	}
+
+	&__stat {
+		flex: 1;
+		text-align: center;
+	}
+
+	&__stat-num {
+		font-size: 28px;
+		font-weight: 700;
+		color: $color-teal;
+		display: block;
+
+		&--orange { color: $color-orange; }
+		&--navy   { color: #1a2b4a; }
+	}
+
+	&__stat-label {
+		font-size: 10px !important;
+		color: #666;
+		line-height: 1.4;
+		max-width: none !important;
+	}
+
+	// ── Feature list ──────────────────────────
+	&__features {
+		padding: 18px 24px;
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		flex: 1;
+	}
+
+	&__feature {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		font-size: 15px !important;
+		color: #333;
+		max-width: none !important;
+	}
+
+	&__dot {
+		width: 8px;
+		height: 8px;
+		border-radius: 50%;
+		background: $color-teal;
+		flex-shrink: 0;
+
+		&--orange { background: $color-orange; }
+		&--navy   { background: #1a2b4a; }
+	}
+
+	// ── CTA button ────────────────────────────
+	&__cta {
+		display: block;
+		text-align: center;
+		padding: 10px;
+		background: $color-teal;
+		color: #fff !important;
+		font-size: 13px;
+		font-weight: 600;
+		letter-spacing: 0.5px;
+		text-decoration: none;
+		@include transition( opacity );
+
+		&:hover { opacity: 0.88; }
+
+		&--orange { background: $color-orange; }
+		&--navy   { background: #1a2b4a; }
+	}
+}

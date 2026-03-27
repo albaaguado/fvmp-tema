@@ -11,7 +11,26 @@
       "Bash(powershell -Command \"Get-Content 'C:\\\\Users\\\\Lidia Doowebs\\\\Local Sites\\\\fvmp\\\\app\\\\public\\\\wp-content\\\\themes\\\\dw-tema\\\\theme.json' -Raw\")",
       "Bash(curl:*)",
       "Bash(ls -la *.woff2)",
-      "Bash(python3:*)"
+      "Bash(python3:*)",
+      "Bash(find '/c/Users/Lidia Doowebs/Local Sites/fvmp/app/public/wp-content/themes/dw-tema' -name header* -o -name nav* -o -name *.html)",
+      "Bash(find '/c/Users/Lidia Doowebs/Local Sites/fvmp/app/public/wp-content/themes/dw-tema' -name *.ttf -o -name *.woff*)",
+      "Read(//c/Users/Lidia Doowebs/Local Sites/fvmp/app/public/**)",
+      "Bash(wp transient:*)",
+      "Read(//c/Users/Lidia Doowebs/Local Sites/fvmp/**)",
+      "Read(//c/Users/Lidia Doowebs/AppData/**)",
+      "Bash(\"/c/Users/Lidia Doowebs/AppData/Local/Programs/Local/resources/extraResources/bin/wp-cli/win32/wp\" --path=\"/c/Users/Lidia Doowebs/Local Sites/fvmp/app/public\" transient delete --all 2>&1)",
+      "Bash(mysql -u root -proot local -e \"SELECT ID, post_title, post_content FROM wp_posts WHERE post_type IN \\(''wp_font_face'', ''wp_font_family''\\) ORDER BY post_type, ID;\")",
+      "Bash(MYSQL=\"/c/Users/Lidia Doowebs/AppData/Local/Programs/Local/resources/extraResources/lightning-services/mysql-8.0.35+4/bin/win64/bin/mysql.exe\")",
+      "Bash(\"$MYSQL\" -u root -proot local -e \"SELECT ID, post_type, post_title, SUBSTRING\\(post_content,1,200\\) as content FROM wp_posts WHERE post_type IN \\(''wp_font_face'',''wp_font_family''\\) ORDER BY post_type,ID;\")",
+      "Bash(MYSQL=\"/c/Users/Lidia Doowebs/AppData/Local/Programs/Local/resources/extraResources/lightning-services/mysql-8.0.35+4/bin/win64/bin/mysql.exe\" \"$MYSQL\" -u root -proot --host=127.0.0.1 --port=3306 local -e \"SELECT ID, post_type, post_title FROM wp_posts WHERE post_type IN \\(''''wp_font_face'''',''''wp_font_family''''\\);\")",
+      "Bash(/dev/null cat:*)",
+      "Bash(true find:*)",
+      "Bash(\"$MYSQL\" -u root -proot --host=127.0.0.1 --port=10017 local -e \"SELECT ID, post_type, post_status, SUBSTRING\\(post_content,1,500\\) as content FROM wp_posts WHERE post_type IN \\(''wp_font_face'',''wp_font_family'',''wp_global_styles''\\) ORDER BY post_type;\")",
+      "Bash(MYSQL=\"/c/Users/Lidia Doowebs/AppData/Local/Programs/Local/resources/extraResources/lightning-services/mysql-8.0.35+4/bin/win64/bin/mysql.exe\" \"$MYSQL\" -u root -proot --host=127.0.0.1 --port=10017 local -e \"SELECT ID, post_type, post_status, SUBSTRING\\(post_content,1,500\\) as content FROM wp_posts WHERE post_type IN \\(''''wp_font_face'''',''''wp_font_family'''',''''wp_global_styles''''\\) ORDER BY post_type;\")",
+      "Bash(SOCK=\"C:/Users/Lidia Doowebs/AppData/Roaming/Local/run/1ry6tnwa8/mysql/mysqld.sock\")",
+      "Bash(\"$MYSQL\" -u root -proot --socket=\"$SOCK\" local -e \"SELECT ID, post_type, SUBSTRING\\(post_content,1,400\\) as content FROM wp_posts WHERE post_type IN \\(''wp_font_face'',''wp_font_family'',''wp_global_styles''\\);\")",
+      "WebFetch(domain:www.figma.com)",
+      "WebFetch(domain:formacion.fvmp.es)"
     ]
   }
 }
