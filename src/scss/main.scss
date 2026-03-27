@@ -15,6 +15,15 @@
 @use 'layout/header';
 @use 'layout/footer';
 @use 'layout/hero';
+@use 'layout/trust-bar';
+@use 'layout/oferta';
+@use 'layout/presentacion';
+@use 'layout/modalidades';
+@use 'layout/profesorado';
+@use 'layout/impacto';
+@use 'layout/testimonios';
+@use 'layout/transparencia';
+@use 'layout/planes';
 
 // --- Components (reusable UI pieces) ---
 @use 'components/buttons';

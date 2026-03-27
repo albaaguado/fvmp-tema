@@ -63,8 +63,12 @@
 		}
 
 		// Active page indicator
-		.current-menu-item .wp-block-navigation-item__content {
-			font-weight: 700 !important;
+		.current-menu-item .wp-block-navigation-item__content,
+		.current_page_item .wp-block-navigation-item__content {
+			font-weight: 600 !important;
+			font-variation-settings: 'opsz' 14, 'wght' 600 !important;
+			border-bottom: 2px solid $color-teal !important;
+			padding-bottom: 3px !important;
 		}
 	}
 
