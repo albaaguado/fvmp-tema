@@ -9,21 +9,19 @@
 	position: relative;
 	width: 100%;
 	height: 560px;
-	background: #f7f8fa;
 	overflow: hidden;
 	font-family: $font-inter;
+	display: flex;
 
 	// Left panel — white, text + CTA
 	&__left {
-		position: absolute;
-		left: 0;
-		top: 0;
-		width: 749px;
-		height: 560px;
+		flex: 0 0 52%;
+		height: 100%;
 		background: #fff;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
+		// On wide screens, indent grows so content aligns with the 1440px grid centre
 		padding: 0 40px 0 120px;
 	}
 
@@ -77,13 +75,10 @@
 		}
 	}
 
-	// Right panel — photo
+	// Right panel — photo fills remaining space
 	&__photo {
-		position: absolute;
-		left: 749px;
-		top: 0;
-		width: 691px;
-		height: 554px;
+		flex: 1;
+		height: 100%;
 		overflow: hidden;
 
 		img {
@@ -95,18 +90,61 @@
 		}
 	}
 
-	// Gradient overlay — soft fade from photo into left panel
+	// Gradient overlay — soft fade from white panel INTO photo (starts at junction)
 	&__gradient {
 		position: absolute;
-		left: 0;
+		left: 52%;
 		top: 0;
 		width: 160px;
 		height: 560px;
 		background: linear-gradient(
 			to right,
-			rgba( 255, 255, 255, 0.9 ) 0%,
-			rgba( 255, 255, 255, 0.3 ) 50%,
+			rgba( 255, 255, 255, 0.85 ) 0%,
 			rgba( 255, 255, 255, 0 ) 100%
 		);
+	}
+}
+
+// --- Large screens: push text inward to stay aligned with the 1440px grid ---
+@include from( $bp-large ) {
+	.doo-hero {
+		&__left {
+			padding-left: calc( ( 100vw - #{$bp-large} ) / 2 + 120px );
+		}
+	}
+}
+
+// --- Mobile ---
+@include until( $bp-tablet ) {
+	.doo-hero {
+		flex-direction: column;
+		height: auto;
+
+		&__left {
+			flex: 0 0 auto;
+			width: 100%;
+			padding: 40px 24px;
+		}
+
+		&__title {
+			font-size: 28px;
+			line-height: 36px;
+			margin-bottom: 16px;
+		}
+
+		&__desc {
+			font-size: 15px;
+			line-height: 26px;
+			margin-bottom: 28px;
+		}
+
+		&__photo {
+			flex: 0 0 240px;
+			width: 100%;
+		}
+
+		&__gradient {
+			display: none;
+		}
 	}
 }

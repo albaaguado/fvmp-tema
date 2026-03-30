@@ -3,6 +3,7 @@
 // ==========================================================================
 
 @use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
 
 // ── Impacto (stats) ────────────────────────────────────────────────────────
 
@@ -149,6 +150,40 @@
 
 		&:hover {
 			opacity: 0.9;
+		}
+	}
+}
+
+// --- Mobile ---
+@include until( $bp-tablet ) {
+	.doo-impacto {
+		padding: 48px 0 0;
+
+		&__container {
+			width: 100%;
+			padding: 0 24px;
+		}
+
+		&__title { font-size: 28px; }
+
+		&__stats {
+			grid-template-columns: repeat( 2, 1fr );
+			gap: 16px;
+		}
+	}
+
+	.doo-stat-card {
+		padding: 28px 20px 20px;
+
+		&__num { font-size: 36px !important; }
+	}
+
+	.doo-cta {
+		padding: 48px 24px;
+
+		&__title {
+			font-size: 26px;
+			line-height: 36px;
 		}
 	}
 }

@@ -3,6 +3,7 @@
 // ==========================================================================
 
 @use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
 
 .doo-oferta {
 	background: #fff;
@@ -50,5 +51,24 @@
 		display: grid;
 		grid-template-columns: repeat( 3, 1fr );
 		gap: 32px;
+	}
+}
+
+// --- Mobile ---
+@include until( $bp-tablet ) {
+	.doo-oferta {
+		padding: 48px 0;
+
+		&__container {
+			width: 100%;
+			padding: 0 24px;
+		}
+
+		&__title { font-size: 28px; }
+
+		&__cards {
+			grid-template-columns: 1fr;
+			gap: 20px;
+		}
 	}
 }
