@@ -3,6 +3,7 @@
 // ==========================================================================
 
 @use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
 
 .doo-trust-bar {
 	background: $color-navy;
@@ -45,5 +46,30 @@
 		height: 32px;
 		background: rgba(226, 228, 232, 0.5);
 		flex-shrink: 0;
+	}
+}
+
+// --- Mobile: una sola fila, imágenes reducidas ---
+@include until( $bp-tablet ) {
+	.doo-trust-bar {
+		height: 88px;
+		flex-wrap: nowrap;
+		padding: 0 12px;
+		gap: 0;
+
+		&__item {
+			padding: 0 12px;
+			flex: 1;
+			justify-content: center;
+
+			img { height: 44px; }
+
+			&--fvmp img { height: 32px; }
+			&--tall img  { height: 52px; }
+		}
+
+		&__sep {
+			height: 24px;
+		}
 	}
 }

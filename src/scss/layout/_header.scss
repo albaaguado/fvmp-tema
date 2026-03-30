@@ -5,10 +5,34 @@
 @use '../abstracts/variables' as *;
 @use '../abstracts/mixins' as *;
 
-.doo-header {
+// Sticky must be on the template-part wrapper, not on .doo-header itself,
+// because .doo-header is the only child of the wrapper — sticky needs room
+// within its parent to work.
+.wp-block-template-part:has(.doo-header) {
 	position: sticky;
 	top: 0;
 	z-index: 100;
+
+	// Offset for WP admin bar when logged in
+	.admin-bar & {
+		top: 32px;
+	}
+
+	@media screen and (max-width: 782px) {
+		.admin-bar & {
+			top: 46px;
+		}
+	}
+
+	// Below 600px the WP admin bar is not fixed — no offset needed
+	@media screen and (max-width: 599px) {
+		.admin-bar & {
+			top: 0;
+		}
+	}
+}
+
+.doo-header {
 	height: 88px;
 	align-items: center;
 	border-bottom: 1px solid #e2e4e8;
@@ -16,6 +40,7 @@
 	padding: 0 120px !important;
 	font-family: $font-inter;
 	font-optical-sizing: none;
+	transition: height 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 
 	// Logo area — right border acts as separator
 	&__logo {
@@ -29,6 +54,7 @@
 			width: 178px;
 			height: 62px;
 			object-fit: contain;
+			transition: width 0.3s ease, height 0.3s ease;
 		}
 	}
 
@@ -39,6 +65,7 @@
 		background: #e2e4e8;
 		margin: 0 24px;
 		flex-shrink: 0;
+		transition: opacity 0.3s ease, width 0.3s ease, margin 0.3s ease;
 	}
 
 	// Navigation links
@@ -55,6 +82,9 @@
 			text-transform: uppercase;
 			text-decoration: none;
 			white-space: nowrap;
+			// Reserve space for the active border so text never shifts
+			padding-bottom: 3px !important;
+			border-bottom: 2px solid transparent !important;
 			@include transition( color );
 
 			&:hover {
@@ -67,8 +97,8 @@
 		.current_page_item .wp-block-navigation-item__content {
 			font-weight: 600 !important;
 			font-variation-settings: 'opsz' 14, 'wght' 600 !important;
-			border-bottom: 2px solid $color-teal !important;
-			padding-bottom: 3px !important;
+			color: $color-teal !important;
+			border-bottom-color: $color-teal !important;
 		}
 	}
 
@@ -132,18 +162,144 @@
 			}
 		}
 	}
+
+	// Mobile CTA buttons — hidden in desktop nav flow
+	&__mobile-ctas {
+		display: none;
+	}
 }
 
-// --- Mobile responsive ---
+// ==========================================================================
+// Compact header state — activated via JS when scrolling down
+// ==========================================================================
+
+.doo-header.is-scrolled {
+	height: 56px;
+	border-bottom-color: transparent;
+	box-shadow: 0 2px 12px rgba( 0, 0, 0, 0.08 );
+
+	.doo-header__logo .wp-block-site-logo img {
+		width: 120px;
+		height: 42px;
+	}
+
+	.doo-header__sep {
+		opacity: 0;
+		width: 0;
+		margin: 0;
+		overflow: hidden;
+	}
+
+	.doo-header__lang {
+		display: none;
+	}
+
+	.doo-header__nav .wp-block-navigation-item__content {
+		font-size: 12px !important;
+	}
+
+	.doo-header__btn-register .wp-block-button__link,
+	.doo-header__btn-login .wp-block-button__link {
+		padding: 6px 12px;
+		font-size: 10px;
+	}
+}
+
+// ==========================================================================
+// Hamburger menu overlay (WordPress Navigation block responsive container)
+// ==========================================================================
+
+// Hamburger toggle button — pushed right by the nav's margin-left: auto on mobile
+.wp-block-navigation__responsive-container-open {
+	color: #1a2b4a !important;
+	padding: 4px !important;
+}
+
+// Mobile overlay panel
+.wp-block-navigation__responsive-container.is-menu-open {
+	padding: 20px !important;
+
+	.wp-block-navigation__responsive-container-content {
+		padding-top: 8px;
+
+		// Nav items inside overlay: larger text, full-width with separator
+		.wp-block-navigation__container {
+			gap: 0 !important;
+		}
+
+		.wp-block-navigation-item__content {
+			font-size: 15px !important;
+			font-weight: 400 !important;
+			padding: 14px 4px !important;
+			border-bottom: 1px solid #e2e4e8 !important;
+			border-top: none !important;
+			display: block !important;
+			width: 100% !important;
+		}
+
+		// Active page: bold + teal underline inside overlay too
+		.current-menu-item .wp-block-navigation-item__content,
+		.current_page_item .wp-block-navigation-item__content {
+			font-weight: 700 !important;
+			color: $color-teal !important;
+			border-bottom-color: $color-teal !important;
+		}
+	}
+
+	// Show CTA buttons at the bottom of the overlay
+	.doo-header__mobile-ctas {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		padding-top: 24px;
+		margin-top: 8px;
+		width: 100%;
+	}
+}
+
+// Mobile CTA button styles (shown inside overlay)
+.doo-header__mobile-cta-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 44px;
+	font-family: $font-inter;
+	font-size: 12px;
+	font-weight: 600;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	text-decoration: none;
+	border-radius: 4px;
+	background: $color-teal;
+	color: #fff;
+	@include transition;
+
+	&:hover { opacity: 0.9; color: #fff; }
+
+	// Outline variant: Registrarse
+	&--outline {
+		background: transparent;
+		color: $color-navy;
+		border: 1.5px solid $color-navy;
+
+		&:hover {
+			background: $color-navy;
+			color: #fff;
+		}
+	}
+}
+
+// ==========================================================================
+// Tablet responsive (768px – 1024px)
+// ==========================================================================
 @include until( $bp-desktop ) {
 	.doo-header {
 		height: auto;
 		flex-wrap: wrap !important;
 		padding: $space-20 !important;
 
-		&__sep {
-			display: none;
-		}
+		&__sep { display: none; }
 
 		&__nav {
 			order: 3;
@@ -153,6 +309,61 @@
 
 		&__actions {
 			margin-left: auto;
+		}
+	}
+
+	// On tablet/mobile, .is-scrolled only adds shadow + smaller logo
+	.doo-header.is-scrolled {
+		height: auto;
+		padding: 10px $space-20 !important;
+
+		.doo-header__logo .wp-block-site-logo img {
+			width: 130px;
+			height: 44px;
+		}
+	}
+}
+
+// ==========================================================================
+// Mobile (< 768px): single row, logo left, hamburger right
+// ==========================================================================
+@include until( $bp-tablet ) {
+	.doo-header {
+		flex-wrap: nowrap !important;
+		padding: 8px $space-20 !important;
+
+		&__logo {
+			border-right: none;
+			padding-right: 0;
+			margin-right: 0;
+
+			.wp-block-site-logo img {
+				width: 120px;
+				height: 42px;
+			}
+		}
+
+		// Nav stays inline → hamburger button aligns right naturally
+		&__nav {
+			order: unset !important;
+			width: auto !important;
+			flex: 1 !important;
+			justify-content: flex-end !important;
+		}
+
+		// Hide desktop action buttons — they live inside the hamburger overlay
+		&__actions {
+			display: none !important;
+		}
+	}
+
+	// On mobile scroll: slightly smaller logo + shadow
+	.doo-header.is-scrolled {
+		padding: 6px $space-20 !important;
+
+		.doo-header__logo .wp-block-site-logo img {
+			width: 100px;
+			height: 36px;
 		}
 	}
 }

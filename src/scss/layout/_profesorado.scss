@@ -177,3 +177,44 @@
 		}
 	}
 }
+
+// --- Tablet ---
+@include until( $bp-desktop ) {
+	.doo-profesorado {
+		&__container {
+			width: 100%;
+			padding: 0 24px;
+		}
+
+		&__grid {
+			grid-template-columns: repeat( 2, 1fr );
+		}
+	}
+}
+
+// --- Mobile: 2 columnas, cards más compactas ---
+@include until( $bp-tablet ) {
+	.doo-profesorado {
+		padding: 56px 0;
+
+		&__title { font-size: 28px; }
+
+		&__grid {
+			grid-template-columns: repeat( 2, 1fr );
+			gap: 12px;
+		}
+	}
+
+	.doo-profesorado .doo-teacher-card {
+		&__photo-wrap { padding: 10px 10px 0; }
+
+		&__body { padding: 10px 10px 44px; }
+
+		&__name { font-size: 13px !important; }
+
+		&__degree { font-size: 10px !important; }
+
+		&__role,
+		&__org { font-size: 11px !important; }
+	}
+}

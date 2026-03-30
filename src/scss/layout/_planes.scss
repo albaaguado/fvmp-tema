@@ -3,6 +3,7 @@
 // ==========================================================================
 
 @use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
 
 .doo-planes {
 	background: $color-bg-light;
@@ -93,6 +94,25 @@
 
 		&:hover {
 			text-decoration: underline;
+		}
+	}
+}
+
+// --- Mobile ---
+@include until( $bp-tablet ) {
+	.doo-planes {
+		padding: 56px 0;
+
+		&__container {
+			width: 100%;
+			padding: 0 24px;
+		}
+
+		&__title { font-size: 28px; }
+
+		&__cards {
+			grid-template-columns: 1fr;
+			gap: 16px;
 		}
 	}
 }
