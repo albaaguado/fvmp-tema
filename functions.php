@@ -18,6 +18,8 @@ define( 'DOO_THEME_URI', get_template_directory_uri() );
 
 require_once DOO_THEME_DIR . '/inc/home-options.php';
 require_once DOO_THEME_DIR . '/inc/home-shortcodes.php';
+require_once DOO_THEME_DIR . '/inc/fc-post-type.php';
+require_once DOO_THEME_DIR . '/inc/fc-shortcodes.php';
 
 /**
  * Theme setup.

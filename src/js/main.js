@@ -14,6 +14,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 	initStickyHeader();
 	initPresentacionToggle();
 	initTestimoniosSlider();
+	initFcFilters();
 } );
 
 /**
@@ -171,6 +172,53 @@ function initStickyHeader() {
 
 	window.addEventListener( 'scroll', onScroll, { passive: true } );
 	onScroll();
+}
+
+/**
+ * Client-side filtering for the Formación Continua course list.
+ *
+ * Reads checked checkboxes from the sidebar (data-fc-sidebar),
+ * hides/shows course cards (data-fc-list .doo-fc-card) by matching
+ * data-area and data-modality attributes, and updates the visible count.
+ */
+function initFcFilters() {
+	const sidebar = document.querySelector( '[data-fc-sidebar]' );
+	const list    = document.querySelector( '[data-fc-list]' );
+	const counter = document.querySelector( '[data-fc-count]' );
+
+	if ( ! sidebar || ! list ) return;
+
+	const cards = Array.from( list.querySelectorAll( '.doo-fc-card' ) );
+
+	function applyFilters() {
+		const checkedAreas = Array.from(
+			sidebar.querySelectorAll( 'input[name="doo_area"]:checked' )
+		).map( ( cb ) => cb.value );
+
+		const checkedMods = Array.from(
+			sidebar.querySelectorAll( 'input[name="doo_modality"]:checked' )
+		).map( ( cb ) => cb.value );
+
+		let visible = 0;
+
+		cards.forEach( ( card ) => {
+			const area     = card.dataset.area || '';
+			const modality = card.dataset.modality || '';
+
+			const matchArea = checkedAreas.length === 0 || checkedAreas.includes( area );
+			const matchMod  = checkedMods.length === 0 || checkedMods.includes( modality );
+
+			const show = matchArea && matchMod;
+			card.style.display = show ? '' : 'none';
+			if ( show ) visible++;
+		} );
+
+		if ( counter ) {
+			counter.innerHTML = `Mostrando <strong>${ visible }</strong> cursos disponibles`;
+		}
+	}
+
+	sidebar.addEventListener( 'change', applyFilters );
 }
 
 /**
