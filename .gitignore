@@ -4,6 +4,9 @@ node_modules/
 # Vite build output
 dist/
 
+# Block build output
+build/
+
 # Backups
 backups/
 

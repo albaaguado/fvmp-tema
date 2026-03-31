@@ -1,0 +1,73 @@
+// ==========================================================================
+// Oferta Formativa — Section layout
+// ==========================================================================
+
+@use '../../abstracts/variables' as *;
+@use '../../abstracts/mixins' as *;
+
+.doo-oferta {
+	background: #fff;
+	padding: 60px 0;
+	padding-inline: var(--doo-layout-pad);
+	box-sizing: border-box;
+
+	&__container {
+		width: 100%;
+		max-width: var(--doo-layout-max);
+		margin-inline: auto;
+		box-sizing: border-box;
+	}
+
+	&__eyebrow {
+		font-size: 11px !important;
+		font-weight: 600;
+		color: $color-teal;
+		letter-spacing: 2px;
+		text-align: center !important;
+		text-transform: uppercase;
+		margin-bottom: 12px;
+		max-width: none !important;
+	}
+
+	&__title {
+		font-size: 40px;
+		font-weight: 700;
+		color: #1a2b4a;
+		text-align: center !important;
+		margin-bottom: 16px;
+	}
+
+	&__desc {
+		font-size: 17px !important;
+		color: #666;
+		line-height: 29px;
+		text-align: center !important;
+		max-width: 808px !important;
+		margin: 0 auto 48px;
+
+		strong {
+			color: #1a2b4a;
+			font-weight: 600;
+		}
+	}
+
+	&__cards {
+		display: grid;
+		grid-template-columns: repeat( 3, 1fr );
+		gap: 32px;
+	}
+}
+
+// --- Mobile ---
+@include until( $bp-tablet ) {
+	.doo-oferta {
+		padding-block: 48px;
+
+		&__title { font-size: 28px; }
+
+		&__cards {
+			grid-template-columns: 1fr;
+			gap: 20px;
+		}
+	}
+}

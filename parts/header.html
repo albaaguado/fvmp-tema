@@ -1,5 +1,7 @@
-<!-- wp:group {"tagName":"header","className":"doo-header","style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"}}},"backgroundColor":"white","layout":{"type":"flex","justifyContent":"space-between","flexWrap":"nowrap"}} -->
+<!-- wp:group {"tagName":"header","className":"doo-header","style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"}}},"backgroundColor":"white","layout":{"type":"default"}} -->
 <header class="wp-block-group doo-header has-white-background-color has-background">
+
+	<div class="doo-header__inner">
 
 	<!-- wp:group {"className":"doo-header__logo","layout":{"type":"flex","flexWrap":"nowrap"}} -->
 	<div class="wp-block-group doo-header__logo">
@@ -18,6 +20,13 @@
 		<!-- wp:navigation-link {"label":"PIM","url":"/pim/","kind":"custom","isTopLevelLink":true} /-->
 		<!-- wp:navigation-link {"label":"Aula Virtual","url":"/aula-virtual/","kind":"custom","isTopLevelLink":true} /-->
 		<!-- wp:navigation-link {"label":"Jornadas","url":"/jornadas/","kind":"custom","isTopLevelLink":true} /-->
+
+		<!-- wp:html -->
+		<div class="doo-header__mobile-ctas">
+			<a class="doo-header__mobile-cta-btn doo-header__mobile-cta-btn--outline" href="/registrarse/">REGISTRARSE</a>
+			<a class="doo-header__mobile-cta-btn" href="/iniciar-sesion/">INICIAR SESIÓN</a>
+		</div>
+		<!-- /wp:html -->
 	<!-- /wp:navigation -->
 
 	<!-- wp:group {"className":"doo-header__actions","layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
@@ -43,6 +52,8 @@
 
 	</div>
 	<!-- /wp:group -->
+
+	</div>
 
 </header>
 <!-- /wp:group -->

@@ -1,0 +1,469 @@
+@use '../../abstracts/variables' as *;
+@use '../../abstracts/mixins' as *;
+
+// ==========================================================================
+// FC Courses — all nested inside .doo-fc-courses for max specificity
+// WordPress 6.x uses CSS logical properties (margin-block, padding-block)
+// which are NOT reset by shorthand `margin: 0`. We must reset both.
+// ==========================================================================
+
+.doo-fc-courses {
+	background: #fff !important;
+	padding: 40px 0 80px !important;
+	padding-block: 40px 80px !important;
+	padding-inline: var(--doo-layout-pad) !important;
+	margin: 0 !important;
+	margin-block: 0 !important;
+	width: 100% !important;
+	max-width: none !important;
+	box-sizing: border-box !important;
+
+	// ── Layout ──
+	.doo-fc-courses__layout {
+		display: flex !important;
+		gap: 32px !important;
+		align-items: flex-start !important;
+		width: 100% !important;
+		max-width: var(--doo-layout-max) !important;
+		margin: 0 auto !important;
+		padding: 0 !important;
+		padding-block: 0 !important;
+		box-sizing: border-box !important;
+	}
+
+	// ══════════════════════════════════════════════════════════════════════════
+	// Sidebar
+	// ══════════════════════════════════════════════════════════════════════════
+
+	.doo-fc-sidebar {
+		width: 340px !important;
+		flex-shrink: 0 !important;
+		background: rgba(255, 255, 255, 0.9) !important;
+		border: 0.8px solid rgba(0, 0, 0, 0.05) !important;
+		border-radius: 16px !important;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+		padding: 32px !important;
+		padding-block: 32px !important;
+	}
+
+	.doo-fc-sidebar__title {
+		font-size: 24px !important;
+		font-weight: 600 !important;
+		color: #1d1d1f !important;
+		margin: 0 0 24px !important;
+		margin-block: 0 24px !important;
+		padding: 0 !important;
+		padding-block: 0 !important;
+	}
+
+	.doo-fc-sidebar__section {
+		display: flex !important;
+		flex-direction: column !important;
+		gap: 0 !important;
+		margin: 0 0 16px !important;
+		margin-block: 0 16px !important;
+		padding: 0 !important;
+		padding-block: 0 !important;
+	}
+
+	.doo-fc-sidebar__section-title {
+		font-size: 12px !important;
+		font-weight: 600 !important;
+		color: #86868b !important;
+		letter-spacing: 0.6px !important;
+		text-transform: uppercase !important;
+		margin: 0 0 4px !important;
+		margin-block: 0 4px !important;
+		padding: 0 !important;
+		padding-block: 0 !important;
+	}
+
+	.doo-fc-sidebar__divider {
+		height: 1px !important;
+		background: rgba(0, 0, 0, 0.05) !important;
+		margin: 16px 0 !important;
+		margin-block: 16px 0 !important;
+		padding: 0 !important;
+		padding-block: 0 !important;
+	}
+
+	// ── Checkbox ──
+
+	.doo-fc-checkbox {
+		display: flex !important;
+		align-items: flex-start !important;
+		gap: 8px !important;
+		padding: 6px 8px !important;
+		padding-block: 6px !important;
+		border-radius: 10px !important;
+		cursor: pointer !important;
+		margin: 0 !important;
+		margin-block: 0 !important;
+
+		&:hover {
+			background: rgba(0, 0, 0, 0.02) !important;
+		}
+
+		input[type='checkbox'] {
+			display: none !important;
+		}
+	}
+
+	.doo-fc-checkbox__box {
+		width: 16px !important;
+		height: 16px !important;
+		min-width: 16px !important;
+		min-height: 16px !important;
+		background: #f3f3f5 !important;
+		border: 0.8px solid #d2d2d7 !important;
+		border-radius: 4px !important;
+		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+		flex-shrink: 0 !important;
+		margin: 3px 0 0 !important;
+		margin-block: 3px 0 !important;
+		padding: 0 !important;
+		padding-block: 0 !important;
+		transition: background 0.2s ease-in-out;
+	}
+
+	.doo-fc-checkbox input:checked + .doo-fc-checkbox__box {
+		background: #00a9a5 !important;
+		border-color: #00a9a5 !important;
+	}
+
+	.doo-fc-checkbox__label {
+		font-size: 15px !important;
+		font-weight: 500 !important;
+		color: #1d1d1f !important;
+		line-height: 1.5 !important;
+		margin: 0 !important;
+		margin-block: 0 !important;
+		padding: 0 !important;
+		padding-block: 0 !important;
+	}
+
+	// ══════════════════════════════════════════════════════════════════════════
+	// Main content area
+	// ══════════════════════════════════════════════════════════════════════════
+
+	.doo-fc-main {
+		flex: 1 !important;
+		min-width: 0 !important;
+	}
+
+	.doo-fc-main__header {
+		display: flex !important;
+		align-items: flex-end !important;
+		justify-content: space-between !important;
+		border-bottom: 1px solid #e8eaed !important;
+		padding: 0 0 16px !important;
+		padding-block: 0 16px !important;
+		margin: 0 0 24px !important;
+		margin-block: 0 24px !important;
+	}
+
+	.doo-fc-main__title {
+		font-size: 28px !important;
+		font-weight: 600 !important;
+		color: #1a2b4a !important;
+		margin: 0 !important;
+		margin-block: 0 !important;
+		padding: 0 !important;
+		padding-block: 0 !important;
+	}
+
+	.doo-fc-main__count {
+		font-size: 14px !important;
+		color: #6b7280 !important;
+		margin: 4px 0 0 !important;
+		margin-block: 4px 0 !important;
+		padding: 0 !important;
+		padding-block: 0 !important;
+	}
+
+	// ══════════════════════════════════════════════════════════════════════════
+	// Course list
+	// ══════════════════════════════════════════════════════════════════════════
+
+	.doo-fc-course-list {
+		display: flex !important;
+		flex-direction: column !important;
+		gap: 16px !important;
+	}
+
+	.doo-fc-course-list__empty {
+		font-size: 15px !important;
+		color: #6b7280 !important;
+		padding: 48px 0 !important;
+		text-align: center !important;
+	}
+
+	// ══════════════════════════════════════════════════════════════════════════
+	// Course card
+	// ══════════════════════════════════════════════════════════════════════════
+
+	.doo-fc-card {
+		background: #fff !important;
+		border: 1px solid #e8eaed !important;
+		border-radius: 14px !important;
+		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+		padding: 24px !important;
+		padding-block: 24px !important;
+		display: flex !important;
+		align-items: flex-end !important;
+		justify-content: space-between !important;
+		gap: 24px !important;
+	}
+
+	.doo-fc-card__left {
+		flex: 1 !important;
+		min-width: 0 !important;
+	}
+
+	.doo-fc-card__meta {
+		display: flex !important;
+		align-items: center !important;
+		gap: 12px !important;
+		margin: 0 0 16px !important;
+		margin-block: 0 16px !important;
+		padding: 0 !important;
+		padding-block: 0 !important;
+	}
+
+	.doo-fc-card__tag {
+		background: rgba(0, 169, 165, 0.08) !important;
+		color: #00a9a5 !important;
+		font-size: 12px !important;
+		font-weight: 500 !important;
+		padding: 6px 12px !important;
+		padding-block: 6px !important;
+		border-radius: 999px !important;
+		white-space: nowrap !important;
+		display: inline-block !important;
+		margin: 0 !important;
+		margin-block: 0 !important;
+	}
+
+	.doo-fc-card__code {
+		font-family: 'Source Code Pro', 'Consolas', monospace !important;
+		font-size: 14px !important;
+		color: #6b7280 !important;
+		margin: 0 !important;
+		margin-block: 0 !important;
+		padding: 0 !important;
+		padding-block: 0 !important;
+	}
+
+	.doo-fc-card__title {
+		font-size: 18px !important;
+		font-weight: 600 !important;
+		color: #1a2b4a !important;
+		line-height: 1.4 !important;
+		margin: 0 0 20px !important;
+		margin-block: 0 20px !important;
+		padding: 0 !important;
+		padding-block: 0 !important;
+	}
+
+	.doo-fc-card__attrs {
+		display: flex !important;
+		align-items: center !important;
+		gap: 24px !important;
+		flex-wrap: wrap !important;
+		margin: 0 !important;
+		margin-block: 0 !important;
+		padding: 0 !important;
+		padding-block: 0 !important;
+	}
+
+	// ── Button ──
+
+	.doo-fc-card__btn {
+		align-self: flex-end !important;
+		flex-shrink: 0 !important;
+		display: inline-flex !important;
+		flex-direction: row !important;
+		align-items: center !important;
+		justify-content: center !important;
+		gap: 8px !important;
+		padding: 12px 20px !important;
+		padding-block: 12px !important;
+		margin: 0 !important;
+		margin-block: 0 !important;
+		border: 1px solid #d1d5db !important;
+		border-radius: 10px !important;
+		font-size: 14px !important;
+		font-weight: 500 !important;
+		color: #1a2b4a !important;
+		text-decoration: none !important;
+		white-space: nowrap !important;
+		background: transparent !important;
+		line-height: 1 !important;
+		box-sizing: border-box !important;
+		transition: all 0.2s ease-in-out;
+
+		> span {
+			line-height: 1 !important;
+			margin: 0 !important;
+			margin-block: 0 !important;
+			padding: 0 !important;
+			padding-block: 0 !important;
+		}
+
+		svg {
+			display: block !important;
+			width: 14px !important;
+			height: 14px !important;
+			flex-shrink: 0 !important;
+			margin: 0 !important;
+			margin-block: 0 !important;
+			padding: 0 !important;
+			padding-block: 0 !important;
+		}
+
+		&:hover {
+			background: #1a2b4a !important;
+			color: #fff !important;
+			border-color: #1a2b4a !important;
+
+			svg {
+				stroke: #fff !important;
+			}
+		}
+	}
+
+	// ══════════════════════════════════════════════════════════════════════════
+	// Course attribute chip
+	// ══════════════════════════════════════════════════════════════════════════
+
+	.doo-fc-attr {
+		display: flex !important;
+		align-items: center !important;
+		gap: 8px !important;
+		margin: 0 !important;
+		margin-block: 0 !important;
+		padding: 0 !important;
+		padding-block: 0 !important;
+	}
+
+	.doo-fc-attr__icon {
+		width: 32px !important;
+		height: 32px !important;
+		min-width: 32px !important;
+		background: #f7f8fa !important;
+		border-radius: 10px !important;
+		display: flex !important;
+		align-items: center !important;
+		justify-content: center !important;
+		flex-shrink: 0 !important;
+		color: #00a9a5 !important;
+		margin: 0 !important;
+		margin-block: 0 !important;
+		padding: 0 !important;
+		padding-block: 0 !important;
+
+		svg {
+			display: block !important;
+			width: 16px !important;
+			height: 16px !important;
+			stroke: #00a9a5 !important;
+		}
+	}
+
+	.doo-fc-attr__text {
+		display: flex !important;
+		flex-direction: column !important;
+		gap: 4px !important;
+		line-height: 1 !important;
+		margin: 0 !important;
+		margin-block: 0 !important;
+		padding: 0 !important;
+		padding-block: 0 !important;
+	}
+
+	.doo-fc-attr__text > span {
+		margin: 0 !important;
+		margin-block: 0 !important;
+		padding: 0 !important;
+		padding-block: 0 !important;
+		display: block !important;
+	}
+
+	.doo-fc-attr__label {
+		font-size: 12px !important;
+		color: #6b7280 !important;
+		line-height: 1.1 !important;
+		margin: 0 !important;
+		margin-block: 0 !important;
+		padding: 0 !important;
+		padding-block: 0 !important;
+	}
+
+	.doo-fc-attr__value {
+		font-size: 14px !important;
+		font-weight: 600 !important;
+		color: #333 !important;
+		white-space: nowrap !important;
+		line-height: 1.2 !important;
+		margin: 0 !important;
+		margin-block: 0 !important;
+		padding: 0 !important;
+		padding-block: 0 !important;
+	}
+
+	// ══════════════════════════════════════════════════════════════════════════
+	// SVG global overrides inside this section
+	// ══════════════════════════════════════════════════════════════════════════
+
+	svg {
+		max-width: none !important;
+		height: auto;
+	}
+}
+
+// ==========================================================================
+// Responsive
+// ==========================================================================
+
+@include until($bp-desktop) {
+	.doo-fc-courses .doo-fc-courses__layout {
+		flex-direction: column !important;
+	}
+
+	.doo-fc-courses .doo-fc-sidebar {
+		width: 100% !important;
+	}
+}
+
+@include until($bp-tablet) {
+	.doo-fc-courses {
+		padding: 24px 0 48px !important;
+		padding-block: 24px 48px !important;
+	}
+
+	.doo-fc-courses .doo-fc-sidebar {
+		display: none !important;
+	}
+
+	.doo-fc-courses .doo-fc-courses__layout {
+		padding: 0 !important;
+	}
+
+	.doo-fc-courses .doo-fc-card {
+		flex-direction: column !important;
+		align-items: stretch !important;
+	}
+
+	.doo-fc-courses .doo-fc-card__attrs {
+		gap: 16px !important;
+	}
+
+	.doo-fc-courses .doo-fc-card__btn {
+		width: 100% !important;
+		justify-content: center !important;
+	}
+
+	.doo-fc-courses .doo-fc-attr {
+		min-width: calc(50% - 8px) !important;
+	}
+}

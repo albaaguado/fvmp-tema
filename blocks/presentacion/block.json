@@ -1,0 +1,29 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "doo/presentacion",
+	"version": "1.0.0",
+	"title": "Presentación",
+	"category": "doo-blocks",
+	"icon": "format-quote",
+	"description": "Secretary general presentation section with expandable message.",
+	"supports": {
+		"html": false,
+		"align": false,
+		"multiple": false
+	},
+	"attributes": {
+		"imageId": { "type": "number", "default": 0 },
+		"imageUrl": { "type": "string", "default": "" },
+		"name": { "type": "string", "default": "Miguel Bailach Luengo" },
+		"role": { "type": "string", "default": "Secretario General" },
+		"eyebrow": { "type": "string", "default": "PRESENTACIÓN" },
+		"title": { "type": "string", "default": "Tres décadas de compromiso con la formación pública" },
+		"body": { "type": "string", "default": "Desde hace casi tres décadas, la Federación Valenciana de Municipios y Provincias mantiene un compromiso firme con la formación continua y especializada del personal al servicio de la administración local de la Comunitat Valenciana. Una apuesta iniciada en 1996 con una convicción clara: el progreso de nuestros municipios pasa necesariamente por contar con empleadas y empleados públicos bien formados, motivados y preparados para responder a las demandas de una ciudadanía cada vez más exigente y mejor informada." },
+		"fullText": { "type": "string", "default": "" },
+		"linkText": { "type": "string", "default": "Leer mensaje completo →" }
+	},
+	"textdomain": "dw-tema",
+	"editorScript": "doo-blocks-editor",
+	"render": "file:./render.php"
+}

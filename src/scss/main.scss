@@ -11,19 +11,24 @@
 @use 'base/reset';
 @use 'base/typography';
 
+// --- Global layout (utilities + post-content / alignments) ---
+@use 'layout/layout-system';
+
 // --- Layout (structural sections) ---
-@use 'layout/header';
-@use 'layout/footer';
-@use 'layout/hero';
-@use 'layout/trust-bar';
-@use 'layout/oferta';
-@use 'layout/presentacion';
-@use 'layout/modalidades';
-@use 'layout/profesorado';
-@use 'layout/impacto';
-@use 'layout/testimonios';
-@use 'layout/transparencia';
-@use 'layout/planes';
+@use 'layout/shared/header';
+@use 'layout/shared/footer';
+@use 'layout/inicio/hero';
+@use 'layout/inicio/trust-bar';
+@use 'layout/inicio/oferta';
+@use 'layout/inicio/presentacion';
+@use 'layout/inicio/modalidades';
+@use 'layout/inicio/profesorado';
+@use 'layout/inicio/impacto';
+@use 'layout/inicio/testimonios';
+@use 'layout/inicio/transparencia';
+@use 'layout/inicio/planes';
+@use 'layout/fc/fc-hero';
+@use 'layout/fc/fc-courses';
 
 // --- Components (reusable UI pieces) ---
 @use 'components/buttons';

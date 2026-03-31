@@ -1,0 +1,191 @@
+// ==========================================================================
+// Hero — Home (excepción: imagen hasta el borde derecho del viewport)
+// ==========================================================================
+
+@use '../../abstracts/variables' as *;
+@use '../../abstracts/mixins' as *;
+
+// Contenedor a todo el ancho (el bloque wp-block-doo-hero ya hace breakout en layout-system).
+.doo-hero-wrap {
+	width: 100%;
+	background: #fff;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+
+.doo-hero {
+	position: relative;
+	display: flex;
+	width: 100%;
+	min-height: 560px;
+	box-sizing: border-box;
+	padding-left: var(--doo-layout-pad);
+	// Sin padding derecho: la foto llega al borde derecho del viewport.
+	font-family: $font-inter;
+
+	&__left {
+		flex: 0 0 52%;
+		max-width: 52%;
+		height: auto;
+		min-height: 100%;
+		background: #fff;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding: 0 40px 0 0;
+		position: relative;
+		z-index: 1;
+		box-sizing: border-box;
+	}
+
+	&__eyebrow {
+		font-size: 11px;
+		font-weight: 600;
+		color: $color-teal;
+		letter-spacing: 2px;
+		margin-bottom: 16px;
+		text-transform: uppercase;
+	}
+
+	&__title {
+		font-size: 40px;
+		font-weight: 700;
+		color: $color-navy;
+		line-height: 47px;
+		margin-bottom: 24px;
+	}
+
+	&__desc {
+		font-size: 17px;
+		color: #6b7280;
+		line-height: 29px;
+		margin-bottom: 40px;
+	}
+
+	&__btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		align-self: flex-start;
+		height: 48px;
+		padding: 0 28px;
+		background: $color-teal;
+		color: #fff;
+		font-size: 13px;
+		font-weight: 600;
+		border-radius: 4px;
+		text-decoration: none;
+		letter-spacing: 0.5px;
+		@include transition( opacity );
+
+		&:hover {
+			opacity: 0.88;
+			color: #fff;
+		}
+	}
+
+	&__photo {
+		flex: 1;
+		min-width: 0;
+		position: relative;
+		overflow: hidden;
+		align-self: stretch;
+
+		img {
+			position: absolute;
+			inset: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			object-position: center;
+			display: block;
+		}
+	}
+
+	&__gradient {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 160px;
+		height: 100%;
+		background: linear-gradient(
+			to right,
+			rgba( 255, 255, 255, 0.85 ) 0%,
+			rgba( 255, 255, 255, 0 ) 100%
+		);
+		z-index: 1;
+		pointer-events: none;
+	}
+}
+
+@include until( $bp-tablet ) {
+	.doo-hero {
+		flex-direction: column;
+		min-height: 0;
+		padding: 0;
+
+		// Foto arriba, texto abajo
+		&__photo {
+			order: 1;
+			flex: 0 0 300px;
+			width: 100%;
+			position: relative;
+
+			img {
+				position: absolute;
+				inset: 0;
+				min-height: 0;
+			}
+
+			// Fade inferior hacia el blanco
+			&::after {
+				content: '';
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				height: 80px;
+				background: linear-gradient( to bottom, transparent, #fff );
+				pointer-events: none;
+			}
+		}
+
+		&__gradient { display: none; }
+
+		&__left {
+			order: 2;
+			flex: 0 0 auto;
+			max-width: none;
+			width: 100%;
+			padding: 24px var(--doo-layout-pad) 48px;
+		}
+
+		&__title {
+			font-size: 30px;
+			line-height: 38px;
+			margin-bottom: 16px;
+		}
+
+		&__desc {
+			font-size: 15px;
+			line-height: 26px;
+			margin-bottom: 28px;
+		}
+
+		&__btn {
+			align-self: stretch;
+			justify-content: center;
+		}
+	}
+}
+
+// Above the layout breakpoint (1640px) the content locks at 1440px and
+// --doo-layout-pad keeps growing. Freeze the text column at the width it has
+// at exactly 1640px so the photo expands on ultra-wide screens instead.
+// Cap = 52 % × (1640px viewport − 100px left pad) = 52 % × 1540px ≈ 801px.
+@media (min-width: #{$layout-break}) {
+	.doo-hero__left {
+		flex:      0 0 calc(0.52 * (#{$layout-break} - #{$layout-gutter}));
+		max-width: calc(0.52 * (#{$layout-break} - #{$layout-gutter}));
+	}
+}

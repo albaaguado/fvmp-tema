@@ -8,6 +8,13 @@
 	box-sizing: border-box;
 }
 
+// Prevent horizontal scroll caused by 100vw breakout sections.
+// overflow-x: clip (unlike hidden) does not create a new scroll container,
+// so position: sticky on the header keeps working.
+body {
+	overflow-x: clip;
+}
+
 img,
 picture,
 video,

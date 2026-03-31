@@ -1,0 +1,31 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "doo/modalidades",
+	"version": "1.0.0",
+	"title": "Modalidades",
+	"category": "doo-blocks",
+	"icon": "category",
+	"description": "Modalidades de formación (presencial, online, streaming, mix).",
+	"supports": { "html": false, "align": false, "multiple": false },
+	"attributes": {
+		"eyebrow": { "type": "string", "default": "MODALIDADES" },
+		"title": { "type": "string", "default": "Diferentes modalidades para la oferta formativa" },
+		"presencialName": { "type": "string", "default": "Presencial" },
+		"presencialPct": { "type": "string", "default": "28" },
+		"presencialDesc": { "type": "string", "default": "Formación en aula con interacción directa entre docentes y alumnado." },
+		"onlineName": { "type": "string", "default": "Online" },
+		"onlinePct": { "type": "string", "default": "36" },
+		"onlineDesc": { "type": "string", "default": "Aprendizaje flexible a tu ritmo desde cualquier lugar y dispositivo." },
+		"streamingName": { "type": "string", "default": "Streaming" },
+		"streamingPct": { "type": "string", "default": "17" },
+		"streamingDesc": { "type": "string", "default": "Acceso en tiempo real a la formación desde cualquier ubicación." },
+		"mixName": { "type": "string", "default": "Mix" },
+		"mixPct": { "type": "string", "default": "19" },
+		"mixDesc": { "type": "string", "default": "Combina lo mejor de las 3 modalidades en un mismo curso." },
+		"renderOnlyGrid": { "type": "boolean", "default": false }
+	},
+	"textdomain": "dw-tema",
+	"editorScript": "doo-blocks-editor",
+	"render": "file:./render.php"
+}

@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "doo/impacto",
+	"version": "1.0.0",
+	"title": "Impacto + CTA",
+	"category": "doo-blocks",
+	"icon": "chart-bar",
+	"description": "Impact stats and call-to-action section.",
+	"supports": { "html": false, "align": false, "multiple": false },
+	"attributes": {
+		"eyebrow": { "type": "string", "default": "NUESTRO IMPACTO" },
+		"title": { "type": "string", "default": "Apostando por la formación desde 1996" },
+		"description": { "type": "string", "default": "Casi tres décadas formando al personal al servicio de la administración local de la Comunitat Valenciana." },
+		"ctaEyebrow": { "type": "string", "default": "EMPIEZA AHORA" },
+		"ctaTitle": { "type": "string", "default": "Explora nuestros cursos y descubre acciones formativas para tu crecimiento profesional" },
+		"ctaDesc": { "type": "string", "default": "Una amplia oferta formativa orientada tanto a personal de entidades públicas locales como a cargos electos" },
+		"ctaButtonText": { "type": "string", "default": "Explorar la oferta formativa" },
+		"ctaButtonUrl": { "type": "string", "default": "#" },
+		"stat1Num": { "type": "string", "default": "54.000+" },
+		"stat1Label": { "type": "string", "default": "Personas formadas" },
+		"stat2Num": { "type": "string", "default": "950+" },
+		"stat2Label": { "type": "string", "default": "Cursos desde 2016" },
+		"stat3Num": { "type": "string", "default": "1.680+" },
+		"stat3Label": { "type": "string", "default": "Ediciones realizadas" },
+		"stat4Num": { "type": "string", "default": "25+" },
+		"stat4Label": { "type": "string", "default": "Áreas formativas" },
+		"renderOnlyStats": { "type": "boolean", "default": false }
+	},
+	"textdomain": "dw-tema",
+	"editorScript": "doo-blocks-editor",
+	"render": "file:./render.php"
+}

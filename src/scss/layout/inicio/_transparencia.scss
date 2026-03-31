@@ -1,0 +1,179 @@
+// ==========================================================================
+// Transparencia — Transparency links section
+// ==========================================================================
+
+@use '../../abstracts/variables' as *;
+@use '../../abstracts/mixins' as *;
+
+.doo-transparencia {
+	background: #fff;
+	padding: 96px 0;
+	padding-inline: var(--doo-layout-pad);
+	box-sizing: border-box;
+
+	&__container {
+		width: 100%;
+		max-width: var(--doo-layout-max);
+		margin-inline: auto;
+		box-sizing: border-box;
+	}
+
+	&__inner {
+		display: flex;
+		gap: 80px;
+		align-items: center;
+	}
+
+	// ── Left column: text ─────────────────────────────────────────────────
+	&__left {
+		flex: 1;
+	}
+
+	&__eyebrow {
+		font-size: 11px !important;
+		font-weight: 600;
+		color: $color-teal;
+		letter-spacing: 2px;
+		text-transform: uppercase;
+		text-align: left !important;
+		margin-bottom: 12px;
+		max-width: none !important;
+	}
+
+	&__title {
+		font-size: 44px;
+		font-weight: 700;
+		color: $color-navy;
+		line-height: 52px;
+		text-align: left !important;
+		margin-bottom: 20px;
+		margin-top: 12px;
+	}
+
+	&__desc {
+		font-size: 19px !important;
+		color: #333;
+		line-height: 31px;
+		max-width: none !important;
+	}
+
+	// ── Right column: links panel ─────────────────────────────────────────
+	&__right {
+		width: 540px;
+		flex-shrink: 0;
+		background: #f7f8fa;
+		border-radius: 8px;
+		padding: 8px 16px; // Symmetric horizontal padding, items occupy full width
+	}
+}
+
+// ── Transparency link item ─────────────────────────────────────────────────
+
+.doo-trans-link {
+	display: flex;
+	align-items: flex-start;
+	gap: 16px;
+	padding: 20px 16px;
+	text-decoration: none;
+	cursor: pointer;
+	border-radius: 8px;
+	position: relative;
+	background-color: transparent;
+	box-shadow: none;
+	transition: background-color 0.18s ease-in-out, box-shadow 0.18s ease-in-out;
+
+	// Separator between items
+	& + & {
+		border-top: 1px solid #e2e4e8;
+		transition: border-top-color 0.18s ease-in-out;
+	}
+
+	// Hide separator when the item above is hovered
+	&:hover + & {
+		border-top-color: transparent;
+	}
+
+	// Chevron arrow — appears on hover
+	&::after {
+		content: '›';
+		position: absolute;
+		right: 16px;
+		top: 50%;
+		transform: translateY(-50%);
+		font-size: 22px;
+		line-height: 1;
+		color: $color-teal;
+		opacity: 0;
+		transition: opacity 0.18s ease-in-out;
+	}
+
+	&:hover {
+		background-color: #fff;
+		box-shadow: 0 2px 12px rgba( 0, 0, 0, 0.07 );
+		border-top-color: transparent;
+
+		&::after {
+			opacity: 1;
+		}
+	}
+
+	&__icon {
+		flex-shrink: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: $color-navy;
+		margin-top: 0;
+
+		svg {
+			width: 22px;
+			height: 22px;
+			display: block;
+			stroke: $color-navy;
+		}
+	}
+
+	&__title {
+		font-size: 17px !important;
+		font-weight: 700;
+		color: $color-navy;
+		margin-top: 0 !important;
+		margin-bottom: 6px !important;
+		max-width: none !important;
+		transition: color 0.2s ease;
+	}
+
+	&__desc {
+		font-size: 15px !important;
+		color: #6b7280;
+		line-height: 23px;
+		margin-top: 0 !important;
+		margin-bottom: 0 !important;
+		max-width: none !important;
+		// Leave space for the chevron arrow
+		padding-right: 24px;
+	}
+
+	&:hover &__title {
+		color: $color-teal;
+	}
+}
+
+// --- Mobile ---
+@include until( $bp-tablet ) {
+	.doo-transparencia {
+		padding-block: 56px;
+
+		&__inner {
+			flex-direction: column;
+			gap: 40px;
+		}
+
+		&__right {
+			width: 100%;
+			padding: 8px 24px;
+		}
+
+		&__title { font-size: 30px; line-height: 38px; }
+	}
+}

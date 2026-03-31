@@ -11,8 +11,10 @@ import '../scss/main.scss';
 document.addEventListener( 'DOMContentLoaded', () => {
 	console.log( '[FVMP] Theme loaded.' );
 	setActiveNavItem();
+	initStickyHeader();
 	initPresentacionToggle();
 	initTestimoniosSlider();
+	initFcFilters();
 } );
 
 /**
@@ -39,9 +41,11 @@ function initPresentacionToggle() {
 }
 
 /**
- * Horizontal slider for the testimonios section.
- * Shows 3 cards at a time, slides 1 card per step.
- * Nav buttons and dots update to reflect current position.
+ * Testimonios slider.
+ *
+ * Desktop: Flex layout — 3 cards side by side per page, slides by card width.
+ * Mobile:  CSS Grid layout — 3 cards stacked per page, slides by container width.
+ *          JS sets --col-width so each grid column = overflow container width.
  */
 function initTestimoniosSlider() {
 	const track   = document.querySelector( '.doo-testimonios__track' );
@@ -51,30 +55,54 @@ function initTestimoniosSlider() {
 
 	if ( ! track || ! prevBtn || ! nextBtn ) return;
 
-	const cards    = Array.from( track.querySelectorAll( '.doo-testi-card' ) );
-	const visible  = 3;
-	const total    = cards.length;
-	const maxIndex = Math.max( 0, total - visible );
-	const numDots  = dots.length; // ceil(total / visible)
-	let current    = 0;
+	const cards = Array.from( track.querySelectorAll( '.doo-testi-card' ) );
+	const total = cards.length;
+	let current = 0;
 
-	/**
-	 * Returns the dot index (page) that corresponds to the current card position.
-	 *
-	 * @return {number}
-	 */
+	const MOBILE_MQ = window.matchMedia( '(max-width: 767px)' );
+
+	function isMobile() { return MOBILE_MQ.matches; }
+
+	/** Cards per "page": always 3, but navigation mode differs. */
+	const VISIBLE = 3;
+
+	/** Last valid starting index. */
+	function getMaxIndex() {
+		return ( Math.ceil( total / VISIBLE ) - 1 ) * VISIBLE;
+	}
+
+	/** Dot index for the current position. */
 	function activeDotIndex() {
-		return Math.min( Math.floor( current / visible ), numDots - 1 );
+		return Math.min( Math.floor( current / VISIBLE ), dots.length - 1 );
 	}
 
 	/**
-	 * Apply slider position and update controls state.
+	 * On mobile, set --col-width = overflow container width so the CSS Grid
+	 * knows how wide each "page column" should be.
 	 */
-	function update() {
-		const gap       = 24;
-		const cardWidth = cards[ 0 ].offsetWidth + gap;
+	function syncColumnWidth() {
+		if ( isMobile() ) {
+			const w = track.parentElement.offsetWidth;
+			track.style.setProperty( '--col-width', w + 'px' );
+		}
+	}
 
-		track.style.transform = `translateX(-${ current * cardWidth }px)`;
+	/** Move the track and refresh controls / dots. */
+	function update() {
+		const maxIndex = getMaxIndex();
+		current = Math.min( current, maxIndex );
+
+		if ( isMobile() ) {
+			// Grid layout: translate by full container width × page index
+			const page           = Math.floor( current / VISIBLE );
+			const containerWidth = track.parentElement.offsetWidth;
+			track.style.transform = `translateX(-${ page * containerWidth }px)`;
+		} else {
+			// Flex layout: translate by individual card width × current index
+			const gap       = 24;
+			const cardWidth = cards[ 0 ].offsetWidth + gap;
+			track.style.transform = `translateX(-${ current * cardWidth }px)`;
+		}
 
 		prevBtn.disabled = current === 0;
 		nextBtn.disabled = current >= maxIndex;
@@ -86,27 +114,111 @@ function initTestimoniosSlider() {
 	}
 
 	prevBtn.addEventListener( 'click', () => {
-		if ( current > 0 ) {
-			current = Math.max( 0, current - visible );
-			update();
-		}
+		current = Math.max( 0, current - VISIBLE );
+		update();
 	} );
 
 	nextBtn.addEventListener( 'click', () => {
-		if ( current < maxIndex ) {
-			current = Math.min( maxIndex, current + visible );
-			update();
-		}
+		current = Math.min( getMaxIndex(), current + VISIBLE );
+		update();
 	} );
 
 	dots.forEach( ( dot, i ) => {
 		dot.addEventListener( 'click', () => {
-			current = Math.min( i * visible, maxIndex );
+			current = Math.min( i * VISIBLE, getMaxIndex() );
 			update();
 		} );
 	} );
 
+	window.addEventListener( 'resize', () => {
+		syncColumnWidth();
+		update();
+	} );
+
+	syncColumnWidth();
 	update();
+}
+
+/**
+ * Compact header on scroll.
+ *
+ * Adds `is-scrolled` to .doo-header when the user scrolls past a threshold.
+ * Uses hysteresis (different add/remove thresholds) to avoid flickering.
+ */
+function initStickyHeader() {
+	const header = document.querySelector( '.doo-header' );
+	if ( ! header ) return;
+
+	const SCROLL_DOWN = 80;
+	const SCROLL_UP   = 40;
+	let ticking       = false;
+
+	function onScroll() {
+		if ( ticking ) return;
+		ticking = true;
+
+		requestAnimationFrame( () => {
+			const y = window.scrollY;
+
+			if ( y > SCROLL_DOWN ) {
+				header.classList.add( 'is-scrolled' );
+			} else if ( y < SCROLL_UP ) {
+				header.classList.remove( 'is-scrolled' );
+			}
+
+			ticking = false;
+		} );
+	}
+
+	window.addEventListener( 'scroll', onScroll, { passive: true } );
+	onScroll();
+}
+
+/**
+ * Client-side filtering for the Formación Continua course list.
+ *
+ * Reads checked checkboxes from the sidebar (data-fc-sidebar),
+ * hides/shows course cards (data-fc-list .doo-fc-card) by matching
+ * data-area and data-modality attributes, and updates the visible count.
+ */
+function initFcFilters() {
+	const sidebar = document.querySelector( '[data-fc-sidebar]' );
+	const list    = document.querySelector( '[data-fc-list]' );
+	const counter = document.querySelector( '[data-fc-count]' );
+
+	if ( ! sidebar || ! list ) return;
+
+	const cards = Array.from( list.querySelectorAll( '.doo-fc-card' ) );
+
+	function applyFilters() {
+		const checkedAreas = Array.from(
+			sidebar.querySelectorAll( 'input[name="doo_area"]:checked' )
+		).map( ( cb ) => cb.value );
+
+		const checkedMods = Array.from(
+			sidebar.querySelectorAll( 'input[name="doo_modality"]:checked' )
+		).map( ( cb ) => cb.value );
+
+		let visible = 0;
+
+		cards.forEach( ( card ) => {
+			const area     = card.dataset.area || '';
+			const modality = card.dataset.modality || '';
+
+			const matchArea = checkedAreas.length === 0 || checkedAreas.includes( area );
+			const matchMod  = checkedMods.length === 0 || checkedMods.includes( modality );
+
+			const show = matchArea && matchMod;
+			card.style.display = show ? '' : 'none';
+			if ( show ) visible++;
+		} );
+
+		if ( counter ) {
+			counter.innerHTML = `Mostrando <strong>${ visible }</strong> cursos disponibles`;
+		}
+	}
+
+	sidebar.addEventListener( 'change', applyFilters );
 }
 
 /**

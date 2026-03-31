@@ -3,19 +3,19 @@
 // ==========================================================================
 
 @font-face {
-    font-family: 'Inter';
-    src: url('../../../assets/fonts/inter/Inter-VariableFont_opsz_wght.ttf') format('truetype');
-    font-weight: 100 900;
-    font-style: normal;
-    font-display: swap;
+	font-family: 'Inter';
+	src: url('../../../assets/fonts/inter/Inter-VariableFont_opsz_wght.ttf') format('truetype');
+	font-weight: 100 900;
+	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
-    font-family: 'Inter';
-    src: url('../../../assets/fonts/inter/Inter-Italic-VariableFont_opsz_wght.ttf') format('truetype');
-    font-weight: 100 900;
-    font-style: italic;
-    font-display: swap;
+	font-family: 'Inter';
+	src: url('../../../assets/fonts/inter/Inter-Italic-VariableFont_opsz_wght.ttf') format('truetype');
+	font-weight: 100 900;
+	font-style: italic;
+	font-display: swap;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -24,5 +24,8 @@ h1, h2, h3, h4, h5, h6 {
 
 p {
 	text-wrap: pretty;
+}
+
+p:not([class]) {
 	max-width: 75ch;
 }
