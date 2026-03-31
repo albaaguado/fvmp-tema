@@ -82,6 +82,14 @@ function doo_enqueue_assets() {
 	// --- Development mode: Vite dev server ---
 	if ( doo_is_vite_dev() ) {
 
+		// Load CSS as a real stylesheet to avoid flash of unstyled content.
+		wp_enqueue_style(
+			'doo-main-style-dev',
+			'http://localhost:5173/src/scss/main.scss',
+			array(),
+			null
+		);
+
 		// Vite client for HMR.
 		wp_enqueue_script(
 			'doo-vite-client',
