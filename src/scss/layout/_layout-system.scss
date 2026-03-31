@@ -130,3 +130,27 @@
 	margin-inline: calc(50% - 50vw) !important;
 	box-sizing:    border-box;
 }
+
+// Shared scroll reveal utility used by home sections and cards.
+body:not( .wp-admin ) .doo-reveal {
+	opacity: 0;
+	transform: translateY(24px);
+	transition:
+		opacity 720ms cubic-bezier(0.22, 1, 0.36, 1),
+		transform 720ms cubic-bezier(0.22, 1, 0.36, 1);
+	transition-delay: var(--doo-reveal-delay, 0ms);
+	will-change: opacity, transform;
+}
+
+body:not( .wp-admin ) .doo-reveal.is-visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	body:not( .wp-admin ) .doo-reveal {
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+}
