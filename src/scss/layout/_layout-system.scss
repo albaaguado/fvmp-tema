@@ -151,3 +151,20 @@
 	box-sizing:    border-box;
 }
 
+// Shared hover behavior for inline teal CTA links on Home sections.
+.doo-presentacion__link {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	transition: color 0.22s ease, transform 0.22s ease, text-decoration-color 0.22s ease;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 3px;
+
+	&:hover {
+		color: $color-navy;
+		text-decoration: underline;
+		text-decoration-color: currentColor;
+		transform: translateX(2px);
+	}
+}
+
