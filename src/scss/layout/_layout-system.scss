@@ -131,3 +131,23 @@
 	box-sizing:    border-box;
 }
 
+// Editor canvas alignment: avoid extra narrowing of custom doo blocks.
+.editor-styles-wrapper .wp-block-post-content {
+	padding-inline: 0;
+}
+
+.editor-styles-wrapper .wp-block-post-content > .wp-block[data-type^='doo/'] {
+	max-width:     none !important;
+	width:         100% !important;
+	margin-inline: 0 !important;
+	box-sizing:    border-box;
+}
+
+.editor-styles-wrapper .wp-block-post-content > .wp-block[data-type^='doo/'] > [class^='doo-'],
+.editor-styles-wrapper .wp-block-post-content > .wp-block[data-type^='doo/'] > .doo-hero-wrap {
+	max-width:     none !important;
+	width:         100% !important;
+	margin-inline: 0 !important;
+	box-sizing:    border-box;
+}
+
