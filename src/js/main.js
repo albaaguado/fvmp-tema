@@ -15,7 +15,161 @@ document.addEventListener( 'DOMContentLoaded', () => {
 	initPresentacionToggle();
 	initTestimoniosSlider();
 	initFcFilters();
+	initHomeScrollAnimations();
 } );
+
+/**
+ * Easing for entrance/counter animations.
+ * Fast at the beginning, slower near the end.
+ *
+ * @param {number} t Progress (0..1).
+ * @return {number}
+ */
+function dooEaseOutCubic( t ) {
+	return 1 - Math.pow( 1 - t, 3 );
+}
+
+/**
+ * Animate an integer counter while preserving prefix/suffix formatting.
+ * Examples: 54.000+, +1.200 alumnas/os.
+ *
+ * @param {HTMLElement} el Number element.
+ * @param {number} duration Animation duration in ms.
+ */
+function animateImpactNumber( el, duration = 1600 ) {
+	const rawText = ( el.textContent || '' ).trim();
+	const match = rawText.match( /(\d[\d.,\s]*)/ );
+
+	if ( ! match ) return;
+
+	const numericPart = match[ 1 ];
+	const digitsOnly = numericPart.replace( /\D/g, '' );
+	const target = Number.parseInt( digitsOnly, 10 );
+
+	if ( Number.isNaN( target ) ) return;
+
+	const prefix = rawText.slice( 0, match.index );
+	const suffix = rawText.slice( ( match.index || 0 ) + numericPart.length );
+	const formatter = new Intl.NumberFormat( 'es-ES' );
+	const start = performance.now();
+
+	function tick( now ) {
+		const progress = Math.min( 1, ( now - start ) / duration );
+		const eased = dooEaseOutCubic( progress );
+		const value = Math.round( target * eased );
+
+		el.textContent = `${ prefix }${ formatter.format( value ) }${ suffix }`;
+
+		if ( progress < 1 ) {
+			requestAnimationFrame( tick );
+		}
+	}
+
+	requestAnimationFrame( tick );
+}
+
+/**
+ * Animate progress bar width and percentage text in a modalidades card.
+ *
+ * @param {HTMLElement} card Modalidades card.
+ * @param {number} delay Delay in ms.
+ */
+function animateModalidadesCard( card, delay = 0 ) {
+	const fill = card.querySelector( '.doo-modal-card__fill' );
+	const pctEl = card.querySelector( '.doo-modal-card__pct' );
+	if ( ! fill || ! pctEl ) return;
+
+	const pctText = ( pctEl.textContent || '' ).replace( /\D/g, '' );
+	let target = Number.parseInt( pctText, 10 );
+
+	if ( Number.isNaN( target ) ) {
+		target = Number.parseInt( ( fill.style.width || '' ).replace( /\D/g, '' ), 10 );
+	}
+
+	if ( Number.isNaN( target ) ) return;
+
+	target = Math.max( 0, Math.min( 100, target ) );
+	fill.style.width = '0%';
+	pctEl.textContent = '0%';
+
+	window.setTimeout( () => {
+		const duration = 1200;
+		const start = performance.now();
+
+		function tick( now ) {
+			const progress = Math.min( 1, ( now - start ) / duration );
+			const eased = dooEaseOutCubic( progress );
+			const value = Math.round( target * eased );
+
+			fill.style.width = `${ value }%`;
+			pctEl.textContent = `${ value }%`;
+
+			if ( progress < 1 ) {
+				requestAnimationFrame( tick );
+			}
+		}
+
+		requestAnimationFrame( tick );
+	}, delay );
+}
+
+/**
+ * Reveal sections/cards on scroll and trigger section-specific animations.
+ */
+function initHomeScrollAnimations() {
+	const reduceMotion = window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
+	if ( reduceMotion ) return;
+
+	const sections = document.querySelectorAll(
+		'.wp-block-post-content > [class^="doo-"], .doo-hero-wrap'
+	);
+
+	sections.forEach( ( section ) => {
+		section.classList.add( 'doo-reveal' );
+
+		const staggerCards = section.querySelectorAll(
+			'.doo-stat-card, .doo-modal-card, .doo-testi-card'
+		);
+
+		staggerCards.forEach( ( card, index ) => {
+			card.classList.add( 'doo-reveal' );
+			card.style.setProperty( '--doo-reveal-delay', `${ index * 90 }ms` );
+		} );
+	} );
+
+	const revealTargets = document.querySelectorAll( '.doo-reveal' );
+
+	const revealObserver = new IntersectionObserver(
+		( entries, observer ) => {
+			entries.forEach( ( entry ) => {
+				if ( ! entry.isIntersecting ) return;
+
+				const target = entry.target;
+				target.classList.add( 'is-visible' );
+
+				if ( target.classList.contains( 'doo-impacto' ) ) {
+					target.querySelectorAll( '.doo-stat-card__num' ).forEach( ( el, i ) => {
+						window.setTimeout( () => animateImpactNumber( el ), i * 110 );
+					} );
+				}
+
+				if ( target.classList.contains( 'doo-modalidades' ) ) {
+					target.querySelectorAll( '.doo-modal-card' ).forEach( ( card, i ) => {
+						animateModalidadesCard( card, i * 120 );
+					} );
+				}
+
+				observer.unobserve( target );
+			} );
+		},
+		{
+			threshold: 0.2,
+			rootMargin: '0px 0px -8% 0px',
+		}
+	);
+
+	revealTargets.forEach( ( el ) => revealObserver.observe( el ) );
+}
 
 /**
  * Toggle the full presentation text when clicking "Leer mensaje completo".
