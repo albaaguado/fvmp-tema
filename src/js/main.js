@@ -121,6 +121,7 @@ function initHomeScrollAnimations() {
 
 	const impactoSection = document.querySelector( '.doo-impacto' );
 	const modalidadesSection = document.querySelector( '.doo-modalidades' );
+	const ofertaSection = document.querySelector( '.doo-oferta' );
 
 	if ( impactoSection ) {
 		const impactoObserver = new IntersectionObserver(
@@ -173,6 +174,32 @@ function initHomeScrollAnimations() {
 
 		modalidadesObserver.observe( modalidadesSection );
 	}
+
+	if ( ofertaSection ) {
+		const ofertaObserver = new IntersectionObserver(
+			( entries, observer ) => {
+				entries.forEach( ( entry ) => {
+					if ( ! entry.isIntersecting ) return;
+
+					entry.target.querySelectorAll( '.doo-plan-card__stat-num' ).forEach( ( el, i ) => {
+						if ( reduceMotion ) {
+							animateImpactNumber( el, 1 );
+							return;
+						}
+						window.setTimeout( () => animateImpactNumber( el, 1200 ), i * 90 );
+					} );
+
+					observer.unobserve( entry.target );
+				} );
+			},
+			{
+				threshold: 0.25,
+				rootMargin: '0px 0px -10% 0px',
+			}
+		);
+
+		ofertaObserver.observe( ofertaSection );
+	}
 }
 
 /**
@@ -216,6 +243,8 @@ function initTestimoniosSlider() {
 	const cards = Array.from( track.querySelectorAll( '.doo-testi-card' ) );
 	const total = cards.length;
 	let current = 0;
+	let hasInitialized = false;
+	let slideFxTimeout;
 
 	const MOBILE_MQ = window.matchMedia( '(max-width: 767px)' );
 
@@ -249,6 +278,16 @@ function initTestimoniosSlider() {
 	function update() {
 		const maxIndex = getMaxIndex();
 		current = Math.min( current, maxIndex );
+
+		if ( hasInitialized ) {
+			track.classList.add( 'is-switching' );
+			window.clearTimeout( slideFxTimeout );
+			slideFxTimeout = window.setTimeout( () => {
+				track.classList.remove( 'is-switching' );
+			}, 340 );
+		} else {
+			hasInitialized = true;
+		}
 
 		if ( isMobile() ) {
 			// Grid layout: translate by full container width × page index
