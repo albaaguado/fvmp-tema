@@ -154,8 +154,13 @@
 		@include transition;
 
 		&:hover {
-			background: $color-navy;
-			color: $color-white;
+			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			&:hover {
+				// No changes
+			}
 		}
 	}
 }
@@ -172,7 +177,13 @@
 		@include transition;
 
 		&:hover {
-			opacity: 0.9;
+			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			&:hover {
+				// No changes
+			}
 		}
 	}
 }
@@ -292,7 +303,15 @@
 	color: #fff;
 	@include transition;
 
-	&:hover { opacity: 0.9; color: #fff; }
+	&:hover {
+		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		&:hover {
+			// No changes
+		}
+	}
 
 	// Outline variant: Registrarse
 	&--outline {
@@ -301,8 +320,13 @@
 		border: 1.5px solid $color-navy;
 
 		&:hover {
-			background: $color-navy;
-			color: #fff;
+			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			&:hover {
+				// No changes
+			}
 		}
 	}
 }
