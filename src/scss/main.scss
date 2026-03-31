@@ -11,6 +11,9 @@
 @use 'base/reset';
 @use 'base/typography';
 
+// --- Global layout (utilities + post-content / alignments) ---
+@use 'layout/layout-system';
+
 // --- Layout (structural sections) ---
 @use 'layout/shared/header';
 @use 'layout/shared/footer';

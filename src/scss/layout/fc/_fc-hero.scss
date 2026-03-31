@@ -10,20 +10,23 @@
 	background: #f7f8fa !important;
 	padding: 64px 0 !important;
 	padding-block: 64px !important;
+	padding-inline: var(--doo-layout-pad) !important;
 	margin: 0 !important;
 	margin-block: 0 !important;
 	width: 100% !important;
 	max-width: none !important;
+	box-sizing: border-box !important;
 
 	.doo-fc-hero__inner {
 		display: flex !important;
 		gap: 48px !important;
 		align-items: center !important;
-		width: 1440px !important;
-		max-width: 100% !important;
+		width: 100% !important;
+		max-width: var(--doo-layout-max) !important;
 		margin: 0 auto !important;
 		padding: 0 !important;
 		padding-block: 0 !important;
+		box-sizing: border-box !important;
 	}
 
 	.doo-fc-hero__left {
@@ -257,7 +260,6 @@
 	.doo-fc-hero .doo-fc-hero__inner {
 		flex-direction: column !important;
 		gap: 32px !important;
-		padding: 0 16px !important;
 	}
 
 	.doo-fc-hero .doo-fc-hero__title {

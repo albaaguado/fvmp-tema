@@ -27,8 +27,12 @@ $space-70: var(--wp--preset--spacing--70);
 $space-80: var(--wp--preset--spacing--80);
 
 // --- Layout ---
-$content-width: 800px;
-$wide-width: 1200px;
+$content-width:  800px;
+$wide-width:     1440px;
+$layout-max:     1440px;   // content never wider than this
+$layout-gutter:  100px;    // target lateral margin on "normal" desktop screens
+$layout-pad-min: 20px;     // minimum padding on small phones
+$layout-break:   1640px;   // 1440 + 2 × 100 — above this, content locks at 1440px
 
 // --- Border Radius ---
 $radius-sm: 4px;

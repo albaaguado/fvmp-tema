@@ -1,0 +1,23 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "doo/profesorado",
+	"version": "1.0.0",
+	"title": "Profesorado",
+	"category": "doo-blocks",
+	"icon": "groups",
+	"description": "Encabezado editable; el grid de docentes viene del CPT Docentes.",
+	"supports": {
+		"html": false,
+		"align": false,
+		"multiple": false
+	},
+	"attributes": {
+		"eyebrow": { "type": "string", "default": "ALGUNOS DE NUESTROS DOCENTES" },
+		"title": { "type": "string", "default": "Experto Profesorado" },
+		"description": { "type": "string", "default": "Desde la <strong>Federación Valenciana de Municipios y Provincias</strong> apostamos por el talento y la experiencia de nuestros profesores y ponentes para ofrecerte la mejor enseñanza." }
+	},
+	"textdomain": "dw-tema",
+	"editorScript": "doo-blocks-editor",
+	"render": "file:./render.php"
+}

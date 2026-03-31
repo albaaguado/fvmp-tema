@@ -1,0 +1,28 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "doo/hero",
+	"version": "1.0.0",
+	"title": "Hero",
+	"category": "doo-blocks",
+	"icon": "cover-image",
+	"description": "Home hero section with inline-editable content.",
+	"supports": {
+		"html": false,
+		"align": [ "full", "wide" ],
+		"multiple": false
+	},
+	"attributes": {
+		"align": { "type": "string", "default": "full" },
+		"eyebrow": { "type": "string", "default": "FEDERACIÓ VALENCIANA DE MUNICIPIS I PROVÍNCIES" },
+		"title": { "type": "string", "default": "Formación de la Federación Valenciana de Municipios y Provincias" },
+		"description": { "type": "string", "default": "Más de 10.000 plazas formativas especializadas cada año para los empleados públicos de la Comunitat Valenciana." },
+		"buttonText": { "type": "string", "default": "Explorar la oferta formativa" },
+		"buttonUrl": { "type": "string", "default": "#" },
+		"imageId": { "type": "number", "default": 0 },
+		"imageUrl": { "type": "string", "default": "" }
+	},
+	"textdomain": "dw-tema",
+	"editorScript": "doo-blocks-editor",
+	"render": "file:./render.php"
+}

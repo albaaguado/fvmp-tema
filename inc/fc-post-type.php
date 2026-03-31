@@ -34,6 +34,7 @@ function doo_register_accion_formativa_cpt() {
 			'public'        => false,
 			'show_ui'       => true,
 			'show_in_menu'  => true,
+			'show_in_rest'  => true,
 			'menu_icon'     => 'dashicons-welcome-learn-more',
 			'menu_position' => 21,
 			'supports'      => array( 'title', 'page-attributes' ),

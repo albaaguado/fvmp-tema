@@ -30,7 +30,23 @@
       "Bash(SOCK=\"C:/Users/Lidia Doowebs/AppData/Roaming/Local/run/1ry6tnwa8/mysql/mysqld.sock\")",
       "Bash(\"$MYSQL\" -u root -proot --socket=\"$SOCK\" local -e \"SELECT ID, post_type, SUBSTRING\\(post_content,1,400\\) as content FROM wp_posts WHERE post_type IN \\(''wp_font_face'',''wp_font_family'',''wp_global_styles''\\);\")",
       "WebFetch(domain:www.figma.com)",
-      "WebFetch(domain:formacion.fvmp.es)"
+      "WebFetch(domain:formacion.fvmp.es)",
+      "Bash(for f:*)",
+      "Bash(do echo:*)",
+      "Read(//c/Users/Lidia Doowebs/Local Sites/fvmp/app/public/wp-content/themes/dw-tema/**)",
+      "Bash(done)",
+      "Bash(BASE=\"C:/Users/Lidia Doowebs/Local Sites/fvmp/app/public/wp-content/themes/dw-tema/src/scss/layout\")",
+      "Bash(mkdir -p \"$BASE/shared\" \"$BASE/inicio\" \"$BASE/fc\")",
+      "Bash(mv \"$BASE/_header.scss\" \"$BASE/shared/\")",
+      "Bash(mv \"$BASE/_footer.scss\" \"$BASE/shared/\")",
+      "Bash(mv \"$BASE/_hero.scss\" \"$BASE/inicio/\")",
+      "mcp__figma__get_design_context",
+      "mcp__figma__get_screenshot",
+      "Bash(netstat -ano)",
+      "Bash(taskkill:*)",
+      "Bash(mkdir -p home fc)",
+      "Bash(mv hero:*)",
+      "Bash(mv fc-hero:*)"
     ]
   }
 }

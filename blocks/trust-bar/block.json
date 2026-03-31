@@ -1,0 +1,14 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "doo/trust-bar",
+	"version": "1.0.0",
+	"title": "Trust Bar",
+	"category": "doo-blocks",
+	"icon": "shield",
+	"description": "Logos bar showing institutional partners.",
+	"supports": { "html": false, "align": false, "multiple": false },
+	"textdomain": "dw-tema",
+	"editorScript": "doo-blocks-editor",
+	"render": "file:./render.php"
+}

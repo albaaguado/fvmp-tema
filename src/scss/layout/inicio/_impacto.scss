@@ -10,10 +10,14 @@
 .doo-impacto {
 	background: #fff;
 	padding: 50px 0 0;
+	padding-inline: var(--doo-layout-pad);
+	box-sizing: border-box;
 
 	&__container {
-		width: 1200px;
-		margin: 0 auto;
+		width: 100%;
+		max-width: var(--doo-layout-max);
+		margin-inline: auto;
+		box-sizing: border-box;
 	}
 
 	&__header {
@@ -103,7 +107,9 @@
 
 .doo-cta {
 	background: $color-navy;
-	padding: 60px 0;
+	padding: 60px var(--doo-layout-pad);
+	margin-inline: calc(-1 * var(--doo-layout-pad));
+	box-sizing: border-box;
 	text-align: center;
 
 	&__eyebrow {
@@ -157,12 +163,7 @@
 // --- Mobile ---
 @include until( $bp-tablet ) {
 	.doo-impacto {
-		padding: 48px 0 0;
-
-		&__container {
-			width: 100%;
-			padding: 0 24px;
-		}
+		padding-block: 48px 0;
 
 		&__title { font-size: 28px; }
 
@@ -179,7 +180,8 @@
 	}
 
 	.doo-cta {
-		padding: 48px 24px;
+		padding: 48px 0;
+		padding-inline: var(--doo-layout-pad);
 
 		&__title {
 			font-size: 26px;
