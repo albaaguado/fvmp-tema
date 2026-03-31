@@ -114,61 +114,65 @@ function animateModalidadesCard( card, delay = 0 ) {
 }
 
 /**
- * Reveal sections/cards on scroll and trigger section-specific animations.
+ * Trigger impact and modalidades animations when each section is visible.
  */
 function initHomeScrollAnimations() {
 	const reduceMotion = window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
-	if ( reduceMotion ) return;
 
-	const sections = document.querySelectorAll(
-		'.wp-block-post-content > [class^="doo-"], .doo-hero-wrap'
-	);
+	const impactoSection = document.querySelector( '.doo-impacto' );
+	const modalidadesSection = document.querySelector( '.doo-modalidades' );
 
-	sections.forEach( ( section ) => {
-		section.classList.add( 'doo-reveal' );
+	if ( impactoSection ) {
+		const impactoObserver = new IntersectionObserver(
+			( entries, observer ) => {
+				entries.forEach( ( entry ) => {
+					if ( ! entry.isIntersecting ) return;
 
-		const staggerCards = section.querySelectorAll(
-			'.doo-stat-card, .doo-modal-card, .doo-testi-card'
-		);
-
-		staggerCards.forEach( ( card, index ) => {
-			card.classList.add( 'doo-reveal' );
-			card.style.setProperty( '--doo-reveal-delay', `${ index * 90 }ms` );
-		} );
-	} );
-
-	const revealTargets = document.querySelectorAll( '.doo-reveal' );
-
-	const revealObserver = new IntersectionObserver(
-		( entries, observer ) => {
-			entries.forEach( ( entry ) => {
-				if ( ! entry.isIntersecting ) return;
-
-				const target = entry.target;
-				target.classList.add( 'is-visible' );
-
-				if ( target.classList.contains( 'doo-impacto' ) ) {
-					target.querySelectorAll( '.doo-stat-card__num' ).forEach( ( el, i ) => {
+					entry.target.querySelectorAll( '.doo-stat-card__num' ).forEach( ( el, i ) => {
+						if ( reduceMotion ) {
+							animateImpactNumber( el, 1 );
+							return;
+						}
 						window.setTimeout( () => animateImpactNumber( el ), i * 110 );
 					} );
-				}
 
-				if ( target.classList.contains( 'doo-modalidades' ) ) {
-					target.querySelectorAll( '.doo-modal-card' ).forEach( ( card, i ) => {
+					observer.unobserve( entry.target );
+				} );
+			},
+			{
+				threshold: 0.25,
+				rootMargin: '0px 0px -10% 0px',
+			}
+		);
+
+		impactoObserver.observe( impactoSection );
+	}
+
+	if ( modalidadesSection ) {
+		const modalidadesObserver = new IntersectionObserver(
+			( entries, observer ) => {
+				entries.forEach( ( entry ) => {
+					if ( ! entry.isIntersecting ) return;
+
+					entry.target.querySelectorAll( '.doo-modal-card' ).forEach( ( card, i ) => {
+						if ( reduceMotion ) {
+							animateModalidadesCard( card, 0 );
+							return;
+						}
 						animateModalidadesCard( card, i * 120 );
 					} );
-				}
 
-				observer.unobserve( target );
-			} );
-		},
-		{
-			threshold: 0.2,
-			rootMargin: '0px 0px -8% 0px',
-		}
-	);
+					observer.unobserve( entry.target );
+				} );
+			},
+			{
+				threshold: 0.25,
+				rootMargin: '0px 0px -10% 0px',
+			}
+		);
 
-	revealTargets.forEach( ( el ) => revealObserver.observe( el ) );
+		modalidadesObserver.observe( modalidadesSection );
+	}
 }
 
 /**
