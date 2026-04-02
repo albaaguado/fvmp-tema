@@ -15,43 +15,23 @@
 
 	<!-- wp:navigation {"className":"doo-header__nav","style":{"typography":{"fontFamily":"var(--wp--preset--font-family--inter)","fontSize":"0.8125rem"}},"textColor":"text-body","layout":{"type":"flex","justifyContent":"left","flexWrap":"nowrap"}} -->
 		<!-- wp:navigation-link {"label":"Inicio","url":"/inicio/","kind":"custom","isTopLevelLink":true} /-->
-		<!-- wp:navigation-link {"label":"Formación Continua","url":"/formacion-continua/","kind":"custom","isTopLevelLink":true} /-->
+		<!-- wp:navigation-link {"label":"FC","url":"/formacion-continua/","kind":"custom","isTopLevelLink":true} /-->
 		<!-- wp:navigation-link {"label":"FAP","url":"/fap/","kind":"custom","isTopLevelLink":true} /-->
 		<!-- wp:navigation-link {"label":"PIM","url":"/pim/","kind":"custom","isTopLevelLink":true} /-->
-		<!-- wp:navigation-link {"label":"Aula Virtual","url":"/aula-virtual/","kind":"custom","isTopLevelLink":true} /-->
+		<!-- wp:html -->
+		<li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content" href="https://aulaformacion.fvmp.es/login/index.php" target="_blank" rel="noopener noreferrer"><span class="wp-block-navigation-item__label">Aula Virtual</span></a></li>
+		<!-- /wp:html -->
 		<!-- wp:navigation-link {"label":"Jornadas","url":"/jornadas/","kind":"custom","isTopLevelLink":true} /-->
 
 		<!-- wp:html -->
 		<div class="doo-header__mobile-ctas">
-			<a class="doo-header__mobile-cta-btn doo-header__mobile-cta-btn--outline" href="/registrarse/">REGISTRARSE</a>
-			<a class="doo-header__mobile-cta-btn" href="/iniciar-sesion/">INICIAR SESIÓN</a>
+			<a class="doo-header__mobile-cta-btn doo-header__mobile-cta-btn--outline" href="/formulario-de-registro/">REGISTRARSE</a>
+			<a class="doo-header__mobile-cta-btn" href="/inicio-sesion/">INICIAR SESIÓN</a>
 		</div>
 		<!-- /wp:html -->
 	<!-- /wp:navigation -->
 
-	<!-- wp:group {"className":"doo-header__actions","layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
-	<div class="wp-block-group doo-header__actions">
-
-		<!-- wp:paragraph {"className":"doo-header__lang","style":{"typography":{"fontFamily":"var(--wp--preset--font-family--inter)","fontSize":"0.75rem"}},"textColor":"text-muted"} -->
-		<p class="doo-header__lang has-text-muted-color has-text-color" style="font-family:var(--wp--preset--font-family--inter);font-size:0.75rem">VAL / CAS</p>
-		<!-- /wp:paragraph -->
-
-		<!-- wp:buttons {"className":"doo-header__buttons","layout":{"type":"flex","justifyContent":"right"}} -->
-		<div class="wp-block-buttons doo-header__buttons">
-
-			<!-- wp:button {"className":"is-style-outline doo-header__btn-register","style":{"typography":{"fontFamily":"var(--wp--preset--font-family--inter)","fontSize":"0.6875rem","fontWeight":"600"},"border":{"radius":"4px","width":"1.5px"}},"textColor":"navy","borderColor":"navy"} -->
-			<div class="wp-block-button is-style-outline doo-header__btn-register"><a class="wp-block-button__link has-navy-color has-text-color has-border-color has-navy-border-color wp-element-button" href="/registrarse/" style="font-family:var(--wp--preset--font-family--inter);border-width:1.5px;border-radius:4px;font-size:0.6875rem;font-weight:600">REGISTRARSE</a></div>
-			<!-- /wp:button -->
-
-			<!-- wp:button {"className":"doo-header__btn-login","style":{"typography":{"fontFamily":"var(--wp--preset--font-family--inter)","fontSize":"0.6875rem","fontWeight":"600"},"border":{"radius":"4px"}},"backgroundColor":"teal","textColor":"white"} -->
-			<div class="wp-block-button doo-header__btn-login"><a class="wp-block-button__link has-white-color has-teal-background-color has-text-color has-background wp-element-button" href="/iniciar-sesion/" style="font-family:var(--wp--preset--font-family--inter);border-radius:4px;font-size:0.6875rem;font-weight:600">INICIAR SESIÓN</a></div>
-			<!-- /wp:button -->
-
-		</div>
-		<!-- /wp:buttons -->
-
-	</div>
-	<!-- /wp:group -->
+	<!-- wp:doo/user-nav /-->
 
 	</div>
 

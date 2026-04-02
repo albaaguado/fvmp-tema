@@ -1,0 +1,16 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "doo/jornada-detail",
+	"title": "Jornada Detail",
+	"category": "doo-blocks",
+	"description": "Bloque de detalle para página individual de Jornada",
+	"textdomain": "dw-tema",
+	"supports": {
+		"html": false,
+		"anchor": true
+	},
+	"attributes": {},
+	"editorScript": "doo-blocks-editor",
+	"render": "file:./render.php"
+}

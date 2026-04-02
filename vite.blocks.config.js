@@ -17,6 +17,7 @@ const wpExternals = {
 	'@wordpress/server-side-render': 'wp.serverSideRender',
 	'@wordpress/i18n': 'wp.i18n',
 	'@wordpress/api-fetch': 'wp.apiFetch',
+	'@wordpress/data': 'wp.data',
 	react: 'React',
 	'react-dom': 'ReactDOM',
 };

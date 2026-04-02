@@ -1,0 +1,380 @@
+// ==========================================================================
+// Registration Page — doo/registro block
+// ==========================================================================
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// --- Local tokens (from Figma — some differ slightly from theme palette) ---
+$reg-label-color:       #152057;   // darker navy used for field labels
+$reg-section-color:     #009e96;   // slightly deeper teal for section headings
+$reg-placeholder:       #b0b9c6;
+$reg-helper-text:       #636e80;
+$reg-border:            #e2e6ee;
+$reg-bg:                #ffffff;
+$reg-page-bg:           #ffffff;
+
+// ===== Page wrapper =====
+.doo-registro {
+	background-color: $reg-page-bg;
+}
+
+// ===== Page title =====
+.doo-registro__page-header {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 40px var(--wp--preset--spacing--40) 32px;
+	background: $reg-page-bg;
+}
+
+.doo-registro__title {
+	font-family: $font-inter;
+	font-size: clamp(1.5rem, 3vw, 2.25rem);
+	font-weight: 700;
+	color: $reg-label-color;
+	margin: 0;
+	line-height: 1.2;
+}
+
+// ===== Body (card wrapper) =====
+.doo-registro__body {
+	padding: 0 var(--wp--preset--spacing--60) var(--wp--preset--spacing--70);
+
+	@include until( $bp-desktop ) {
+		padding-inline: var(--wp--preset--spacing--40);
+	}
+
+	@include until( $bp-tablet ) {
+		padding-inline: var(--wp--preset--spacing--30);
+	}
+}
+
+// ===== Form card =====
+.doo-registro__card {
+	background: $reg-bg;
+	border: 1px solid $reg-border;
+	border-radius: 12px;
+	padding: 40px 48px;
+	display: flex;
+	flex-direction: column;
+	gap: 32px;
+	max-width: 1300px;
+	margin-inline: auto;
+
+	@include until( $bp-tablet ) {
+		padding: 24px 20px;
+	}
+}
+
+// ===== Section =====
+.doo-registro__section {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.doo-registro__section-title {
+	font-family: $font-inter;
+	font-size: 1rem;
+	font-weight: 700;
+	color: $reg-section-color;
+	letter-spacing: 0.03em;
+	margin: 0;
+}
+
+.doo-registro__section-bar {
+	width: 40px;
+	height: 3px;
+	background-color: $reg-section-color;
+	border-radius: 2px;
+	margin-top: -8px;   // tight under the title
+}
+
+// ===== Fields grid =====
+.doo-registro__fields {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.doo-registro__row {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 16px;
+
+	@include until( $bp-tablet ) {
+		grid-template-columns: 1fr;
+	}
+}
+
+.doo-registro__field {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+
+	&--full {
+		grid-column: 1 / -1;
+	}
+}
+
+// ===== Label =====
+.doo-registro__label {
+	font-family: $font-inter;
+	font-size: 0.875rem;
+	font-weight: 600;
+	color: $reg-label-color;
+	display: block;
+}
+
+.doo-registro__required {
+	color: $reg-section-color;
+}
+
+// ===== Input / Select =====
+.doo-registro__input {
+	font-family: $font-inter;
+	font-size: 0.875rem;
+	font-weight: 400;
+	color: $color-text-body;
+	background: $reg-bg;
+	border: 1px solid $reg-border;
+	border-radius: 8px;
+	height: 48px;
+	padding: 0 16px;
+	width: 100%;
+	box-sizing: border-box;
+	outline: none;
+	@include transition( border-color, 0.15s );
+
+	&::placeholder {
+		color: $reg-placeholder;
+	}
+
+	&:focus {
+		border-color: $reg-section-color;
+		box-shadow: 0 0 0 3px rgba( 0, 158, 150, 0.12 );
+	}
+
+	// Select variant
+	&--select {
+		appearance: none;
+		-webkit-appearance: none;
+		cursor: pointer;
+		padding-right: 36px;
+		color: $reg-placeholder;
+
+		&:not([value=""]):valid {
+			color: $color-text-body;
+		}
+	}
+}
+
+// ===== Select wrapper (chevron icon) =====
+.doo-registro__select-wrap {
+	position: relative;
+
+	&::after {
+		content: '';
+		position: absolute;
+		right: 14px;
+		top: 50%;
+		transform: translateY( -50% );
+		width: 16px;
+		height: 16px;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23636e80' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+		background-repeat: no-repeat;
+		background-size: contain;
+		pointer-events: none;
+	}
+}
+
+// ===== Fieldset (sexo) =====
+.doo-registro__fieldset {
+	border: none;
+	padding: 0;
+	margin: 0;
+	min-width: 0;
+}
+
+.doo-registro__radio-group {
+	display: flex;
+	align-items: center;
+	gap: 24px;
+	height: 48px;
+}
+
+.doo-registro__radio-label {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-family: $font-inter;
+	font-size: 0.875rem;
+	font-weight: 400;
+	color: $reg-helper-text;
+	cursor: pointer;
+}
+
+.doo-registro__radio {
+	@include sr-only;
+
+	&:checked + .doo-registro__radio-dot {
+		border-color: $reg-section-color;
+		background: $reg-section-color;
+		box-shadow: inset 0 0 0 3px $reg-bg;
+	}
+
+	&:focus-visible + .doo-registro__radio-dot {
+		outline: 2px solid $reg-section-color;
+		outline-offset: 2px;
+	}
+}
+
+.doo-registro__radio-dot {
+	display: inline-flex;
+	width: 18px;
+	height: 18px;
+	border: 1.5px solid $reg-border;
+	border-radius: 50%;
+	flex-shrink: 0;
+	background: $reg-bg;
+	@include transition( border-color, 0.15s );
+}
+
+// ===== Divider =====
+.doo-registro__divider {
+	border: none;
+	border-top: 1px solid $reg-border;
+	margin: 0;
+}
+
+// ===== Privacy section =====
+.doo-registro__privacy {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.doo-registro__privacy-link {
+	font-family: $font-inter;
+	font-size: 0.875rem;
+	font-weight: 600;
+	color: $reg-section-color;
+	text-decoration: none;
+
+	&:hover,
+	&:focus {
+		text-decoration: underline;
+	}
+}
+
+.doo-registro__check-label {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-family: $font-inter;
+	font-size: 0.875rem;
+	font-weight: 400;
+	color: $reg-helper-text;
+	line-height: 1.5;
+	cursor: pointer;
+}
+
+.doo-registro__checkbox {
+	@include sr-only;
+
+	&:checked + .doo-registro__check-box {
+		background: $reg-section-color;
+		border-color: $reg-section-color;
+
+		&::after {
+			opacity: 1;
+		}
+	}
+
+	&:focus-visible + .doo-registro__check-box {
+		outline: 2px solid $reg-section-color;
+		outline-offset: 2px;
+	}
+}
+
+.doo-registro__check-box {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 18px;
+	height: 18px;
+	min-width: 18px;
+	border: 1.5px solid #c8cdd6;
+	border-radius: 4px;
+	background: $reg-bg;
+	@include transition( background, 0.15s );
+	position: relative;
+
+	&::after {
+		content: '';
+		display: block;
+		width: 10px;
+		height: 6px;
+		border-left: 2px solid $reg-bg;
+		border-bottom: 2px solid $reg-bg;
+		transform: rotate( -45deg ) translateY( -2px );
+		opacity: 0;
+		@include transition( opacity, 0.1s );
+	}
+}
+
+// ===== Actions row =====
+.doo-registro__actions {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 16px;
+}
+
+.doo-registro__submit {
+	font-family: $font-inter;
+	font-size: 1rem;
+	font-weight: 700;
+	color: $color-white;
+	background-color: $reg-section-color;
+	border: none;
+	border-radius: 8px;
+	padding: 14px 48px;
+	cursor: pointer;
+	@include transition( background-color, 0.15s );
+
+	&:hover,
+	&:focus {
+		background-color: $color-navy;
+	}
+
+	&:focus-visible {
+		outline: 2px solid $reg-section-color;
+		outline-offset: 2px;
+	}
+}
+
+.doo-registro__login-row {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-family: $font-inter;
+	font-size: 0.875rem;
+}
+
+.doo-registro__login-text {
+	color: $reg-helper-text;
+	font-weight: 400;
+}
+
+.doo-registro__login-link {
+	color: $reg-section-color;
+	font-weight: 700;
+	text-decoration: none;
+
+	&:hover,
+	&:focus {
+		text-decoration: underline;
+	}
+}

@@ -375,7 +375,7 @@ function initStickyHeader() {
  * Client-side filtering for the Formación Continua course list.
  *
  * Reads checked checkboxes from the sidebar (data-fc-sidebar),
- * hides/shows course cards (data-fc-list .doo-fc-card) by matching
+ * hides/shows course cards (data-fc-list .doo-af-card) by matching
  * data-area and data-modality attributes, and updates the visible count.
  */
 function initFcFilters() {
@@ -385,7 +385,7 @@ function initFcFilters() {
 
 	if ( ! sidebar || ! list ) return;
 
-	const cards = Array.from( list.querySelectorAll( '.doo-fc-card' ) );
+	const cards = Array.from( list.querySelectorAll( '.doo-af-card' ) );
 
 	function applyFilters() {
 		const checkedAreas = Array.from(
