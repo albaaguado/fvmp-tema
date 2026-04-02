@@ -1,0 +1,560 @@
+// ==========================================================================
+// FC — Detalle de Curso
+// Color theming via CSS custom properties set inline from block attributes.
+// ==========================================================================
+@use '../../abstracts/variables' as *;
+@use '../../abstracts/mixins' as *;
+
+// Default tokens (overridden per-block via inline style)
+.doo-af-curso {
+	--fc-accent:      #009e96;
+	--fc-accent-bg:   #e0f5f4;
+	--fc-navy:        #1e3a5f;
+	--fc-border:      #0d9488;
+	--fc-obj-bg:      #F0FBFA;
+	--fc-char-bg:     transparent;
+	--fc-pill-bg:     #e0f5f4;
+	--fc-pill-color:  #009e96;
+
+	font-family: $font-inter;
+}
+
+// ── Hero ──────────────────────────────────────────────────────────────────────
+.doo-af-curso__hero {
+	background:     #f5f7fa;
+	border-bottom:  1px solid #e2e6ee;
+	width:          100%;
+	max-width:      none !important;
+	padding-inline: var(--doo-layout-pad);
+	box-sizing:     border-box;
+}
+
+.doo-af-curso__hero-inner {
+	display:        flex;
+	flex-direction: column;
+	gap:            20px;
+	max-width:      calc( var(--doo-layout-max) - 320px - 40px );
+	padding-block:  32px 40px;
+}
+
+// Breadcrumb
+.doo-af-curso__breadcrumb {
+	display:     flex;
+	align-items: center;
+	flex-wrap:   wrap;
+	gap:         8px;
+	font-size:   13px;
+	font-family: $font-inter;
+}
+
+.doo-af-curso__breadcrumb-link {
+	color:           var(--fc-accent);
+	text-decoration: none;
+
+	&:hover { text-decoration: underline; }
+}
+
+.doo-af-curso__breadcrumb-sep  { color: #b0b9c6; }
+.doo-af-curso__breadcrumb-current { color: #636e80; }
+
+// Title
+.doo-af-curso__title {
+	font-size:   clamp( 1.5rem, 2.5vw, 2.125rem );
+	font-weight: 700;
+	color:       $color-navy;
+	line-height: 1.2;
+	margin:      0;
+}
+
+// Meta pills row
+.doo-af-curso__meta {
+	display:   flex;
+	flex-wrap: wrap;
+	gap:       12px;
+}
+
+.doo-af-curso__pill {
+	display:      flex;
+	align-items:  center;
+	gap:          6px;
+	background:   var(--fc-pill-bg);
+	padding:      5px 12px;
+	border-radius: 20px;
+	font-size:    12px;
+	font-weight:  600;
+	color:        var(--fc-pill-color);
+
+	svg { flex-shrink: 0; }
+}
+
+// ── Body layout ───────────────────────────────────────────────────────────────
+.doo-af-curso__body {
+	background:     #fff;
+	width:          100%;
+	max-width:      none !important;
+	padding-inline: var(--doo-layout-pad);
+	box-sizing:     border-box;
+}
+
+.doo-af-curso__body-inner {
+	display:               grid;
+	grid-template-columns: 1fr 320px;
+	gap:                   40px;
+	max-width:             var(--doo-layout-max);
+	margin:                0 auto;
+	padding-block:         48px;
+	align-items:           start;
+}
+
+.doo-af-curso__main {
+	display:        flex;
+	flex-direction: column;
+	gap:            48px;
+	min-width:      0; // prevent grid blowout
+}
+
+// ── Section shared ────────────────────────────────────────────────────────────
+.doo-af-curso__section-title {
+	font-size:      18px;
+	font-weight:    700;
+	color:          $color-navy;
+	letter-spacing: 1.5px;
+	margin:         0;
+}
+
+.doo-af-curso__section-bar {
+	width:         36px;
+	height:        3px;
+	background:    var(--fc-accent);
+	border-radius: 2px;
+	margin-top:    8px;
+}
+
+// ── Objetivos ─────────────────────────────────────────────────────────────────
+.doo-af-curso__section--objetivos {
+	background:     var(--fc-obj-bg);
+	border-radius:  10px;
+	padding:        24px;
+	display:        flex;
+	flex-direction: column;
+	gap:            10px;
+}
+
+.doo-af-curso__section-intro {
+	font-size:   14px;
+	color:       #4b5563;
+	line-height: 1.5;
+	margin:      0;
+}
+
+.doo-af-curso__objectives-grid {
+	display:               grid;
+	grid-template-columns: repeat( 2, 1fr );
+	gap:                   12px;
+	margin-top:            4px;
+}
+
+.doo-af-curso__obj-card {
+	display:       flex;
+	gap:           12px;
+	align-items:   center;
+	background:    #fff;
+	border-left:   4px solid var(--fc-border);
+	border-radius: 8px;
+	padding:       16px;
+
+	p {
+		font-size:   13px;
+		color:       #6b7280;
+		line-height: 1.5;
+		margin:      0;
+	}
+}
+
+.doo-af-curso__obj-badge {
+	display:         inline-flex;
+	align-items:     center;
+	justify-content: center;
+	flex-shrink:     0;
+	width:           28px;
+	height:          28px;
+	border-radius:   50%;
+	background:      var(--fc-navy);
+	color:           #fff;
+	font-size:       12px;
+	font-weight:     700;
+	line-height:     1;
+}
+
+// ── Contenido ─────────────────────────────────────────────────────────────────
+.doo-af-curso__section--contenido {
+	display:        flex;
+	flex-direction: column;
+	gap:            10px;
+}
+
+.doo-af-curso__topics {
+	display:        flex;
+	flex-direction: column;
+	gap:            24px;
+	margin-top:     8px;
+}
+
+.doo-af-curso__topic {
+	background:    #fff;
+	border:        1px solid #e8edf3;
+	border-left:   4px solid var(--fc-border);
+	border-radius: 10px;
+	padding:       20px;
+	display:       flex;
+	flex-direction: column;
+	gap:           12px;
+}
+
+.doo-af-curso__topic-header {
+	display:     flex;
+	align-items: center;
+	gap:         12px;
+}
+
+.doo-af-curso__topic-badge {
+	display:         inline-flex;
+	align-items:     center;
+	justify-content: center;
+	flex-shrink:     0;
+	width:           32px;
+	height:          32px;
+	border-radius:   50%;
+	background:      var(--fc-navy);
+	color:           #fff;
+	font-size:       14px;
+	font-weight:     700;
+	line-height:     1;
+}
+
+.doo-af-curso__topic-title {
+	font-size:   15px;
+	font-weight: 700;
+	color:       var(--fc-navy);
+	margin:      0;
+	line-height: 1.3;
+}
+
+.doo-af-curso__topic-content {
+	p {
+		font-size:   13px;
+		color:       #6b7280;
+		line-height: 1.7;
+		margin:      0;
+	}
+}
+
+.doo-af-curso__topic-subheading {
+	font-size:      13px !important;
+	font-weight:    700 !important;
+	color:          var(--fc-accent) !important;
+	letter-spacing: 0.3px;
+	margin-top:     12px !important;
+	margin-bottom:  2px !important;
+}
+
+// ── Sidebar ───────────────────────────────────────────────────────────────────
+.doo-af-curso__sidebar {
+	display:        flex;
+	flex-direction: column;
+	gap:            24px;
+	position:       sticky;
+	top:            calc( 88px + 24px );
+
+	.admin-bar & { top: calc( 88px + 24px + 32px ); }
+
+	@media screen and ( max-width: 782px ) {
+		.admin-bar & { top: calc( 88px + 24px + 46px ); }
+	}
+}
+
+.doo-af-curso__sidebar-card {
+	background:     #fff;
+	border:         1px solid #f0f0f0;
+	border-radius:  8px;
+	box-shadow:     0 4px 12px rgba( 0, 0, 0, 0.08 );
+	overflow:       hidden;
+	display:        flex;
+	flex-direction: column;
+}
+
+// Destinatarios — su propio card con borde, dentro del sidebar-card
+.doo-af-curso__dest {
+	margin:        16px 16px 0;
+	border:        1px solid #e2e6ee;
+	border-radius: 8px;
+	overflow:      hidden;
+	background:    #fff;
+}
+
+.doo-af-curso__dest-header {
+	background: #eaecef;
+	padding:    14px 20px;
+
+	strong {
+		font-size:   14px;
+		font-weight: 700;
+		color:       #1c2541;
+	}
+}
+
+.doo-af-curso__dest-line {
+	height:     3px;
+	background: #f0a500;
+	width:      100%;
+}
+
+.doo-af-curso__dest-body {
+	padding: 16px 20px;
+
+	p {
+		font-size:   14px;
+		color:       #636e80;
+		margin:      0;
+		line-height: 1.5;
+	}
+}
+
+// Info cards (horario / fecha) — match Figma: column layout, separate bordered card
+.doo-af-curso__info-card {
+	background:     #f5f7fa;
+	border:         1px solid #e2e6ee;
+	border-radius:  10px;
+	margin:         0 16px;
+	padding:        20px;
+	display:        flex;
+	flex-direction: column;
+	gap:            10px;
+
+	& + & { margin-top: 8px; }
+}
+
+.doo-af-curso__info-card-header {
+	display:     flex;
+	align-items: center;
+	gap:         8px;
+}
+
+.doo-af-curso__info-card-icon {
+	flex-shrink: 0;
+	color:       var(--fc-accent);
+	display:     flex;
+}
+
+.doo-af-curso__info-card-label {
+	font-size:      13px;
+	font-weight:    700;
+	color:          $color-navy;
+	letter-spacing: 0.5px;
+	margin:         0;
+}
+
+.doo-af-curso__info-card-value {
+	font-size:   14px;
+	color:       #636e80;
+	line-height: 1.5;
+	margin:      0;
+}
+
+// Inscríbete button
+.doo-af-curso__inscribirse-btn {
+	display:         flex;
+	align-items:     center;
+	justify-content: center;
+	background:      #009e96;
+	color:           #fff;
+	font-family:     $font-inter;
+	font-size:       16px;
+	font-weight:     700;
+	text-decoration: none;
+	padding:         16px 20px;
+	margin:          16px;
+	border-radius:   8px;
+	text-align:      center;
+	@include transition( background-color );
+
+	&:hover {
+		background: #007a77; // manual darken of #009e96
+		color:      #fff;
+	}
+}
+
+// Listado card
+.doo-af-curso__listado-card {
+	background:     #fff;
+	border:         1px solid #e2e6ee;
+	border-radius:  8px;
+	box-shadow:     0 4px 12px rgba( 0, 0, 0, 0.08 );
+	padding:        28px 24px;
+	display:        flex;
+	flex-direction: column;
+	align-items:    center;
+	gap:            16px;
+
+	> p {
+		font-size:   15px;
+		color:       $color-navy;
+		text-align:  center;
+		line-height: 1.35;
+		margin:      0;
+	}
+}
+
+.doo-af-curso__listado-btn {
+	display:         flex;
+	align-items:     center;
+	justify-content: center;
+	gap:             8px;
+	background:      #666;
+	color:           #fff;
+	font-family:     $font-inter;
+	font-size:       14px;
+	font-weight:     600;
+	text-decoration: none;
+	padding:         12px 16px;
+	border-radius:   6px;
+	width:           100%;
+	@include transition( background-color );
+
+	&:hover { background: $color-navy; }
+}
+
+// ── Editor styles (Gutenberg canvas) ─────────────────────────────────────────
+.doo-af-editor {
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+	display:        flex;
+	flex-direction: column;
+	gap:            16px;
+	padding:        4px 0;
+}
+
+.doo-af-editor__grid {
+	display:               grid;
+	grid-template-columns: 1fr 1fr;
+	gap:                   16px;
+}
+
+.doo-af-editor__card {
+	background:    #f9fafb;
+	border:        1px solid #e5e7eb;
+	border-radius: 6px;
+	padding:       16px;
+	display:       flex;
+	flex-direction: column;
+	gap:           10px;
+
+	&--full {
+		grid-column: 1 / -1;
+	}
+}
+
+.doo-af-editor__card-title {
+	font-size:   13px;
+	font-weight: 600;
+	color:       #1e1e1e;
+	margin:      0 0 2px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+
+.doo-af-editor__label {
+	font-size:   12px;
+	font-weight: 600;
+	color:       #3c434a;
+	display:     block;
+	margin-bottom: -4px;
+}
+
+.doo-af-editor__hint {
+	font-size:     12px;
+	color:         #6b7280;
+	line-height:   1.4;
+	background:    #fff3cd;
+	border-radius: 4px;
+	padding:       8px 10px;
+}
+
+.doo-af-editor__obj-list {
+	display:        flex;
+	flex-direction: column;
+	gap:            4px;
+}
+
+.doo-af-editor__obj-row {
+	display:     flex !important;
+	align-items: center !important;
+	gap:         6px !important;
+	margin:      0 !important;
+
+	.components-base-control { flex: 1; margin: 0 !important; }
+}
+
+.doo-af-editor__topics {
+	display:        flex;
+	flex-direction: column;
+	gap:            10px;
+}
+
+.doo-af-editor__topic {
+	background:    #fff;
+	border:        1px solid #e2e8f0;
+	border-left:   3px solid #009e96;
+	border-radius: 4px;
+	padding:       12px;
+	display:       flex;
+	flex-direction: column;
+	gap:           8px;
+}
+
+.doo-af-editor__topic-header {
+	display:     flex;
+	align-items: center;
+	gap:         8px;
+
+	.components-base-control { flex: 1; margin: 0 !important; }
+}
+
+.doo-af-editor__topic-num {
+	display:         inline-flex;
+	align-items:     center;
+	justify-content: center;
+	flex-shrink:     0;
+	width:           24px;
+	height:          24px;
+	border-radius:   50%;
+	background:      #1e3a5f;
+	color:           #fff;
+	font-size:       12px;
+	font-weight:     700;
+}
+
+.doo-af-editor__add-btn {
+	align-self: flex-start !important;
+	margin-top: 4px !important;
+}
+
+// ── Responsive ────────────────────────────────────────────────────────────────
+@include until( $bp-desktop ) {
+	.doo-af-curso__body-inner {
+		grid-template-columns: 1fr;
+	}
+
+	.doo-af-curso__sidebar {
+		position: static;
+	}
+
+	.doo-af-curso__objectives-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+@include until( $bp-tablet ) {
+	.doo-af-curso__title {
+		font-size: 1.5rem;
+	}
+}

@@ -1,0 +1,53 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "doo/jornadas-hero",
+	"title": "Jornadas Hero",
+	"category": "doo-blocks",
+	"description": "Bloque hero para la sección de Jornadas con estadísticas",
+	"textdomain": "dw-tema",
+	"supports": {
+		"html": false,
+		"anchor": true
+	},
+	"attributes": {
+		"label": {
+			"type": "string",
+			"default": "OFERTA FORMATIVA"
+		},
+		"title": {
+			"type": "string",
+			"default": "Jornadas"
+		},
+		"description": {
+			"type": "string",
+			"default": "La FVMP organiza cada año jornadas sobre temas de gran relevancia para los ayuntamientos valencianos, incluyendo financiación local, transparencia y urbanismo."
+		},
+		"stat1Value": {
+			"type": "string",
+			"default": "10+"
+		},
+		"stat1Label": {
+			"type": "string",
+			"default": "jornadas realizadas"
+		},
+		"stat2Value": {
+			"type": "string",
+			"default": "3.000+"
+		},
+		"stat2Label": {
+			"type": "string",
+			"default": "asistentes totales"
+		},
+		"stat3Value": {
+			"type": "string",
+			"default": "2025"
+		},
+		"stat3Label": {
+			"type": "string",
+			"default": "año en curso"
+		}
+	},
+	"editorScript": "doo-blocks-editor",
+	"render": "file:./render.php"
+}

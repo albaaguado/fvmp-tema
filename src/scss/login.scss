@@ -1,0 +1,257 @@
+// ==========================================================================
+// FVMP — Login / Register Page Styles (wp-login.php)
+// wp-login.php no carga theme.json — usamos valores directos
+// ==========================================================================
+
+// --- Tokens (hardcoded, no dependen de --wp--preset--*) ---
+$color-navy:       #1A2B4A;
+$color-teal:       #00A9A5;
+$color-red-cta:    #8B1F1F;
+$color-bg-light:   #F0F0F0;
+$color-bg-med:     #F7F8FA;
+$color-white:      #FFFFFF;
+$color-text-body:  #333333;
+$color-text-muted: #666666;
+$color-border:     #D1D5DB;
+$font-inter:       'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+$radius-sm:        4px;
+$radius-md:        8px;
+
+// --- Body ---
+body.login {
+	background-color: $color-bg-med;
+	font-family: $font-inter;
+	color: $color-text-body;
+}
+
+// --- Contenedor central ---
+#login {
+	width: 100%;
+	max-width: 400px;
+	padding: 0 20px;
+	box-sizing: border-box;
+
+	// Logo / título del sitio
+	h1 a {
+		background-image: none !important;
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-position: center;
+		width: auto;
+		height: auto;
+		display: block;
+		font-family: $font-inter;
+		font-size: 1.25rem;
+		font-weight: 700;
+		color: $color-navy;
+		text-decoration: none;
+		text-align: center;
+		padding: 0;
+		margin-bottom: 1.5rem;
+
+		&:hover,
+		&:focus {
+			color: $color-teal;
+			box-shadow: none;
+		}
+	}
+}
+
+// --- Card del formulario ---
+#loginform,
+#registerform,
+#lostpasswordform {
+	background: $color-white;
+	border: 1px solid $color-border;
+	border-radius: $radius-md;
+	padding: 2rem;
+	box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+	margin-bottom: 1.25rem;
+
+	// Etiquetas
+	label {
+		font-family: $font-inter;
+		font-size: 0.8125rem;
+		font-weight: 600;
+		color: $color-navy;
+		display: block;
+		margin-bottom: 0.35rem;
+	}
+
+	// Campos de texto
+	.input,
+	input[type="text"],
+	input[type="email"],
+	input[type="password"] {
+		font-family: $font-inter;
+		font-size: 0.9375rem;
+		color: $color-text-body;
+		background: $color-bg-med;
+		border: 1.5px solid $color-border;
+		border-radius: $radius-sm;
+		padding: 0.625rem 0.75rem;
+		width: 100%;
+		box-sizing: border-box;
+		transition: border-color 0.15s ease, box-shadow 0.15s ease;
+		outline: none;
+
+		&:focus {
+			border-color: $color-teal;
+			box-shadow: 0 0 0 3px rgba(0, 169, 165, 0.15);
+			background: $color-white;
+		}
+	}
+
+	// Cada campo
+	p {
+		margin-bottom: 1rem;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	// Toggle de contraseña
+	.wp-pwd {
+		position: relative;
+
+		.wp-hide-pw {
+			color: $color-text-muted;
+
+			&:hover {
+				color: $color-navy;
+			}
+		}
+	}
+
+	// Botón enviar
+	.button-primary,
+	#wp-submit {
+		font-family: $font-inter;
+		font-size: 0.875rem;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: $color-white;
+		background-color: $color-red-cta;
+		border: none;
+		border-radius: $radius-sm;
+		padding: 0.65rem 1.5rem;
+		width: 100%;
+		cursor: pointer;
+		transition: background-color 0.15s ease;
+
+		&:hover,
+		&:focus {
+			background-color: $color-navy;
+			color: $color-white;
+			box-shadow: none;
+			outline: 2px solid transparent;
+			outline-offset: 2px;
+		}
+
+		&:focus-visible {
+			outline: 2px solid $color-teal;
+			outline-offset: 2px;
+		}
+	}
+
+	// Checkbox "recordarme"
+	.forgetmenot {
+		display: flex;
+		align-items: center;
+		gap: 0.4rem;
+		margin-bottom: 1rem;
+
+		label {
+			font-weight: 400;
+			color: $color-text-muted;
+			margin-bottom: 0;
+		}
+	}
+}
+
+// --- Mensajes de información ---
+.message,
+#login_error,
+.success {
+	font-family: $font-inter;
+	font-size: 0.875rem;
+	border-radius: $radius-sm;
+	padding: 0.75rem 1rem;
+	margin-bottom: 1.25rem;
+	border-left-width: 4px;
+	border-left-style: solid;
+}
+
+.message {
+	background: rgba(0, 169, 165, 0.08);
+	border-left-color: $color-teal;
+	color: $color-text-body;
+}
+
+#login_error {
+	background: rgba(139, 31, 31, 0.07);
+	border-left-color: $color-red-cta;
+	color: $color-red-cta;
+}
+
+.success {
+	background: rgba(0, 169, 165, 0.08);
+	border-left-color: $color-teal;
+	color: $color-text-body;
+}
+
+// --- Nota sobre contraseña (registro) ---
+#reg_passmail {
+	font-family: $font-inter;
+	font-size: 0.8125rem;
+	color: $color-text-muted;
+	line-height: 1.5;
+	margin-bottom: 1rem;
+}
+
+// --- Links de navegación inferiores ---
+#nav,
+#backtoblog {
+	font-family: $font-inter;
+	font-size: 0.8125rem;
+	text-align: center;
+	padding: 0.5rem 0;
+
+	a {
+		color: $color-text-muted;
+		text-decoration: none;
+		transition: color 0.15s ease;
+
+		&:hover,
+		&:focus {
+			color: $color-navy;
+			text-decoration: underline;
+		}
+	}
+}
+
+#backtoblog {
+	margin-top: 0.25rem;
+
+	a {
+		color: $color-teal;
+
+		&:hover,
+		&:focus {
+			color: $color-navy;
+		}
+	}
+}
+
+// --- Separador en #nav ---
+#nav a + a::before {
+	content: ' | ';
+	color: $color-border;
+}
+
+// --- Indicador de fortaleza de contraseña ---
+.pw-weak   { color: $color-red-cta; }
+.pw-medium { color: $color-teal; }
+.pw-strong { color: #007a77; } // $color-teal darkened 8%

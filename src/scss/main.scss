@@ -28,7 +28,12 @@
 @use 'layout/inicio/transparencia';
 @use 'layout/inicio/planes';
 @use 'layout/fc/fc-hero';
-@use 'layout/fc/fc-courses';
+@use 'layout/af/af-hero';
+@use 'layout/fc/af-courses';
+@use 'layout/fc/af-curso';
+@use 'layout/jornadas/hero' as jornadas-hero;
+@use 'layout/jornadas/listing' as jornadas-listing;
+@use 'layout/jornadas/detail' as jornadas-detail;
 
 // --- Components (reusable UI pieces) ---
 @use 'components/buttons';
@@ -36,6 +41,8 @@
 
 // --- Pages (page-specific overrides) ---
 @use 'pages/home';
+@use 'pages/registro';
+@use 'pages/login-page';
 
 // --- Vendors (third-party) ---
 // @use 'vendors/lucide';
