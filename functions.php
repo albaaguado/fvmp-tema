@@ -20,6 +20,9 @@ require_once DOO_THEME_DIR . '/inc/block-defaults.php';
 require_once DOO_THEME_DIR . '/inc/doo-docente-cpt.php';
 require_once DOO_THEME_DIR . '/inc/doo-testimonio-cpt.php';
 require_once DOO_THEME_DIR . '/inc/fc-post-type.php';
+require_once DOO_THEME_DIR . '/inc/fap-post-type.php';
+require_once DOO_THEME_DIR . '/inc/pim-post-type.php';
+require_once DOO_THEME_DIR . '/inc/jornadas-post-type.php';
 require_once DOO_THEME_DIR . '/inc/doo-migrate-blocks.php';
 
 /**
@@ -142,6 +145,38 @@ function doo_enqueue_assets() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'doo_enqueue_assets' );
+
+/**
+ * Enqueue custom styles on wp-login.php (login, register, lost password).
+ *
+ * @return void
+ */
+function doo_enqueue_login_styles() {
+
+	// --- Development mode: Vite dev server ---
+	if ( doo_is_vite_dev() ) {
+		wp_enqueue_style(
+			'doo-login-style',
+			'http://localhost:5173/src/scss/login.scss',
+			array(),
+			null
+		);
+		return;
+	}
+
+	// --- Production mode: compiled asset ---
+	$manifest = doo_get_vite_manifest();
+
+	if ( isset( $manifest['src/scss/login.scss']['file'] ) ) {
+		wp_enqueue_style(
+			'doo-login-style',
+			DOO_THEME_URI . '/dist/' . $manifest['src/scss/login.scss']['file'],
+			array(),
+			null
+		);
+	}
+}
+add_action( 'login_enqueue_scripts', 'doo_enqueue_login_styles' );
 
 /**
  * Add type="module" on Vite scripts.
@@ -292,3 +327,22 @@ function doo_register_block_category( $categories, $context ) {
 	);
 }
 add_filter( 'block_categories_all', 'doo_register_block_category', 10, 2 );
+
+// ==========================================================================
+// Login Form — Label customisation
+// ==========================================================================
+
+/**
+ * Translate wp_login_form() labels to match the FVMP design.
+ *
+ * @param array $defaults Default login form arguments.
+ * @return array Modified defaults.
+ */
+function doo_login_form_labels( $defaults ) {
+	$defaults['label_username'] = __( 'Correo electrónico', 'dw-tema' );
+	$defaults['label_password'] = __( 'Contraseña', 'dw-tema' );
+	$defaults['label_log_in']   = __( 'Iniciar sesión', 'dw-tema' );
+	$defaults['label_remember'] = __( 'Recuérdame', 'dw-tema' );
+	return $defaults;
+}
+add_filter( 'login_form_defaults', 'doo_login_form_labels' );

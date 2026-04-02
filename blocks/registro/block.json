@@ -1,0 +1,36 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "doo/registro",
+	"version": "1.0.0",
+	"title": "Formulario de Registro",
+	"category": "doo-blocks",
+	"icon": "welcome-write-blog",
+	"description": "Registration form page with personal and work data sections.",
+	"supports": {
+		"html": false,
+		"align": false,
+		"multiple": false
+	},
+	"attributes": {
+		"sectionPersonalTitle": {
+			"type": "string",
+			"default": "Datos personales"
+		},
+		"sectionLaboralTitle": {
+			"type": "string",
+			"default": "Datos laborales"
+		},
+		"fieldsPersonal": {
+			"type": "array",
+			"default": []
+		},
+		"fieldsLaboral": {
+			"type": "array",
+			"default": []
+		}
+	},
+	"textdomain": "dw-tema",
+	"editorScript": "doo-blocks-editor",
+	"render": "file:./render.php"
+}

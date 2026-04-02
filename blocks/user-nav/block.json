@@ -1,0 +1,14 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "doo/user-nav",
+	"version": "1.0.0",
+	"title": "User Nav",
+	"category": "doo-blocks",
+	"icon": "admin-users",
+	"description": "Header right-side actions: login/register buttons when logged out, user links when logged in.",
+	"supports": { "html": false, "align": false, "multiple": false },
+	"textdomain": "dw-tema",
+	"editorScript": "doo-blocks-editor",
+	"render": "file:./render.php"
+}

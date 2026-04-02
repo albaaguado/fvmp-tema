@@ -1,0 +1,469 @@
+@use '../../abstracts/variables' as *;
+@use '../../abstracts/mixins' as *;
+
+// ==========================================================================
+// AF Hero — Base styles (used by FC, FAP, PIM)
+// WordPress 6.x uses CSS logical properties — we reset both physical + logical.
+// ==========================================================================
+
+.doo-af-hero {
+	background: #f7f8fa !important;
+	padding: 64px 0 !important;
+	padding-block: 64px !important;
+	padding-inline: var(--doo-layout-pad) !important;
+	margin: 0 !important;
+	margin-block: 0 !important;
+	width: 100% !important;
+	max-width: none !important;
+	box-sizing: border-box !important;
+
+	.doo-af-hero__inner {
+		display: flex !important;
+		gap: 48px !important;
+		align-items: center !important;
+		width: 100% !important;
+		max-width: var(--doo-layout-max) !important;
+		margin: 0 auto !important;
+		padding: 0 !important;
+		padding-block: 0 !important;
+		box-sizing: border-box !important;
+	}
+
+	.doo-af-hero__left {
+		flex: 1 !important;
+		min-width: 0 !important;
+	}
+
+	.doo-af-hero__eyebrow {
+		font-size: 12px !important;
+		font-weight: 600 !important;
+		letter-spacing: 0 !important;
+		margin: 0 0 8px !important;
+		margin-block: 0 8px !important;
+		padding: 0 !important;
+		padding-block: 0 !important;
+	}
+
+	.doo-af-hero__title {
+		font-size: 52px !important;
+		font-weight: 700 !important;
+		color: #1a2b4a !important;
+		margin: 0 0 16px !important;
+		margin-block: 0 16px !important;
+		padding: 0 !important;
+		padding-block: 0 !important;
+		line-height: 1.1 !important;
+	}
+
+	.doo-af-hero__desc {
+		font-size: 17px !important;
+		color: #6b7280 !important;
+		line-height: 1.6 !important;
+		margin: 0 0 24px !important;
+		margin-block: 0 24px !important;
+		padding: 0 !important;
+		padding-block: 0 !important;
+	}
+
+	// ── Stats row ──
+
+	.doo-af-hero__stats {
+		display: flex !important;
+		align-items: center !important;
+		gap: 24px !important;
+		padding: 16px 0 0 !important;
+		padding-block: 16px 0 !important;
+		margin: 0 !important;
+		margin-block: 0 !important;
+	}
+
+	.doo-af-hero__stat {
+		padding: 0 !important;
+		padding-block: 0 !important;
+		margin: 0 !important;
+		margin-block: 0 !important;
+	}
+
+	.doo-af-hero__stat-num {
+		font-size: 28px !important;
+		font-weight: 700 !important;
+		display: block !important;
+		line-height: 1.2 !important;
+		margin: 0 !important;
+		margin-block: 0 !important;
+		padding: 0 !important;
+		padding-block: 0 !important;
+	}
+
+	.doo-af-hero__stat-label {
+		font-size: 13px !important;
+		color: #6b7280 !important;
+		white-space: nowrap !important;
+		display: block !important;
+		line-height: 1.3 !important;
+		margin: 2px 0 0 !important;
+		margin-block: 2px 0 !important;
+		padding: 0 !important;
+		padding-block: 0 !important;
+	}
+
+	.doo-af-hero__sep {
+		width: 1px !important;
+		height: 44px !important;
+		background: #e8eaed !important;
+		flex-shrink: 0 !important;
+		margin: 0 !important;
+		margin-block: 0 !important;
+		padding: 0 !important;
+		padding-block: 0 !important;
+	}
+
+	// ── CTA card ──
+
+	.doo-af-hero__card {
+		width: 350px !important;
+		flex-shrink: 0 !important;
+		background: #fff !important;
+		border: 1px solid #e8eaed !important;
+		border-radius: 8px !important;
+		overflow: hidden !important;
+		height: 293px !important;
+		position: relative !important;
+	}
+
+	.doo-af-hero__card-stripe {
+		position: absolute !important;
+		top: 23px !important;
+		left: 23px !important;
+		right: 23px !important;
+		height: 4px !important;
+		border-radius: 2px !important;
+	}
+
+	.doo-af-hero__card-icon {
+		position: absolute !important;
+		top: 39px !important;
+		left: 23px !important;
+		width: 32px !important;
+		height: 32px !important;
+		border-radius: 4px !important;
+		display: flex !important;
+		align-items: center !important;
+		justify-content: center !important;
+
+		svg {
+			display: block !important;
+			width: 24px !important;
+			height: 24px !important;
+		}
+	}
+
+	.doo-af-hero__card-title {
+		position: absolute !important;
+		top: 83px !important;
+		left: 23px !important;
+		right: 23px !important;
+		font-size: 15px !important;
+		font-weight: 600 !important;
+		color: #1a2b4a !important;
+		margin: 0 !important;
+		margin-block: 0 !important;
+		padding: 0 !important;
+		padding-block: 0 !important;
+	}
+
+	.doo-af-hero__card-desc {
+		position: absolute !important;
+		top: 113px !important;
+		left: 23px !important;
+		right: 23px !important;
+		font-size: 14px !important;
+		color: #6b7280 !important;
+		line-height: 1.5 !important;
+		margin: 0 !important;
+		margin-block: 0 !important;
+		padding: 0 !important;
+		padding-block: 0 !important;
+	}
+
+	.doo-af-hero__card-btn {
+		position: absolute !important;
+		top: 196px !important;
+		left: 23px !important;
+		right: 23px !important;
+		height: 44px !important;
+		border-radius: 6px !important;
+		display: flex !important;
+		align-items: center !important;
+		justify-content: center !important;
+		color: #fff !important;
+		font-size: 14px !important;
+		font-weight: 600 !important;
+		text-decoration: none !important;
+		margin: 0 !important;
+		margin-block: 0 !important;
+		padding: 0 !important;
+		padding-block: 0 !important;
+		border: none !important;
+		cursor: pointer !important;
+
+		&:hover {
+			opacity: 0.9;
+			color: #fff !important;
+		}
+	}
+
+	.doo-af-hero__card-register {
+		position: absolute !important;
+		top: 252px !important;
+		left: 23px !important;
+		right: 23px !important;
+		font-size: 13px !important;
+		text-align: center !important;
+		margin: 0 !important;
+		margin-block: 0 !important;
+		padding: 0 !important;
+		padding-block: 0 !important;
+
+		a {
+			text-decoration: none !important;
+
+			&:hover {
+				text-decoration: underline !important;
+			}
+		}
+	}
+
+	// ── SVG overrides ──
+
+	svg {
+		max-width: none !important;
+		height: auto;
+	}
+}
+
+// ==========================================================================
+// FC Hero — Teal theme (#00a9a5)
+// ==========================================================================
+
+.doo-fc-hero {
+	@extend .doo-af-hero;
+
+	.doo-af-hero__eyebrow {
+		color: #00a9a5 !important;
+	}
+
+	.doo-af-hero__stat-num {
+		color: #00a9a5 !important;
+	}
+
+	.doo-af-hero__card-stripe {
+		background: #00a9a5 !important;
+	}
+
+	.doo-af-hero__card-icon {
+		background: #00a9a5 !important;
+	}
+
+	.doo-af-hero__card-btn {
+		background: #00a9a5 !important;
+	}
+
+	.doo-af-hero__card-register {
+		color: #00a9a5 !important;
+
+		a {
+			color: inherit !important;
+		}
+	}
+}
+
+// ==========================================================================
+// FAP Hero — Orange theme (#f5a623)
+// ==========================================================================
+
+.doo-fap-hero {
+	@extend .doo-af-hero;
+
+	.doo-af-hero__eyebrow {
+		color: #f5a623 !important;
+	}
+
+	.doo-af-hero__stat-num {
+		color: #f5a623 !important;
+	}
+
+	.doo-af-hero__card-stripe {
+		background: #f5a623 !important;
+	}
+
+	.doo-af-hero__card-icon {
+		background: #f5a623 !important;
+	}
+
+	.doo-af-hero__card-btn {
+		background: #f5a623 !important;
+	}
+
+	.doo-af-hero__card-register {
+		color: #f5a623 !important;
+
+		a {
+			color: inherit !important;
+		}
+	}
+}
+
+// ==========================================================================
+// PIM Hero — Navy theme (#1a2b4a)
+// ==========================================================================
+
+.doo-pim-hero {
+	@extend .doo-af-hero;
+
+	.doo-af-hero__eyebrow {
+		color: #1a2b4a !important;
+	}
+
+	.doo-af-hero__stat-num {
+		color: #1a2b4a !important;
+	}
+
+	.doo-af-hero__card-stripe {
+		background: #1a2b4a !important;
+	}
+
+	.doo-af-hero__card-icon {
+		background: #1a2b4a !important;
+	}
+
+	.doo-af-hero__card-btn {
+		background: #1a2b4a !important;
+	}
+
+	.doo-af-hero__card-register {
+		color: #1a2b4a !important;
+
+		a {
+			color: inherit !important;
+		}
+	}
+}
+
+// ==========================================================================
+// Responsive
+// ==========================================================================
+
+@include until($bp-tablet) {
+	.doo-af-hero,
+	.doo-fc-hero,
+	.doo-fap-hero,
+	.doo-pim-hero {
+		padding: 40px 0 !important;
+		padding-block: 40px !important;
+	}
+
+	.doo-af-hero .doo-af-hero__inner,
+	.doo-fc-hero .doo-af-hero__inner,
+	.doo-fap-hero .doo-af-hero__inner,
+	.doo-pim-hero .doo-af-hero__inner {
+		flex-direction: column !important;
+		gap: 32px !important;
+	}
+
+	.doo-af-hero .doo-af-hero__title,
+	.doo-fc-hero .doo-af-hero__title,
+	.doo-fap-hero .doo-af-hero__title,
+	.doo-pim-hero .doo-af-hero__title {
+		font-size: 36px !important;
+	}
+
+	.doo-af-hero .doo-af-hero__desc,
+	.doo-fc-hero .doo-af-hero__desc,
+	.doo-fap-hero .doo-af-hero__desc,
+	.doo-pim-hero .doo-af-hero__desc {
+		font-size: 15px !important;
+	}
+
+	.doo-af-hero .doo-af-hero__stats,
+	.doo-fc-hero .doo-af-hero__stats,
+	.doo-fap-hero .doo-af-hero__stats,
+	.doo-pim-hero .doo-af-hero__stats {
+		flex-wrap: wrap !important;
+		gap: 16px !important;
+	}
+
+	.doo-af-hero .doo-af-hero__sep,
+	.doo-fc-hero .doo-af-hero__sep,
+	.doo-fap-hero .doo-af-hero__sep,
+	.doo-pim-hero .doo-af-hero__sep {
+		display: none !important;
+	}
+
+	.doo-af-hero .doo-af-hero__stat,
+	.doo-fc-hero .doo-af-hero__stat,
+	.doo-fap-hero .doo-af-hero__stat,
+	.doo-pim-hero .doo-af-hero__stat {
+		padding: 0 !important;
+		padding-block: 0 !important;
+	}
+
+	.doo-af-hero .doo-af-hero__card,
+	.doo-fc-hero .doo-af-hero__card,
+	.doo-fap-hero .doo-af-hero__card,
+	.doo-pim-hero .doo-af-hero__card {
+		width: 100% !important;
+		height: auto !important;
+		position: relative !important;
+		padding: 23px !important;
+		padding-block: 23px !important;
+		display: flex !important;
+		flex-direction: column !important;
+		gap: 8px !important;
+	}
+
+	.doo-af-hero .doo-af-hero__card-stripe,
+	.doo-af-hero .doo-af-hero__card-icon,
+	.doo-af-hero .doo-af-hero__card-title,
+	.doo-af-hero .doo-af-hero__card-desc,
+	.doo-af-hero .doo-af-hero__card-btn,
+	.doo-af-hero .doo-af-hero__card-register,
+	.doo-fc-hero .doo-af-hero__card-stripe,
+	.doo-fc-hero .doo-af-hero__card-icon,
+	.doo-fc-hero .doo-af-hero__card-title,
+	.doo-fc-hero .doo-af-hero__card-desc,
+	.doo-fc-hero .doo-af-hero__card-btn,
+	.doo-fc-hero .doo-af-hero__card-register,
+	.doo-fap-hero .doo-af-hero__card-stripe,
+	.doo-fap-hero .doo-af-hero__card-icon,
+	.doo-fap-hero .doo-af-hero__card-title,
+	.doo-fap-hero .doo-af-hero__card-desc,
+	.doo-fap-hero .doo-af-hero__card-btn,
+	.doo-fap-hero .doo-af-hero__card-register,
+	.doo-pim-hero .doo-af-hero__card-stripe,
+	.doo-pim-hero .doo-af-hero__card-icon,
+	.doo-pim-hero .doo-af-hero__card-title,
+	.doo-pim-hero .doo-af-hero__card-desc,
+	.doo-pim-hero .doo-af-hero__card-btn,
+	.doo-pim-hero .doo-af-hero__card-register {
+		position: static !important;
+	}
+
+	.doo-af-hero .doo-af-hero__card-stripe,
+	.doo-fc-hero .doo-af-hero__card-stripe,
+	.doo-fap-hero .doo-af-hero__card-stripe,
+	.doo-pim-hero .doo-af-hero__card-stripe {
+		height: 4px !important;
+		margin: 0 0 8px !important;
+		margin-block: 0 8px !important;
+	}
+
+	.doo-af-hero .doo-af-hero__card-btn,
+	.doo-fc-hero .doo-af-hero__card-btn,
+	.doo-fap-hero .doo-af-hero__card-btn,
+	.doo-pim-hero .doo-af-hero__card-btn {
+		width: 100% !important;
+		margin: 8px 0 0 !important;
+		margin-block: 8px 0 !important;
+	}
+}

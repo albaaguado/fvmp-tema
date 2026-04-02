@@ -19,21 +19,23 @@ import DooModalidadesEdit from './home/modalidades/edit.jsx';
 import DooTransparenciaEdit from './home/transparencia/edit.jsx';
 import DooPlanesEdit from './home/planes/edit.jsx';
 import DooFcHeroEdit from './fc/hero/edit.jsx';
+import DooFapHeroEdit from './fap/hero/edit.jsx';
+import DooPimHeroEdit from './pim/hero/edit.jsx';
+import DooAfCoursesEdit from './af/listado/edit.jsx';
+import DooAfCursoEdit from './af/curso/edit.jsx';
+import DooRegistroEdit from './registro/edit.jsx';
+import DooJornadasHeroEdit from './jornadas/hero.jsx';
+import DooJornadasListingEdit from './jornadas/listing.jsx';
+import DooJornadaDetailEdit from './jornadas/detail.jsx';
 
 registerBlockType( 'doo/hero', { edit: DooHeroEdit } );
 registerBlockType( 'doo/presentacion', { edit: DooPresentacionEdit } );
 registerBlockType( 'doo/profesorado', { edit: DooProfesoradoEdit } );
 registerBlockType( 'doo/fc-hero', { edit: DooFcHeroEdit } );
+registerBlockType( 'doo/fap-hero', { edit: DooFapHeroEdit } );
+registerBlockType( 'doo/pim-hero', { edit: DooPimHeroEdit } );
 
-registerBlockType( 'doo/fc-courses', {
-	edit: function DooFcCoursesEdit() {
-		return (
-			<div { ...useBlockProps() }>
-				<ServerSideRender block="doo/fc-courses" />
-			</div>
-		);
-	},
-} );
+registerBlockType( 'doo/af-courses', { edit: DooAfCoursesEdit } );
 
 /**
  * Static Home blocks — ServerSideRender preview only.
@@ -49,9 +51,17 @@ function makeSsrEdit( blockName ) {
 }
 
 registerBlockType( 'doo/trust-bar', { edit: makeSsrEdit( 'doo/trust-bar' ) } );
+registerBlockType( 'doo/user-nav',  { edit: makeSsrEdit( 'doo/user-nav' ) } );
+registerBlockType( 'doo/af-curso',  { edit: DooAfCursoEdit } );
+registerBlockType( 'doo/registro', { edit: DooRegistroEdit } );
 registerBlockType( 'doo/oferta', { edit: DooOfertaEdit } );
 registerBlockType( 'doo/modalidades', { edit: DooModalidadesEdit } );
 registerBlockType( 'doo/impacto', { edit: DooImpactoEdit } );
 registerBlockType( 'doo/testimonios', { edit: DooTestimoniosEdit } );
 registerBlockType( 'doo/transparencia', { edit: DooTransparenciaEdit } );
 registerBlockType( 'doo/planes', { edit: DooPlanesEdit } );
+
+// Jornadas blocks
+registerBlockType( 'doo/jornadas-hero', { edit: DooJornadasHeroEdit } );
+registerBlockType( 'doo/jornadas-listing', { edit: DooJornadasListingEdit } );
+registerBlockType( 'doo/jornada-detail', { edit: DooJornadaDetailEdit } );

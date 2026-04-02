@@ -1,0 +1,29 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "doo/fap-hero",
+	"version": "1.0.0",
+	"title": "Hero FAP",
+	"category": "doo-blocks",
+	"icon": "welcome-learn-more",
+	"description": "Hero para la sección Formación Atención Primaria (FAP). Configurable con color naranja.",
+	"supports": { "html": false, "align": false, "multiple": false },
+	"attributes": {
+		"eyebrow":         { "type": "string", "default": "OFERTA FORMATIVA" },
+		"title":           { "type": "string", "default": "Formación para Equipos de Atención Primaria" },
+		"description":     { "type": "string", "default": "La FVMP se reserva el derecho de retirar del Plan FAP2026 aquellas acciones formativas que presenten una demanda muy elevada para optimizar el proceso de preinscripción." },
+		"stat2Num":        { "type": "string", "default": "2.500+" },
+		"stat2Label":      { "type": "string", "default": "plazas disponibles" },
+		"stat3Num":        { "type": "string", "default": "8" },
+		"stat3Label":      { "type": "string", "default": "áreas temáticas" },
+		"cardTitle":       { "type": "string", "default": "Preparando la oferta formativa para 2026" },
+		"cardDescription": { "type": "string", "default": "Próximamente estará disponible el catálogo de cursos FAP2026. Es necesario iniciar sesión para inscribirse." },
+		"cardButtonText":  { "type": "string", "default": "Iniciar sesión" },
+		"cardButtonUrl":   { "type": "string", "default": "/iniciar-sesion/" },
+		"cardRegisterText":{ "type": "string", "default": "¿No tienes cuenta? Regístrate →" },
+		"cardRegisterUrl": { "type": "string", "default": "/registro/" }
+	},
+	"textdomain": "dw-tema",
+	"editorScript": "doo-blocks-editor",
+	"render": "file:./render.php"
+}

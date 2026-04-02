@@ -1,0 +1,261 @@
+// ==========================================================================
+// Login Page — core/loginout block inside a styled card
+// Targets .doo-login-page / .doo-login-card applied via the block editor
+// ==========================================================================
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// --- Local tokens (mirror Figma values) ---
+$login-label-color:   #152057;
+$login-section-color: #009e96;
+$login-border:        #c8cdd6;
+$login-card-border:   #e2e6ee;
+$login-placeholder:   #b0b9c6;
+$login-helper:        #636e80;
+
+// ===== Page body wrapper =====
+.doo-login-page {
+	display:         flex;
+	justify-content: center;
+	align-items:     flex-start;
+	padding:         80px 20px;
+	background:      $color-white;
+	min-height:      60vh;
+}
+
+// ===== Card =====
+.doo-login-card {
+	background:    $color-white;
+	border:        1px solid $login-card-border;
+	border-radius: 16px;
+	padding:       48px 40px;
+	width:         100%;
+	max-width:     480px;
+	display:       flex;
+	flex-direction: column;
+	align-items:   center;
+	gap:           24px;
+
+	@include until( $bp-tablet ) {
+		padding: 32px 24px;
+	}
+
+	// ── Logo ──
+	.wp-block-site-logo,
+	.wp-block-image {
+		display: flex;
+		justify-content: center;
+		margin: 0 !important;
+		margin-block: 0 !important;
+	}
+
+	// ── Title ──
+	.doo-login-card__title,
+	h1.wp-block-heading,
+	h2.wp-block-heading {
+		font-family:  $font-inter;
+		font-size:    1.75rem;
+		font-weight:  700;
+		color:        $login-label-color;
+		text-align:   center;
+		margin:       0 !important;
+		margin-block: 0 !important;
+		line-height:  1.2;
+	}
+
+	// ── Forgot password link ──
+	.doo-login-card__forgot {
+		font-family:  $font-inter;
+		font-size:    0.875rem;
+		font-weight:  400;
+		text-align:   center;
+		margin:       0 !important;
+		margin-block: 0 !important;
+
+		a {
+			color:           $login-section-color;
+			text-decoration: none;
+
+			&:hover,
+			&:focus {
+				text-decoration: underline;
+			}
+		}
+	}
+
+	// ── Divider row ──
+	.doo-login-card__divider-row {
+		display:     flex;
+		align-items: center;
+		gap:         12px;
+		width:       100%;
+		margin:      0 !important;
+		margin-block: 0 !important;
+
+		.wp-block-separator,
+		hr {
+			flex:        1;
+			height:      1px;
+			border:      none;
+			background:  $login-card-border;
+			margin:      0 !important;
+			margin-block: 0 !important;
+
+			// WP adds decorative styles — reset them
+			&::before,
+			&::after { display: none; }
+		}
+
+		p {
+			font-family: $font-inter;
+			font-size:   0.8125rem;
+			color:       $login-helper;
+			white-space: nowrap;
+			margin:      0 !important;
+			margin-block: 0 !important;
+		}
+	}
+
+	// ── Register row ──
+	.doo-login-card__register-row {
+		font-family:  $font-inter;
+		font-size:    0.875rem;
+		text-align:   center;
+		color:        $login-helper;
+		margin:       0 !important;
+		margin-block: 0 !important;
+
+		a,
+		.doo-login-card__register-link {
+			color:           $login-section-color;
+			font-weight:     700;
+			text-decoration: none;
+
+			&:hover,
+			&:focus {
+				text-decoration: underline;
+			}
+		}
+	}
+}
+
+// ===== core/loginout form overrides =====
+.doo-login-card .wp-block-loginout {
+	width: 100%;
+
+	form#loginform {
+		display:        flex;
+		flex-direction: column;
+		gap:            16px;
+		margin:         0;
+		padding:        0;
+	}
+
+	// ── Field groups ──
+	p,
+	.user-pass-wrap {
+		margin: 0 !important;
+		margin-block: 0 !important;
+	}
+
+	// ── Labels ──
+	label {
+		font-family:  $font-inter;
+		font-size:    0.875rem;
+		font-weight:  600;
+		color:        $login-label-color;
+		display:      block;
+		margin-bottom: 6px;
+
+		// Hide the <br> gap between label text and input
+		br { display: none; }
+	}
+
+	// ── Inputs ──
+	input.input,
+	input[type="text"],
+	input[type="email"],
+	input[type="password"] {
+		font-family:  $font-inter;
+		font-size:    0.875rem;
+		color:        $color-text-body;
+		background:   $color-white;
+		border:       1px solid $login-border;
+		border-radius: 8px;
+		height:       48px;
+		padding:      0 16px;
+		width:        100%;
+		box-sizing:   border-box;
+		outline:      none;
+		display:      block;
+		@include transition( border-color, 0.15s );
+
+		&::placeholder { color: $login-placeholder; }
+
+		&:focus {
+			border-color: $login-section-color;
+			box-shadow:   0 0 0 3px rgba( 0, 158, 150, 0.12 );
+		}
+	}
+
+	// ── Hide remember me (not in design) ──
+	.forgetmenot { display: none; }
+
+	// ── Password toggle icon ──
+	.wp-pwd {
+		position: relative;
+
+		input[type="password"],
+		input[type="text"] {
+			padding-right: 44px;
+		}
+
+		.wp-hide-pw {
+			position:   absolute;
+			right:      12px;
+			top:        50%;
+			transform:  translateY( -50% );
+			background: none;
+			border:     none;
+			padding:    0;
+			cursor:     pointer;
+			color:      $login-helper;
+
+			&:hover { color: $login-label-color; }
+
+			// Hide WP default dashicon button text
+			.screen-reader-text { display: none; }
+		}
+	}
+
+	// ── Submit button ──
+	.submit { margin: 8px 0 0 !important; }
+
+	input#wp-submit,
+	.button-primary {
+		font-family:    $font-inter;
+		font-size:      1rem;
+		font-weight:    700;
+		color:          $color-white;
+		background:     $login-section-color;
+		border:         none;
+		border-radius:  8px;
+		height:         52px;
+		width:          100%;
+		cursor:         pointer;
+		display:        block;
+		@include transition( background-color, 0.15s );
+
+		&:hover,
+		&:focus {
+			background: $color-navy;
+			color:      $color-white;
+			box-shadow: none;
+		}
+
+		&:focus-visible {
+			outline:        2px solid $login-section-color;
+			outline-offset: 2px;
+		}
+	}
+}
