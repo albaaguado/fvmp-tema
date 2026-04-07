@@ -1,0 +1,370 @@
+// ==========================================================================
+// Mis Cursos Page Block Styles
+// Requested courses dashboard for logged-in users
+// ==========================================================================
+
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// --------------------------------------------------------------------------
+// User bar (doo/user-bar block)
+// --------------------------------------------------------------------------
+
+.doo-user-bar {
+	display: flex !important;
+	align-items: center !important;
+	gap: 16px !important;
+	padding: 14px var(--doo-layout-pad) !important;
+	background: #ffffff !important;
+	border-bottom: 1px solid #e2e4e8 !important;
+	min-height: 68px !important;
+	width: 100% !important;
+	max-width: none !important;
+	box-sizing: border-box !important;
+	margin: 0 !important;
+	margin-block: 0 !important;
+
+	@include until( $bp-tablet ) {
+		padding: 14px var(--doo-layout-pad) !important;
+		min-height: auto !important;
+	}
+
+	&__avatar {
+		display: flex !important;
+		align-items: center !important;
+		justify-content: center !important;
+		width: 40px !important;
+		min-width: 40px !important;
+		max-width: 40px !important;
+		height: 40px !important;
+		aspect-ratio: 1 / 1 !important;
+		background: #f0f0f0 !important;
+		border-radius: 50% !important;
+		color: #636e80 !important;
+		flex: 0 0 40px !important;
+		overflow: hidden !important;
+
+		svg {
+			display: block !important;
+			width: 22px !important;
+			height: 22px !important;
+			flex-shrink: 0 !important;
+		}
+	}
+
+	&__info {
+		display: flex !important;
+		flex-direction: column !important;
+		gap: 2px !important;
+	}
+
+	&__name {
+		font-size: 16px !important;
+		font-weight: 700 !important;
+		color: #152057 !important;
+		line-height: normal !important;
+
+		@include until( $bp-tablet ) {
+			font-size: 14px !important;
+		}
+	}
+
+	&__subtitle {
+		font-size: 12px !important;
+		font-weight: 400 !important;
+		color: #636e80 !important;
+		line-height: normal !important;
+		text-decoration: none !important;
+
+		&:hover {
+			color: #009e96 !important;
+			text-decoration: underline !important;
+		}
+	}
+}
+
+// --------------------------------------------------------------------------
+// Mis cursos content (doo/mis-cursos block)
+// --------------------------------------------------------------------------
+
+.doo-mis-cursos {
+	width: 100% !important;
+	max-width: none !important;
+	margin: 0 !important;
+	margin-block: 0 !important;
+	padding: 0 !important;
+
+	// --------------------------------------------------------------------------
+	// Content area (gray background)
+	// --------------------------------------------------------------------------
+
+	&__content {
+		max-width: var(--doo-layout-max) !important;
+		margin-inline: auto !important;
+		padding: 48px var(--doo-layout-pad) 88px !important;
+		background: #f0f0f0 !important;
+		width: 100% !important;
+		box-sizing: border-box !important;
+
+		@include until( $bp-tablet ) {
+			padding: 24px var(--doo-layout-pad) 56px !important;
+		}
+	}
+
+	&__title {
+		font-size: 28px !important;
+		font-weight: 700 !important;
+		color: #152057 !important;
+		margin: 0 0 12px !important;
+		margin-block: 0 12px !important;
+		padding: 0 !important;
+		line-height: normal !important;
+
+		@include until( $bp-tablet ) {
+			font-size: 22px !important;
+		}
+	}
+
+	&__info {
+		font-size: 15px !important;
+		font-weight: 400 !important;
+		color: #636e80 !important;
+		margin: 0 0 6px !important;
+		margin-block: 0 6px !important;
+		padding: 0 !important;
+		line-height: normal !important;
+	}
+
+	&__warning {
+		font-size: 15px !important;
+		font-weight: 400 !important;
+		color: #b52120 !important;
+		margin: 0 0 32px !important;
+		margin-block: 0 32px !important;
+		padding: 0 !important;
+		line-height: normal !important;
+	}
+
+	&__program-title {
+		font-size: 17px !important;
+		font-weight: 700 !important;
+		color: #152057 !important;
+		margin: 0 0 16px !important;
+		margin-block: 0 16px !important;
+		padding: 0 !important;
+		line-height: normal !important;
+	}
+
+	// --------------------------------------------------------------------------
+	// Table
+	// --------------------------------------------------------------------------
+
+	&__table-wrap {
+		background: #ffffff !important;
+		border: 1px solid #f0f0f0 !important;
+		border-radius: 8px !important;
+		overflow-x: auto !important;
+		overflow-y: hidden !important;
+		margin: 0 0 36px !important;
+		margin-block: 0 36px !important;
+	}
+
+	&__row {
+		display: flex !important;
+		align-items: stretch !important;
+		min-width: 964px !important;
+		width: 100% !important;
+
+		&--header {
+			background: rgba(102, 102, 102, 0.3) !important;
+			min-height: 44px !important;
+		}
+
+		&--data {
+			background: #ffffff !important;
+			min-height: 68px !important;
+			border-top: 1px solid #f0f0f0 !important;
+		}
+	}
+
+	&__cell {
+		display: flex !important;
+		align-items: center !important;
+		padding: 0 14px !important;
+		flex-shrink: 0 !important;
+		font-size: 13px !important;
+		color: #152057 !important;
+		line-height: 1.4 !important;
+
+		.doo-mis-cursos__row--header & {
+			font-size: 12px !important;
+			font-weight: 700 !important;
+			color: #152057 !important;
+		}
+
+		.doo-mis-cursos__row--data & {
+			font-weight: 400 !important;
+			color: #152057 !important;
+		}
+
+		&--order  { width: 72px !important; }
+		&--code   { width: 96px !important; }
+		&--name   {
+			flex: 1 0 180px !important;
+			min-width: 180px !important;
+			word-break: break-word !important;
+			overflow-wrap: break-word !important;
+			align-items: flex-start !important;
+			padding-block: 12px !important;
+		}
+		&--start  { width: 104px !important; color: #636e80 !important; }
+		&--end    { width: 104px !important; color: #636e80 !important; }
+		&--status { width: 104px !important; color: #636e80 !important; }
+		&--cert   { width: 116px !important; }
+		&--sort   {
+			width: 100px !important;
+			gap: 6px !important;
+		}
+		&--delete { width: 88px !important; }
+	}
+
+	// --------------------------------------------------------------------------
+	// Sort buttons (up / down)
+	// --------------------------------------------------------------------------
+
+	&__sort-btn {
+		display: flex !important;
+		align-items: center !important;
+		justify-content: center !important;
+		width: 32px !important;
+		height: 32px !important;
+		min-width: 32px !important;
+		background: #ffffff !important;
+		border: 1px solid #1a2b4a !important;
+		border-radius: 4px !important;
+		cursor: pointer !important;
+		color: #1a2b4a !important;
+		padding: 0 !important;
+		transition: background 0.15s, color 0.15s !important;
+
+		&:hover {
+			background: #1a2b4a !important;
+			color: #ffffff !important;
+		}
+
+		svg {
+			display: block !important;
+			flex-shrink: 0 !important;
+		}
+	}
+
+	// --------------------------------------------------------------------------
+	// Delete button
+	// --------------------------------------------------------------------------
+
+	&__delete-btn {
+		display: flex !important;
+		align-items: center !important;
+		justify-content: center !important;
+		width: 32px !important;
+		height: 32px !important;
+		min-width: 32px !important;
+		background: #b52120 !important;
+		border: none !important;
+		border-radius: 4px !important;
+		cursor: pointer !important;
+		color: #ffffff !important;
+		padding: 0 !important;
+		transition: background 0.15s !important;
+
+		&:hover {
+			background: #941a19 !important;
+		}
+
+		svg {
+			display: block !important;
+			flex-shrink: 0 !important;
+		}
+	}
+
+	// --------------------------------------------------------------------------
+	// Action buttons row
+	// --------------------------------------------------------------------------
+
+	&__actions {
+		display: flex !important;
+		align-items: center !important;
+		justify-content: flex-end !important;
+		gap: 16px !important;
+		padding-top: 16px !important;
+	}
+
+	&__btn {
+		display: inline-flex !important;
+		align-items: center !important;
+		justify-content: center !important;
+		padding: 14px 28px !important;
+		border-radius: 8px !important;
+		font-size: 15px !important;
+		font-weight: 600 !important;
+		line-height: normal !important;
+		cursor: pointer !important;
+		transition: background 0.15s, color 0.15s, border-color 0.15s !important;
+
+		&--outline {
+			background: #ffffff !important;
+			border: 1.5px solid #1a2b4a !important;
+			color: #1a2b4a !important;
+
+			&:hover {
+				background: #1a2b4a !important;
+				color: #ffffff !important;
+			}
+		}
+
+		&--primary {
+			background: #009e96 !important;
+			border: none !important;
+			color: #ffffff !important;
+
+			&:hover {
+				background: #007f78 !important;
+			}
+		}
+	}
+}
+
+// ==========================================================================
+// Editor overrides — fix avatar oval shape in Gutenberg editor
+// ==========================================================================
+
+.editor-styles-wrapper {
+	.doo-user-bar__avatar {
+		width: 40px !important;
+		min-width: 40px !important;
+		max-width: 40px !important;
+		height: 40px !important;
+		flex: 0 0 40px !important;
+		aspect-ratio: 1 / 1 !important;
+		border-radius: 50% !important;
+		overflow: hidden !important;
+	}
+}
+
+// ==========================================================================
+// Responsive
+// ==========================================================================
+
+@include until($bp-tablet) {
+	.doo-mis-cursos {
+		&__actions {
+			flex-direction: column !important;
+			align-items: stretch !important;
+		}
+
+		&__btn {
+			width: 100% !important;
+			justify-content: center !important;
+		}
+	}
+}

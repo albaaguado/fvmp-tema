@@ -1,0 +1,175 @@
+// ==========================================================================
+// Global layout — fluid gutters, 1440px content cap
+// ==========================================================================
+//
+// --doo-layout-pad  ·  horizontal inset applied on each side
+//
+//   ≤ 320px             20px   (hard floor for very small phones)
+//   320 – 1640px        6.25vw → fluid growth
+//                         ~30px @ 480px   ~48px @ 768px
+//                         ~64px @ 1024px  ~80px @ 1280px  ~100px @ 1600px
+//   At ~1640px          100px  (plateau — this is the "normal desktop" margin)
+//   Above 1640px        (100vw − 1440px) / 2  → content stays fixed at 1440px
+//
+// How it works:
+//   max(
+//     clamp(20px, 6.25vw, 100px),   ← floor→fluid→ceiling
+//     calc((100vw − 1440px) / 2)    ← takes over above 1640px to lock content
+//   )
+//
+// Section pattern — background always edge-to-edge, content constrained:
+//
+//   <section>                     ← full viewport width (background bleeds)
+//     <div class="doo-inner">     ← centred, max 1440px, fluid inset
+//       content here
+//     </div>
+//   </section>
+//
+// ==========================================================================
+
+@use '../abstracts/variables' as *;
+
+// ---------------------------------------------------------------------------
+// Custom properties
+// ---------------------------------------------------------------------------
+
+:root {
+	--doo-layout-max:    #{$layout-max};
+	--doo-layout-gutter: #{$layout-gutter};
+
+	--doo-layout-pad: max(
+		clamp(#{$layout-pad-min}, 6.25vw, #{$layout-gutter}),
+		calc((100vw - #{$layout-max}) / 2)
+	);
+}
+
+// The Gutenberg editor canvas ≠ the browser viewport.
+// Swap 100vw → 100% so the editor preview reflects the real layout.
+.editor-styles-wrapper,
+.block-editor-iframe__body,
+.interface-interface-skeleton__content .editor-styles-wrapper {
+	--doo-layout-pad: max(
+		clamp(#{$layout-pad-min}, 6.25%, #{$layout-gutter}),
+		calc((100% - #{$layout-max}) / 2)
+	);
+}
+
+// ---------------------------------------------------------------------------
+// Utility classes
+// ---------------------------------------------------------------------------
+
+// Apply the fluid inset to any full-width element (e.g. a section wrapper).
+.doo-layout-pad {
+	box-sizing:     border-box;
+	width:          100%;
+	padding-inline: var(--doo-layout-pad);
+}
+
+// Centred inner container — never wider than 1440px.
+// Pair with .doo-layout-pad on the parent, or nest inside any padded element.
+.doo-layout-constrain {
+	box-sizing:    border-box;
+	width:         100%;
+	max-width:     var(--doo-layout-max);
+	margin-inline: auto;
+}
+
+// Single-node shorthand — centres a box at max 1440px without extra nesting.
+// Width = min(1440px, viewport − 2 × fluid gutter). No inner padding needed.
+.doo-layout-container {
+	box-sizing:    border-box;
+	width:         min(var(--doo-layout-max), calc(100% - 2 * var(--doo-layout-pad)));
+	margin-inline: auto;
+}
+
+// ---------------------------------------------------------------------------
+// WordPress post-content block alignment
+// ---------------------------------------------------------------------------
+
+// Give the post-content wrapper the fluid inset so all standard child blocks
+// are indented from the viewport edge.
+.wp-block-post-content {
+	box-sizing:     border-box;
+	padding-inline: var(--doo-layout-pad);
+}
+
+// Default blocks (no alignment class): centred within the 1440px column.
+.wp-block-post-content
+	> :where(:not(.alignfull):not(.alignwide):not([class^='doo-'])) {
+	max-width:     var(--doo-layout-max);
+	margin-inline: auto;
+	box-sizing:    border-box;
+}
+
+// Wide alignment: also capped at 1440px (= wideSize in theme.json).
+.wp-block-post-content > .alignwide {
+	max-width:     var(--wp--style--global--wide-size, var(--doo-layout-max));
+	margin-inline: auto;
+	width:         100%;
+	box-sizing:    border-box;
+}
+
+// Full alignment: break out of the post-content padding to bleed edge-to-edge.
+// !important overrides any WP-generated constrained-layout rules.
+.wp-block-post-content > .alignfull,
+.wp-block-group.alignfull,
+.wp-block-cover.alignfull {
+	width:         100vw !important;
+	max-width:     100vw !important;
+	margin-inline: calc(50% - 50vw) !important;
+	box-sizing:    border-box;
+}
+
+// Custom doo/* blocks keep the full-bleed breakout so their colored sections
+// can span the viewport. Inner containers handle the readable content width.
+body.home .wp-block-post-content > [class^='doo-'] {
+	max-width:     none !important;
+	width:         100vw !important;
+	margin-inline: calc(50% - 50vw) !important;
+	box-sizing:    border-box;
+}
+
+body:not(.home) .wp-block-post-content > [class^='doo-'] {
+	max-width:     none !important;
+	width:         100vw !important;
+	margin-inline: calc(50% - 50vw) !important;
+	box-sizing:    border-box;
+}
+
+// Editor canvas alignment: avoid extra narrowing of custom doo blocks.
+.editor-styles-wrapper .wp-block-post-content {
+	padding-inline: 0;
+}
+
+.editor-styles-wrapper .wp-block-post-content > .wp-block[data-type^='doo/'] {
+	max-width:     none !important;
+	width:         100% !important;
+	margin-inline: 0 !important;
+	box-sizing:    border-box;
+}
+
+.editor-styles-wrapper .wp-block-post-content > .wp-block[data-type^='doo/'] > [class^='doo-'],
+.editor-styles-wrapper .wp-block-post-content > .wp-block[data-type^='doo/'] > .doo-hero-wrap {
+	max-width:     none !important;
+	width:         100% !important;
+	margin-inline: 0 !important;
+	box-sizing:    border-box;
+}
+
+// Shared hover behavior for inline teal CTA links on Home sections.
+.doo-presentacion__link {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	transition: color 0.22s ease, transform 0.22s ease, text-decoration-color 0.22s ease;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 3px;
+
+	&:hover {
+		color: $color-navy;
+		text-decoration: underline;
+		text-decoration-color: currentColor;
+		transform: translateX(2px);
+	}
+}
+

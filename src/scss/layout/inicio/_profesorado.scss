@@ -8,10 +8,14 @@
 .doo-profesorado {
 	background: $color-bg-light;
 	padding: 96px 0;
+	padding-inline: var(--doo-layout-pad);
+	box-sizing: border-box;
 
 	&__container {
-		width: 1200px;
-		margin: 0 auto;
+		width: 100%;
+		max-width: var(--doo-layout-max);
+		margin-inline: auto;
+		box-sizing: border-box;
 	}
 
 	&__eyebrow {
@@ -181,40 +185,22 @@
 // --- Tablet ---
 @include until( $bp-desktop ) {
 	.doo-profesorado {
-		&__container {
-			width: 100%;
-			padding: 0 24px;
-		}
-
 		&__grid {
 			grid-template-columns: repeat( 2, 1fr );
 		}
 	}
 }
 
-// --- Mobile: 2 columnas, cards más compactas ---
+// --- Mobile: 2 columnas ---
 @include until( $bp-tablet ) {
 	.doo-profesorado {
-		padding: 56px 0;
+		padding-block: 56px;
 
 		&__title { font-size: 28px; }
 
 		&__grid {
 			grid-template-columns: repeat( 2, 1fr );
-			gap: 12px;
+			gap: 16px;
 		}
-	}
-
-	.doo-profesorado .doo-teacher-card {
-		&__photo-wrap { padding: 10px 10px 0; }
-
-		&__body { padding: 10px 10px 44px; }
-
-		&__name { font-size: 13px !important; }
-
-		&__degree { font-size: 10px !important; }
-
-		&__role,
-		&__org { font-size: 11px !important; }
 	}
 }

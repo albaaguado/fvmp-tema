@@ -1,12 +1,14 @@
 {
   "name": "dw-tema",
   "version": "1.0.0",
-  "description": "",
+  "description": "FVMP training platform block theme",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "vite",
-    "build": "vite build",
+    "dev:blocks": "vite build --watch --config vite.blocks.config.js",
+    "build": "vite build && vite build --config vite.blocks.config.js",
+    "build:theme": "vite build",
+    "build:blocks": "vite build --config vite.blocks.config.js",
     "preview": "vite preview"
   },
   "repository": {

@@ -1,0 +1,45 @@
+	{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "doo/af-curso",
+	"version": "1.0.0",
+	"title": "Detalle de Acción Formativa",
+	"category": "doo-blocks",
+	"icon": "book",
+	"description": "Página de detalle de curso reutilizable (FC, FAP, PIM…). Colores temáticos configurables.",
+	"supports": { "html": false, "align": false, "multiple": false },
+	"textdomain": "dw-tema",
+	"editorScript": "doo-blocks-editor",
+	"render": "file:./render.php",
+	"attributes": {
+		"section":        { "type": "string", "default": "", "enum": ["", "fc", "fap", "pim"] },
+		"accentColor":    { "type": "string", "default": "" },
+		"accentBg":       { "type": "string", "default": "" },
+		"navyColor":      { "type": "string", "default": "" },
+		"borderColor":    { "type": "string", "default": "" },
+		"objectivesBg":   { "type": "string", "default": "" },
+		"characteristicsBg": { "type": "string", "default": "" },
+		"sectionLabel":   { "type": "string", "default": "" },
+		"sectionSlug":    { "type": "string", "default": "" },
+		"courseTitle":    { "type": "string", "default": "" },
+		"courseCode":     { "type": "string", "default": "" },
+		"modality":       { "type": "string", "default": "" },
+		"location":       { "type": "string", "default": "" },
+		"duration":       { "type": "string", "default": "" },
+		"capacity":       { "type": "string", "default": "" },
+		"objectivesIntro": { "type": "string", "default": "" },
+		"objectives": {
+			"type": "array",
+			"default": []
+		},
+		"topics": {
+			"type": "array",
+			"default": []
+		},
+		"destinatarios":  { "type": "string", "default": "" },
+		"horario":        { "type": "string", "default": "" },
+		"fecha":          { "type": "string", "default": "" },
+		"inscribirseUrl": { "type": "string", "default": "/formulario-de-registro/" },
+		"listadoUrl":     { "type": "string", "default": "/formacion-continua/" }
+	}
+}

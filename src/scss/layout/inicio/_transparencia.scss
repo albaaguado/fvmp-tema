@@ -8,10 +8,14 @@
 .doo-transparencia {
 	background: #fff;
 	padding: 96px 0;
+	padding-inline: var(--doo-layout-pad);
+	box-sizing: border-box;
 
 	&__container {
-		width: 1200px;
-		margin: 0 auto;
+		width: 100%;
+		max-width: var(--doo-layout-max);
+		margin-inline: auto;
+		box-sizing: border-box;
 	}
 
 	&__inner {
@@ -158,12 +162,7 @@
 // --- Mobile ---
 @include until( $bp-tablet ) {
 	.doo-transparencia {
-		padding: 56px 0;
-
-		&__container {
-			width: 100%;
-			padding: 0 24px;
-		}
+		padding-block: 56px;
 
 		&__inner {
 			flex-direction: column;

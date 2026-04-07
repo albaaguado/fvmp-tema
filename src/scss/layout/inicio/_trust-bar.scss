@@ -7,13 +7,13 @@
 
 .doo-trust-bar {
 	background: $color-navy;
-	border-top: 1px solid #e2e4e8;
-	border-bottom: 1px solid #e2e4e8;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	height: 168px;
 	width: 100%;
+	box-sizing: border-box;
+	padding-inline: var(--doo-layout-pad);
 
 	// Logo item
 	&__item {
@@ -49,12 +49,22 @@
 	}
 }
 
+// --- Desktop: más padding en los items ---
+@include from( $bp-desktop ) {
+	.doo-trust-bar {
+		&__item {
+			padding: 0 72px;
+		}
+	}
+}
+
 // --- Mobile: una sola fila, imágenes reducidas ---
 @include until( $bp-tablet ) {
 	.doo-trust-bar {
 		height: 88px;
 		flex-wrap: nowrap;
-		padding: 0 12px;
+		padding-inline: 12px;
+		padding-block: 0;
 		gap: 0;
 
 		&__item {

@@ -11,6 +11,9 @@
 @use 'base/reset';
 @use 'base/typography';
 
+// --- Global layout (utilities + post-content / alignments) ---
+@use 'layout/layout-system';
+
 // --- Layout (structural sections) ---
 @use 'layout/shared/header';
 @use 'layout/shared/footer';
@@ -25,7 +28,12 @@
 @use 'layout/inicio/transparencia';
 @use 'layout/inicio/planes';
 @use 'layout/fc/fc-hero';
-@use 'layout/fc/fc-courses';
+@use 'layout/af/af-hero';
+@use 'layout/fc/af-courses';
+@use 'layout/fc/af-curso';
+@use 'layout/jornadas/hero' as jornadas-hero;
+@use 'layout/jornadas/listing' as jornadas-listing;
+@use 'layout/jornadas/detail' as jornadas-detail;
 
 // --- Components (reusable UI pieces) ---
 @use 'components/buttons';
@@ -33,6 +41,10 @@
 
 // --- Pages (page-specific overrides) ---
 @use 'pages/home';
+@use 'pages/registro';
+@use 'pages/login-page';
+@use 'pages/mis-cursos';
+@use 'pages/area-personal';
 
 // --- Vendors (third-party) ---
 // @use 'vendors/lucide';

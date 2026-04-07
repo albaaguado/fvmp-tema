@@ -1,0 +1,18 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "doo/testimonios",
+	"version": "1.0.0",
+	"title": "Testimonios",
+	"category": "doo-blocks",
+	"icon": "format-quote",
+	"description": "Citas del alumnado (CPT Testimonios). Solo edita el encabezado aquí.",
+	"supports": { "html": false, "align": false, "multiple": false },
+	"attributes": {
+		"eyebrow": { "type": "string", "default": "TESTIMONIOS" },
+		"title": { "type": "string", "default": "Lo que opina el alumnado" }
+	},
+	"textdomain": "dw-tema",
+	"editorScript": "doo-blocks-editor",
+	"render": "file:./render.php"
+}

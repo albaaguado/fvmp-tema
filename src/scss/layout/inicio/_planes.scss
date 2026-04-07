@@ -8,10 +8,14 @@
 .doo-planes {
 	background: $color-bg-light;
 	padding: 96px 0;
+	padding-inline: var(--doo-layout-pad);
+	box-sizing: border-box;
 
 	&__container {
-		width: 1200px;
-		margin: 0 auto;
+		width: 100%;
+		max-width: var(--doo-layout-max);
+		margin-inline: auto;
+		box-sizing: border-box;
 	}
 
 	&__title {
@@ -91,9 +95,24 @@
 		text-decoration: none;
 		margin-top: 12px;
 		align-self: flex-start;
+		display: inline-flex;
+		align-items: center;
+		padding: 4px 10px;
+		margin-left: -10px;
+		border-radius: 999px;
+		background: transparent;
+		transition:
+			color 0.22s ease,
+			background-color 0.22s ease,
+			transform 0.22s ease,
+			box-shadow 0.22s ease;
 
 		&:hover {
-			text-decoration: underline;
+			color: #fff;
+			background: $color-teal;
+			transform: translateX(4px);
+			box-shadow: 0 8px 20px rgba(0, 169, 165, 0.28);
+			text-decoration: none;
 		}
 	}
 }
@@ -101,12 +120,7 @@
 // --- Mobile ---
 @include until( $bp-tablet ) {
 	.doo-planes {
-		padding: 56px 0;
-
-		&__container {
-			width: 100%;
-			padding: 0 24px;
-		}
+		padding-block: 56px;
 
 		&__title { font-size: 28px; }
 

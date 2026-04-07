@@ -1,0 +1,26 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "doo/transparencia",
+	"version": "1.0.0",
+	"title": "Transparencia",
+	"category": "doo-blocks",
+	"icon": "visibility",
+	"description": "Bloque transparencia con enlaces a documentos.",
+	"supports": { "html": false, "align": false, "multiple": false },
+	"attributes": {
+		"eyebrow": { "type": "string", "default": "TRANSPARENCIA" },
+		"title": { "type": "string", "default": "Gestión transparente de la formación pública" },
+		"description": { "type": "string", "default": "En la FVMP estamos comprometidos con la transparencia en la gestión de todas las acciones formativas que desarrollamos para nuestros usuarios." },
+		"link1Title": { "type": "string", "default": "Criterios de selección del alumnado" },
+		"link1Desc": { "type": "string", "default": "Consulta los criterios objetivos que rigen el acceso a los diferentes planes de formación." },
+		"link1Url": { "type": "string", "default": "#" },
+		"link2Title": { "type": "string", "default": "Memoria de evaluación 2024" },
+		"link2Desc": { "type": "string", "default": "Resultados, valoraciones y estadísticas del plan formativo del año anterior." },
+		"link2Url": { "type": "string", "default": "#" },
+		"renderOnlyLinks": { "type": "boolean", "default": false }
+	},
+	"textdomain": "dw-tema",
+	"editorScript": "doo-blocks-editor",
+	"render": "file:./render.php"
+}

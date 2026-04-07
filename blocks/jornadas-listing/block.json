@@ -1,0 +1,25 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "doo/jornadas-listing",
+	"title": "Jornadas Listing",
+	"category": "doo-blocks",
+	"description": "Grid de tarjetas de próximas jornadas",
+	"textdomain": "dw-tema",
+	"supports": {
+		"html": false,
+		"anchor": true
+	},
+	"attributes": {
+		"sectionTitle": {
+			"type": "string",
+			"default": "Próximas Jornadas"
+		},
+		"postsPerPage": {
+			"type": "number",
+			"default": 6
+		}
+	},
+	"editorScript": "doo-blocks-editor",
+	"render": "file:./render.php"
+}

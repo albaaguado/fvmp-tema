@@ -5,7 +5,7 @@ You are a senior WordPress block theme developer working on the FVMP training pl
 ## Project Overview
 
 - **Type:** WordPress 6.9 Block Theme (Full Site Editing)
-- **Stack:** PHP 8.2+, Vite, SCSS, Vanilla JS
+- **Stack:** PHP 8.2+, Vite, SCSS, Vanilla JS (theme), React/JSX (Gutenberg blocks)
 - **Environment:** Local by Flywheel (Windows), Cursor IDE, Git Bash
 - **Repo:** github.com/albaaguado/fvmp-tema
 - **Branches:** `main` (production) → `develop` (integration) → `feature/*` (work)
@@ -46,6 +46,7 @@ You are a senior WordPress block theme developer working on the FVMP training pl
 - ALL script/style handles MUST be prefixed: `doo-main-style`, `doo-vite-script`.
 - ALL custom post types, taxonomies, meta keys: `doo_cpt_name`, `doo_meta_key`.
 - ALL database options: `doo_option_name`.
+- ALL Gutenberg blocks MUST use the `doo/` namespace: `doo/hero`, `doo/fc-courses`.
 
 ```php
 // ✅ Correct
@@ -100,7 +101,116 @@ function doo_enqueue_assets() {
 add_action( 'wp_enqueue_scripts', 'doo_enqueue_assets' );
 ```
 
-## 6. SCSS Architecture
+## 6. Gutenberg Custom Blocks
+
+Custom dynamic blocks live in `blocks/` (PHP) and `src/blocks/` (JSX).
+
+### Architecture
+
+- **All blocks are dynamic**: rendered server-side via `render.php`. Editor experience uses React `edit.jsx` components with inline editing (RichText, MediaUpload, InspectorControls) or `ServerSideRender` for CPT-driven content.
+- **Single editor script**: `src/blocks/index.jsx` registers all blocks and imports their `edit.jsx` components. Vite compiles it to `build/doo-blocks.js` (IIFE with WordPress globals externalised).
+- **No `@wordpress/scripts`**: blocks are compiled by Vite using a dedicated config (`vite.blocks.config.js`).
+- **Blocks live in page content**: templates are simple wrappers (header + `post-content` + footer). The actual blocks are stored in each page's `post_content`, so admins can see and edit them directly in the page editor.
+
+### Block File Structure
+
+Each block has `block.json` + `render.php` in `blocks/`, and an `edit.jsx` in `src/blocks/` for interactive editing:
+
+```
+blocks/
+├── hero/
+│   ├── block.json          ← Metadata, attributes, category, icon, render path
+│   └── render.php          ← Server-side HTML output (reads $attributes with fallbacks)
+├── presentacion/
+│   ├── block.json
+│   └── render.php
+├── profesorado/
+│   ├── block.json
+│   └── render.php
+├── fc-hero/
+│   ├── block.json
+│   └── render.php
+└── fc-courses/
+    ├── block.json
+    └── render.php
+
+src/blocks/
+├── index.jsx               ← Registers all blocks, imports edit components
+├── hero/
+│   └── edit.jsx            ← Full inline editing (RichText, MediaUpload)
+├── presentacion/
+│   └── edit.jsx            ← Inline editing + InspectorControls
+├── profesorado/
+│   └── edit.jsx            ← ServerSideRender + InspectorControls for headers
+└── fc-hero/
+    └── edit.jsx            ← ServerSideRender + InspectorControls for all fields
+```
+
+### Creating a New Block
+
+1. Create `blocks/<block-name>/block.json`:
+```json
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "doo/<block-name>",
+    "version": "1.0.0",
+    "title": "Block Title",
+    "category": "doo-blocks",
+    "icon": "dashicon-name",
+    "description": "Brief description in English.",
+    "supports": { "html": false, "align": false, "multiple": false },
+    "textdomain": "dw-tema",
+    "editorScript": "doo-blocks-editor",
+    "render": "file:./render.php"
+}
+```
+
+2. Create `blocks/<block-name>/render.php` with the HTML output:
+```php
+<?php
+/**
+ * Block render: doo/<block-name>.
+ *
+ * @var array    $attributes Block attributes.
+ * @var string   $content    Block content.
+ * @var WP_Block $block      Block instance.
+ *
+ * @package DooFvmpTheme
+ */
+?>
+<section class="doo-block-name">
+    <!-- HTML here — use exact same classes as SCSS -->
+</section>
+```
+
+3. Register the block in `src/blocks/index.jsx`:
+```jsx
+registerBlockType( 'doo/<block-name>', {
+    edit: function DooBlockNameEdit() {
+        return (
+            <div { ...useBlockProps() }>
+                <ServerSideRender block="doo/<block-name>" />
+            </div>
+        );
+    },
+} );
+```
+
+4. Run `npm run build:blocks` to compile.
+
+### Block Build (Vite)
+
+- `vite.blocks.config.js` compiles `src/blocks/index.jsx` → `build/doo-blocks.js` (IIFE).
+- JSX uses classic transform: `esbuild.jsxFactory = 'createElement'` from `@wordpress/element`.
+- WordPress packages (`@wordpress/blocks`, `@wordpress/block-editor`, etc.) are externalised as `wp.*` globals.
+- The script is registered as `doo-blocks-editor` with WP deps in `functions.php`.
+
+### Block Category
+
+All custom blocks belong to the `doo-blocks` category ("FVMP Blocks"), registered via `block_categories_all` filter.
+
+## 7. SCSS Architecture
 
 - Use SCSS (Sass), NEVER plain CSS for source files.
 - Follow 7-1 pattern structure:
@@ -119,14 +229,18 @@ src/scss/
 │   ├── _cards.scss
 │   └── _forms.scss
 ├── layout/
-│   ├── _header.scss
-│   ├── _footer.scss
-│   └── _hero.scss
+│   ├── shared/
+│   │   ├── _header.scss
+│   │   └── _footer.scss
+│   ├── inicio/
+│   │   ├── _hero.scss
+│   │   └── ... (section partials)
+│   └── fc/
+│       ├── _fc-hero.scss
+│       └── _fc-courses.scss
 ├── pages/
 │   ├── _home.scss
-│   ├── _formacion-continua.scss
-│   ├── _fap.scss
-│   └── _pim.scss
+│   └── ...
 ├── vendors/
 │   └── _lucide.scss
 └── main.scss               ← Imports everything
@@ -142,71 +256,41 @@ $color-red-cta: var(--wp--preset--color--red-cta);
 $spacing-30: var(--wp--preset--spacing--30);
 
 // ⚠️ IMPORTANT: font-family must use a direct stack, NOT var(--wp--preset--font-family--inter).
-// WordPress does not reliably output @font-face or --wp--preset--font-family--* variables
-// on the frontend — it depends on cache and global styles processing.
-// The font is loaded via @font-face in _typography.scss (bundled by Vite).
 $font-inter: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 ```
 
 ### Font Loading Rules
 
-- NEVER rely on `theme.json` `fontFace` entries to load fonts on the frontend. WordPress caches
-  the global styles processing and may not output `@font-face` or `--wp--preset--font-family--*`
-  variables reliably.
+- NEVER rely on `theme.json` `fontFace` entries to load fonts on the frontend.
 - ALWAYS declare `@font-face` explicitly in `src/scss/base/_typography.scss` so Vite bundles
-  the font files into `dist/assets/` and the CSS references them with correct relative paths.
-- ALWAYS use a direct font stack in `$font-inter` (and any other font variable), never a
-  `var(--wp--preset--font-family--*)` reference.
-- `theme.json` `fontFace` entries are still useful for the block editor (Gutenberg) — keep them —
-  but they are not sufficient for frontend font loading.
+  the font files into `dist/assets/`.
+- ALWAYS use a direct font stack in `$font-inter`, never a `var(--wp--preset--font-family--*)` reference.
 
-```scss
-// In _typography.scss — explicit @font-face so Vite bundles the fonts
-@font-face {
-    font-family: 'Inter';
-    src: url('../../../assets/fonts/inter/Inter-VariableFont_opsz_wght.ttf') format('truetype');
-    font-weight: 100 900;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Inter';
-    src: url('../../../assets/fonts/inter/Inter-Italic-VariableFont_opsz_wght.ttf') format('truetype');
-    font-weight: 100 900;
-    font-style: italic;
-    font-display: swap;
-}
-```
-
-## 7. Code Language — English Only
+## 8. Code Language — English Only
 
 - ALL code MUST be written in English: variable names, function names, class names, comments, docblocks.
 - Git commit messages in English.
 - Use conventional commits: `feat:`, `fix:`, `refactor:`, `docs:`, `style:`, `chore:`.
 - File and folder names in English, lowercase, kebab-case.
-- HTML comments in block templates can be bilingual if needed for clarity.
 
-```php
-// ✅ Correct
-function doo_get_training_programs() { ... }
-// Retrieves active training programs from the database.
+## 9. Vite Configuration
 
-// ❌ Wrong
-function doo_obtener_programas_formacion() { ... }
-// Obtiene los programas de formación activos.
+Two Vite configs:
+
+| Config | Entry | Output | Format | Purpose |
+|--------|-------|--------|--------|---------|
+| `vite.config.js` | `src/js/main.js` | `dist/` | ESM | Theme SCSS + Vanilla JS |
+| `vite.blocks.config.js` | `src/blocks/index.jsx` | `build/` | IIFE | Gutenberg block editor scripts |
+
+### NPM Scripts
+
 ```
-
-## 8. Vite Configuration
-
-- Vite compiles SCSS → CSS and bundles JS.
-- Output goes to `/dist/` folder.
-- Vite generates a `manifest.json` for cache-busted asset paths.
-- In development: Vite dev server with HMR (Hot Module Replacement).
-- In production: `npm run build` generates optimized files.
-- **`base: './'` is required** so that asset URLs (fonts, images) in compiled CSS are relative
-  paths (`./Inter-....ttf`) instead of absolute paths (`/assets/Inter-....ttf`). Absolute paths
-  break in WordPress because the theme is not at the site root.
+npm run dev           → Vite dev server (theme HMR)
+npm run dev:blocks    → Vite watch mode (blocks)
+npm run build         → Build both theme + blocks
+npm run build:theme   → Build theme only
+npm run build:blocks  → Build blocks only
+```
 
 ### Vite Dev Server (development)
 
@@ -217,52 +301,29 @@ function doo_obtener_programas_formacion() { ... }
 ### Required Vite helper in functions.php:
 
 ```php
-/**
- * Check if Vite dev server is running.
- *
- * @return bool True if dev server is active.
- */
 function doo_is_vite_dev() {
     return defined( 'DOO_VITE_DEV' ) && DOO_VITE_DEV;
 }
 
-/**
- * Get Vite manifest for production asset paths.
- *
- * @return array Parsed manifest data.
- */
 function doo_get_vite_manifest() {
     $manifest_path = get_template_directory() . '/dist/.vite/manifest.json';
-
     if ( ! file_exists( $manifest_path ) ) {
         return array();
     }
-
     return json_decode( file_get_contents( $manifest_path ), true );
 }
 ```
 
-## 9. Backup System
+## 10. Backup System
 
 - Before modifying any existing theme file, create a backup copy.
 - Backups go to `/backups/` folder with timestamp.
-- The BAT script handles this automatically.
 - `/backups/` is in `.gitignore` — never committed.
-
-## 10. Browser Reload
-
-- In development, Vite HMR handles automatic browser refresh.
-- SCSS changes: hot-replaced without full reload (instant).
-- PHP/HTML template changes: full page reload (automatic).
-- No manual browser refresh needed during development.
 
 ## 11. BAT Scripts
 
 - Provide `.bat` files for Windows workflows.
 - All scripts go in `/bin/` folder.
-- Scripts must include error handling and colored output.
-
-### Required scripts:
 
 ```
 bin/
@@ -289,12 +350,48 @@ fvmp-tema/
 │   ├── build.bat
 │   ├── backup.bat
 │   └── deploy.bat
-├── dist/                     ← Vite output, gitignored
+├── blocks/                   ← Gutenberg block definitions (PHP)
+│   ├── hero/
+│   │   ├── block.json
+│   │   └── render.php
+│   ├── presentacion/
+│   │   ├── block.json
+│   │   └── render.php
+│   ├── profesorado/
+│   │   ├── block.json
+│   │   └── render.php
+│   ├── fc-hero/
+│   │   ├── block.json
+│   │   └── render.php
+│   └── fc-courses/
+│       ├── block.json
+│       └── render.php
+├── build/                    ← Vite block output, gitignored
+│   └── doo-blocks.js
+├── dist/                     ← Vite theme output, gitignored
+├── inc/
+│   ├── block-defaults.php    ← Defaults PHP para hero/presentación (mensaje largo desde inc/defaults/)
+│   ├── doo-docente-cpt.php   ← CPT Docentes (profesorado)
+│   ├── doo-testimonio-cpt.php ← CPT Testimonios + semilla inicial
+│   ├── fc-post-type.php      ← CPT Acción Formativa + taxonomy
+│   ├── doo-migrate-blocks.php ← One-time migration: populates page content
+│   ├── page-content-home.html ← Block markup for Home page (migration source)
+│   └── page-content-fc.html   ← Block markup for FC page (migration source)
 ├── parts/
 │   ├── header.html
 │   └── footer.html
 ├── patterns/                 ← Block patterns
 ├── src/
+│   ├── blocks/
+│   │   ├── index.jsx         ← Registers all Gutenberg blocks (React)
+│   │   ├── hero/edit.jsx
+│   │   ├── presentacion/edit.jsx
+│   │   ├── profesorado/edit.jsx
+│   │   ├── testimonios/edit.jsx
+│   │   ├── modalidades/edit.jsx
+│   │   ├── transparencia/edit.jsx
+│   │   ├── planes/edit.jsx
+│   │   └── fc-hero/edit.jsx
 │   ├── scss/
 │   │   ├── main.scss
 │   │   └── ... (7-1 structure)
@@ -311,18 +408,29 @@ fvmp-tema/
 ├── package.json
 ├── style.css
 ├── theme.json
-└── vite.config.js
+├── vite.config.js            ← Theme build
+└── vite.blocks.config.js     ← Block build
 ```
+
+## Known Issues / Pending Fixes
+
+- **Git branch merge target:** Future PRs from `feature/*` branches MUST
+  target `develop`, NOT `main`. Before creating a new PR, verify the base branch is `develop`.
+- **CSS logical properties:** WordPress 6.x block themes inject styles using CSS logical
+  properties (`margin-block-start`, `padding-block-end`, etc.). The shorthand `margin: 0`
+  does NOT reset these. Always reset BOTH physical and logical properties:
+  `margin: 0 !important; margin-block: 0 !important;`
 
 ## Reminders for Every Response
 
-1. **Always prefix** everything with `doo_` or `.doo-`.
+1. **Always prefix** everything with `doo_` or `.doo-` (blocks: `doo/`).
 2. **Always escape output** and **sanitize input**.
 3. **Always use nonces** for form submissions and AJAX.
 4. **Always enqueue** assets — never hardcode.
 5. **Always write code in English.**
 6. **Always use SCSS** — never write plain CSS directly.
 7. **Always follow WP Coding Standards** — tabs, Yoda, spaces, docblocks.
-8. If creating a new file, show where it goes in the folder structure.
-9. If modifying an existing file, mention the backup step.
-10. When suggesting git commands, use conventional commit format.
+8. **New blocks** must follow the block creation guide in section 6.
+9. If creating a new file, show where it goes in the folder structure.
+10. If modifying an existing file, mention the backup step.
+11. When suggesting git commands, use conventional commit format.

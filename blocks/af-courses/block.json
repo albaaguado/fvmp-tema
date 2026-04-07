@@ -1,0 +1,21 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "doo/af-courses",
+	"version": "1.0.0",
+	"title": "Listado de Acciones Formativas",
+	"category": "doo-blocks",
+	"icon": "list-view",
+	"description": "Listado filtrable de acciones formativas (FC, FAP, PIM). Sección configurable.",
+	"attributes": {
+		"postType": { "type": "string", "default": "doo_accion_formativa" }
+	},
+	"supports": {
+		"html": false,
+		"align": false,
+		"multiple": false
+	},
+	"textdomain": "dw-tema",
+	"editorScript": "doo-blocks-editor",
+	"render": "file:./render.php"
+}

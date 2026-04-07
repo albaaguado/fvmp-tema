@@ -10,20 +10,35 @@
 	background: #f7f8fa !important;
 	padding: 64px 0 !important;
 	padding-block: 64px !important;
+	padding-inline: var(--doo-layout-pad) !important;
 	margin: 0 !important;
 	margin-block: 0 !important;
-	width: 100% !important;
+	width: 100vw !important;
 	max-width: none !important;
+	margin-inline: calc(50% - 50vw) !important;
+	box-sizing: border-box !important;
+
+	@include until( $bp-tablet ) {
+		padding: 40px 0 !important;
+		padding-block: 40px !important;
+		padding-inline: var(--doo-layout-pad) !important;
+	}
 
 	.doo-fc-hero__inner {
 		display: flex !important;
 		gap: 48px !important;
 		align-items: center !important;
-		width: 1440px !important;
-		max-width: 100% !important;
+		width: 100% !important;
+		max-width: var(--doo-layout-max) !important;
 		margin: 0 auto !important;
 		padding: 0 !important;
 		padding-block: 0 !important;
+		box-sizing: border-box !important;
+
+		@include until( $bp-tablet ) {
+			flex-direction: column !important;
+			gap: 32px !important;
+		}
 	}
 
 	.doo-fc-hero__left {
@@ -51,6 +66,10 @@
 		padding: 0 !important;
 		padding-block: 0 !important;
 		line-height: 1.1 !important;
+
+		@include until( $bp-tablet ) {
+			font-size: 32px !important;
+		}
 	}
 
 	.doo-fc-hero__desc {
@@ -61,6 +80,12 @@
 		margin-block: 0 24px !important;
 		padding: 0 !important;
 		padding-block: 0 !important;
+
+		@include until( $bp-tablet ) {
+			font-size: 15px !important;
+			margin-bottom: 16px !important;
+			margin-block-end: 16px !important;
+		}
 	}
 
 	// ── Stats row ──
@@ -73,6 +98,11 @@
 		padding-block: 16px 0 !important;
 		margin: 0 !important;
 		margin-block: 0 !important;
+
+		@include until( $bp-tablet ) {
+			flex-wrap: wrap !important;
+			gap: 16px !important;
+		}
 	}
 
 	.doo-fc-hero__stat {
@@ -128,6 +158,12 @@
 		overflow: hidden !important;
 		height: 293px !important;
 		position: relative !important;
+
+		@include until( $bp-tablet ) {
+			width: 100% !important;
+			height: auto !important;
+			min-height: 280px !important;
+		}
 	}
 
 	.doo-fc-hero__card-stripe {
@@ -244,20 +280,38 @@
 	}
 }
 
+// Editor: reset full-bleed
+.editor-styles-wrapper .doo-fc-hero {
+	width: 100% !important;
+	margin-inline: 0 !important;
+}
+
 // ==========================================================================
-// Responsive
+// Responsive — Mobile (< 600px)
+// ==========================================================================
+
+@include until( $bp-mobile ) {
+	.doo-fc-hero {
+		padding: 40px 0 !important;
+		padding-block: 40px !important;
+		padding-inline: var(--doo-layout-pad) !important;
+	}
+}
+
+// ==========================================================================
+// Responsive — Tablet (600px – 760px)
 // ==========================================================================
 
 @include until($bp-tablet) {
 	.doo-fc-hero {
 		padding: 40px 0 !important;
 		padding-block: 40px !important;
+		padding-inline: var(--doo-layout-pad) !important;
 	}
 
 	.doo-fc-hero .doo-fc-hero__inner {
 		flex-direction: column !important;
 		gap: 32px !important;
-		padding: 0 16px !important;
 	}
 
 	.doo-fc-hero .doo-fc-hero__title {
