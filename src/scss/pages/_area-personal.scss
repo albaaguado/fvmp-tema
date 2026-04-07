@@ -1,0 +1,440 @@
+// ==========================================================================
+// Área Personal Page Block Styles
+// Tabbed personal account area for logged-in users
+// ==========================================================================
+
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.doo-area-personal {
+	width: 100% !important;
+	max-width: none !important;
+	margin: 0 !important;
+	margin-block: 0 !important;
+	padding: 0 !important;
+
+	// --------------------------------------------------------------------------
+	// Page header (white band with centered title)
+	// --------------------------------------------------------------------------
+
+	&__page-header {
+		background: #ffffff !important;
+		padding: 40px 0 32px !important;
+		text-align: center !important;
+		border-bottom: 1px solid #e2e4e8 !important;
+		width: 100vw !important;
+		max-width: none !important;
+		margin-inline: calc(50% - 50vw) !important;
+		box-sizing: border-box !important;
+
+		@include until( $bp-tablet ) {
+			padding: 24px 16px 20px !important;
+		}
+	}
+
+	&__page-title {
+		font-size: 36px !important;
+		font-weight: 700 !important;
+		color: #152057 !important;
+		margin: 0 !important;
+		margin-block: 0 !important;
+		padding: 0 !important;
+		line-height: normal !important;
+
+		@include until( $bp-tablet ) {
+			font-size: 28px !important;
+		}
+	}
+
+	// --------------------------------------------------------------------------
+	// Two-column layout wrapper (gray bg)
+	// --------------------------------------------------------------------------
+
+	&__layout {
+		display: flex !important;
+		gap: 24px !important;
+		background: #f0f0f0 !important;
+		min-height: auto !important;
+		width: 100vw !important;
+		max-width: none !important;
+		margin-inline: calc(50% - 50vw) !important;
+		padding: 40px var(--doo-layout-pad) 80px !important;
+		box-sizing: border-box !important;
+		align-items: flex-start !important;
+
+		@include until( $bp-tablet ) {
+			flex-direction: column !important;
+			gap: 16px !important;
+			padding: 24px var(--doo-layout-pad) 40px !important;
+		}
+	}
+
+	// --------------------------------------------------------------------------
+	// Sidebar
+	// --------------------------------------------------------------------------
+
+	&__sidebar {
+		width: 280px !important;
+		min-width: 280px !important;
+		background: #ffffff !important;
+		border-radius: 12px !important;
+		border: 1.5px solid #f0f0f0 !important;
+		overflow: hidden !important;
+		align-self: flex-start !important;
+		flex-shrink: 0 !important;
+
+		@include until( $bp-tablet ) {
+			width: 100% !important;
+			min-width: auto !important;
+		}
+	}
+
+	&__sb-user {
+		padding: 24px 22px !important;
+		display: flex !important;
+		flex-direction: column !important;
+		gap: 4px !important;
+	}
+
+	&__sb-name {
+		font-size: 16px !important;
+		font-weight: 700 !important;
+		color: #152057 !important;
+		line-height: normal !important;
+	}
+
+	&__sb-profile {
+		font-size: 13px !important;
+		color: #009e96 !important;
+		text-decoration: none !important;
+		line-height: normal !important;
+
+		&:hover {
+			text-decoration: underline !important;
+		}
+	}
+
+	&__sb-divider {
+		height: 1px !important;
+		background: #f0f0f0 !important;
+		margin: 0 22px !important;
+	}
+
+	&__sb-nav {
+		padding: 0 22px !important;
+		display: flex !important;
+		flex-direction: column !important;
+	}
+
+	&__sb-item {
+		display: flex !important;
+		align-items: center !important;
+		justify-content: space-between !important;
+		padding: 14px 0 !important;
+		border-bottom: 1px solid #f0f0f0 !important;
+		border-left: none !important;
+		border-right: none !important;
+		border-top: none !important;
+		background: none !important;
+		cursor: pointer !important;
+		width: 100% !important;
+		text-align: left !important;
+		color: #636e80 !important;
+		font-size: 14px !important;
+		font-weight: 400 !important;
+		line-height: normal !important;
+		transition: color 0.15s !important;
+
+		&:last-child {
+			border-bottom: none !important;
+		}
+
+		svg {
+			color: #636e80 !important;
+			flex-shrink: 0 !important;
+			transition: color 0.15s !important;
+		}
+
+		&.is-active {
+			color: #009e96 !important;
+			font-weight: 600 !important;
+
+			svg {
+				color: #009e96 !important;
+			}
+		}
+	}
+
+	&__sb-item-left {
+		display: flex !important;
+		gap: 10px !important;
+		align-items: center !important;
+	}
+
+	// --------------------------------------------------------------------------
+	// Right content area
+	// --------------------------------------------------------------------------
+
+	&__content {
+		flex: 1 !important;
+		min-width: 0 !important;
+		display: flex !important;
+		flex-direction: column !important;
+		align-items: stretch !important;
+	}
+
+	&__form {
+		display: flex !important;
+		flex-direction: column !important;
+		gap: 16px !important;
+		width: 100% !important;
+		flex: 1 1 auto !important;
+		min-width: 0 !important;
+	}
+
+	&__field:has(.doo-area-personal__fieldset),
+	&__actions {
+		width: 100% !important;
+		min-width: 0 !important;
+		align-self: stretch !important;
+	}
+
+	&__field {
+		display: flex !important;
+		flex-direction: column !important;
+		gap: 8px !important;
+		width: 100% !important;
+		min-width: 0 !important;
+	}
+
+	&__fieldset {
+		display: flex !important;
+		flex-direction: column !important;
+		gap: 8px !important;
+		width: 100% !important;
+		min-width: 0 !important;
+		margin: 0 !important;
+		padding: 0 !important;
+		border: 0 !important;
+	}
+
+	&__required {
+		color: #b52120 !important;
+		margin-left: 4px !important;
+	}
+
+	&__select-wrap {
+		position: relative !important;
+		width: 100% !important;
+		min-width: 0 !important;
+	}
+
+	// --------------------------------------------------------------------------
+	// Panels
+	// --------------------------------------------------------------------------
+
+	&__panel {
+		display: none !important;
+		background: #ffffff !important;
+		border-radius: 12px !important;
+		border: 1.5px solid #f0f0f0 !important;
+		padding: 32px !important;
+		flex-direction: column !important;
+		gap: 20px !important;
+		width: 100% !important;
+		flex: 1 1 auto !important;
+		min-width: 0 !important;
+		align-self: stretch !important;
+		box-sizing: border-box !important;
+
+		&.is-active {
+			display: flex !important;
+		}
+
+		@include until( $bp-tablet ) {
+			padding: 20px !important;
+			gap: 16px !important;
+		}
+	}
+
+	&__panel-header {
+		display: flex !important;
+		gap: 10px !important;
+		align-items: center !important;
+		line-height: normal !important;
+
+		svg {
+			width: 20px !important;
+			height: 20px !important;
+			flex-shrink: 0 !important;
+			color: #152057 !important;
+			transform: translateY(0) !important;
+		}
+	}
+
+	&__panel-title {
+		font-size: 20px !important;
+		font-weight: 700 !important;
+		color: #152057 !important;
+		margin: 0 !important;
+		margin-block: 0 !important;
+		padding: 0 !important;
+		line-height: normal !important;
+
+		@include until( $bp-tablet ) {
+			font-size: 18px !important;
+		}
+	}
+
+	// --------------------------------------------------------------------------
+	// Form fields
+	// --------------------------------------------------------------------------
+
+	&__label {
+		display: flex !important;
+		flex-direction: column !important;
+		gap: 8px !important;
+		width: 100% !important;
+		min-width: 0 !important;
+
+		@include until( $bp-tablet ) {
+			font-size: 13px !important;
+		}
+	}
+
+	&__label-text {
+		font-size: 14px !important;
+		font-weight: 600 !important;
+		color: #152057 !important;
+		line-height: normal !important;
+	}
+
+	&__input,
+	&__select,
+	&__textarea {
+		width: 100% !important;
+		min-width: 0 !important;
+		height: 48px !important;
+		padding: 0 12px !important;
+		border: 1px solid #e2e6ee !important;
+		border-radius: 8px !important;
+		font-size: 14px !important;
+		font-family: inherit !important;
+		background: #ffffff !important;
+		transition: border-color 0.15s !important;
+		box-sizing: border-box !important;
+		color: #152057 !important;
+
+		&:hover {
+			border-color: #d0d0d0 !important;
+		}
+
+		&:focus {
+			outline: none !important;
+			border-color: #009e96 !important;
+		}
+
+		&::placeholder {
+			color: #666 !important;
+		}
+	}
+
+	&__input--select {
+		appearance: none !important;
+		padding-right: 40px !important;
+	}
+
+	&__select-wrap svg {
+		position: absolute !important;
+		top: 50% !important;
+		right: 12px !important;
+		transform: translateY(-50%) !important;
+		pointer-events: none !important;
+		color: #636e80 !important;
+	}
+
+	&__textarea {
+		min-height: 120px !important;
+		padding: 12px !important;
+		resize: vertical !important;
+
+		@include until( $bp-tablet ) {
+			min-height: 100px !important;
+		}
+	}
+
+	// --------------------------------------------------------------------------
+	// Radio group
+	// --------------------------------------------------------------------------
+
+	&__radio-group {
+		display: flex !important;
+		flex-direction: column !important;
+		gap: 12px !important;
+		width: 100% !important;
+	}
+
+	&__radio-item {
+		display: flex !important;
+		align-items: center !important;
+		gap: 10px !important;
+		padding: 8px !important;
+		cursor: pointer !important;
+		font-size: 14px !important;
+
+		@include until( $bp-tablet ) {
+			font-size: 13px !important;
+		}
+
+		input[type='radio'] {
+			cursor: pointer !important;
+		}
+	}
+
+	// --------------------------------------------------------------------------
+	// Buttons
+	// --------------------------------------------------------------------------
+
+	&__button {
+		display: inline-flex !important;
+		align-items: center !important;
+		justify-content: center !important;
+		padding: 12px 24px !important;
+		background: #009e96 !important;
+		color: #ffffff !important;
+		border: none !important;
+		border-radius: 8px !important;
+		font-size: 14px !important;
+		font-weight: 600 !important;
+		font-family: inherit !important;
+		cursor: pointer !important;
+		line-height: normal !important;
+		transition: background 0.15s !important;
+
+		&:hover {
+			background: #007f78 !important;
+		}
+	}
+}
+
+// ==========================================================================
+// Responsive
+// ==========================================================================
+
+@include until( $bp-tablet ) {
+	.doo-area-personal {
+		&__layout {
+			flex-direction: column !important;
+			padding: 24px 20px !important;
+		}
+
+		&__sidebar {
+			width: 100% !important;
+			min-width: 0 !important;
+		}
+
+		&__page-title {
+			font-size: 26px !important;
+		}
+	}
+}

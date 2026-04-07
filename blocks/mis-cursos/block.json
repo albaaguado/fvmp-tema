@@ -1,0 +1,48 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "doo/mis-cursos",
+	"version": "1.0.0",
+	"title": "Mis Cursos",
+	"category": "doo-blocks",
+	"icon": "list-view",
+	"description": "Displays the requested courses for the logged-in user.",
+	"supports": {
+		"html": false,
+		"align": false,
+		"multiple": false
+	},
+	"attributes": {
+		"sectionTitle": {
+			"type": "string",
+			"default": "Cursos solicitados"
+		},
+		"infoText": {
+			"type": "string",
+			"default": "Puedes solicitar hasta un máximo de 4 cursos por plan y ordenarlos por orden de preferencia."
+		},
+		"warningText": {
+			"type": "string",
+			"default": "No olvides Enviar la Solicitud una vez hayas seleccionado y ordenado los cursos según tus preferencias."
+		},
+		"program1Title": {
+			"type": "string",
+			"default": "Programa Innovación Municipal"
+		},
+		"program2Title": {
+			"type": "string",
+			"default": "Formación Equipos Atención Primaria"
+		},
+		"btnVerMasLabel": {
+			"type": "string",
+			"default": "Ver más cursos"
+		},
+		"btnEnviarLabel": {
+			"type": "string",
+			"default": "Enviar solicitud"
+		}
+	},
+	"textdomain": "dw-tema",
+	"editorScript": "doo-blocks-editor",
+	"render": "file:./render.php"
+}

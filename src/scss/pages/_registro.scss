@@ -25,6 +25,10 @@ $reg-page-bg:           #ffffff;
 	justify-content: center;
 	padding: 40px var(--wp--preset--spacing--40) 32px;
 	background: $reg-page-bg;
+
+	@include until( $bp-tablet ) {
+		padding: 24px 16px 20px;
+	}
 }
 
 .doo-registro__title {
@@ -45,7 +49,8 @@ $reg-page-bg:           #ffffff;
 	}
 
 	@include until( $bp-tablet ) {
-		padding-inline: var(--wp--preset--spacing--30);
+		padding-inline: var(--wp--preset--spacing--20);
+		padding-block-end: var(--wp--preset--spacing--40);
 	}
 }
 

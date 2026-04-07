@@ -120,11 +120,16 @@
 	box-sizing:    border-box;
 }
 
-// Custom doo/* blocks: backgrounds bleed edge-to-edge; each section manages
-// its own inner inset independently via --doo-layout-pad.
-// !important ensures WP constrained-layout CSS (margin: auto, max-width: contentSize)
-// never overrides the full-width breakout — even if a parent layout changes.
-.wp-block-post-content > [class^='doo-'] {
+// Custom doo/* blocks keep the full-bleed breakout so their colored sections
+// can span the viewport. Inner containers handle the readable content width.
+body.home .wp-block-post-content > [class^='doo-'] {
+	max-width:     none !important;
+	width:         100vw !important;
+	margin-inline: calc(50% - 50vw) !important;
+	box-sizing:    border-box;
+}
+
+body:not(.home) .wp-block-post-content > [class^='doo-'] {
 	max-width:     none !important;
 	width:         100vw !important;
 	margin-inline: calc(50% - 50vw) !important;

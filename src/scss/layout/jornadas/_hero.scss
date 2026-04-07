@@ -13,9 +13,16 @@
 	padding-inline: var(--doo-layout-pad) !important;
 	margin: 0 !important;
 	margin-block: 0 !important;
-	width: 100% !important;
+	width: 100vw !important;
 	max-width: none !important;
+	margin-inline: calc(50% - 50vw) !important;
 	box-sizing: border-box !important;
+
+	@include until( $bp-tablet ) {
+		padding: 40px 0 !important;
+		padding-block: 40px !important;
+		padding-inline: var(--doo-layout-pad) !important;
+	}
 
 	&__container {
 		width: 100% !important;
@@ -52,6 +59,10 @@
 		padding: 0 !important;
 		padding-block: 0 !important;
 		line-height: 1.1 !important;
+
+		@include until( $bp-tablet ) {
+			font-size: 36px !important;
+		}
 	}
 
 	&__description {
@@ -62,6 +73,12 @@
 		margin-block: 0 24px !important;
 		padding: 0 !important;
 		padding-block: 0 !important;
+
+		@include until( $bp-tablet ) {
+			font-size: 15px !important;
+			margin-bottom: 16px !important;
+			margin-block-end: 16px !important;
+		}
 	}
 
 	&__stats {
@@ -72,6 +89,11 @@
 		padding-block: 0 !important;
 		margin: 0 !important;
 		margin-block: 0 !important;
+
+		@include until( $bp-tablet ) {
+			flex-wrap: wrap !important;
+			gap: 24px !important;
+		}
 	}
 
 	&__stat {
@@ -94,6 +116,10 @@
 		margin-block: 0 !important;
 		padding: 0 !important;
 		padding-block: 0 !important;
+
+		@include until( $bp-tablet ) {
+			font-size: 32px !important;
+		}
 	}
 
 	&__stat-label {
@@ -110,32 +136,27 @@
 }
 
 // ==========================================================================
-// Responsive
+// Responsive — Mobile (< 600px)
 // ==========================================================================
 
-@include until($bp-tablet) {
+@include until( $bp-mobile ) {
 	.doo-jornadas-hero {
 		padding: 40px 0 !important;
 		padding-block: 40px !important;
-
-		.doo-jornadas-hero__title {
-			font-size: 36px !important;
-		}
-
-		.doo-jornadas-hero__stats {
-			flex-wrap: wrap !important;
-			gap: 24px !important;
-		}
-
-		.doo-jornadas-hero__stat-value {
-			font-size: 32px !important;
-		}
+		padding-inline: var(--doo-layout-pad) !important;
 	}
 }
 
-// Editor adjustments
+// ==========================================================================
+// Responsive — Tablet (600px – 760px)
+// ==========================================================================
+
+// Note: Editor needs reset
+
+// Editor: reset full-bleed so the canvas preview isn't broken
 .editor-styles-wrapper {
 	.doo-jornadas-hero {
-		margin: 0 -14px;
+		width: 100% !important;
+		margin-inline: 0 !important;
 	}
 }

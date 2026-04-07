@@ -54,20 +54,26 @@
 }
 
 .doo-header__inner {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	flex-wrap: nowrap;
-	gap: 0;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: flex-start !important;
+	flex-wrap: nowrap !important;
+	gap: 0 !important;
 	min-height: 88px;
 	max-width: var(--doo-layout-max);
 	margin-inline: auto;
 	width: 100%;
 	box-sizing: border-box;
 	transition: min-height 0.3s ease;
+
+	// Force flex children order
+	> * {
+		flex-shrink: 0;
+	}
 }
 
 .doo-header__logo {
+	order: 1 !important;
 	flex-shrink: 0;
 	align-self: center;
 
@@ -80,6 +86,7 @@
 }
 
 .doo-header__sep {
+	order: 2 !important;
 	width: 1px;
 	height: 20px;
 	background: #e2e4e8;
@@ -89,7 +96,8 @@
 }
 
 .doo-header__nav {
-	flex: 1;
+	order: 3 !important;
+	flex: 1 !important;
 	gap: 28px;
 	align-self: center;
 
@@ -121,12 +129,16 @@
 }
 
 .doo-header__actions {
+	order: 4 !important;
 	display:     flex;
 	align-items: center;
 	flex-shrink: 0;
 	gap:         12px;
 	align-self:  center;
+	margin-left: auto !important;
 }
+
+// User-nav order defined in user-nav section below
 
 .doo-header__lang {
 	font-family:  $font-inter;
@@ -187,23 +199,26 @@
 // ==========================================================================
 
 .doo-header__user-nav {
+	order: 4 !important;
 	display:     flex;
 	align-items: center;
 	gap:         24px;
 	flex-shrink: 0;
+	flex-wrap:   nowrap;
+	margin-left: auto !important;
 }
 
 .doo-header__user-link {
-	font-family:   $font-inter;
-	font-size:     13px;
-	font-weight:   400;
+	font-family:     $font-inter;
+	font-size:       13px;
+	font-weight:     400;
 	font-variation-settings: 'opsz' 14, 'wght' 400;
-	color:         #333;
-	text-transform: uppercase;
+	color:           #333;
+	text-transform:  uppercase;
 	text-decoration: none;
-	white-space:   nowrap;
-	padding-bottom: 3px;
-	border-bottom: 2px solid transparent;
+	white-space:     nowrap;
+	padding-bottom:  3px;
+	border-bottom:   2px solid transparent;
 	@include transition( color );
 
 	&:hover {
@@ -284,12 +299,16 @@
 		padding-top: 8px;
 		align-items: flex-start !important;
 		justify-content: flex-start !important;
+		display: flex !important;
+		flex-direction: column !important;
 
 		// Nav items inside overlay: larger text, full-width with separator
 		.wp-block-navigation__container {
+			order: 1;
 			gap: 0 !important;
 			align-items: flex-start !important;
 			width: 100% !important;
+			flex-direction: column !important;
 		}
 
 		.wp-block-navigation-item__content {
@@ -312,14 +331,69 @@
 		}
 	}
 
-	// Show CTA buttons at the bottom of the overlay
+	// Show CTA buttons at the bottom of the overlay (after nav links)
 	.doo-header__mobile-ctas {
-		display: flex;
-		flex-direction: column;
-		gap: 10px;
-		padding-top: 24px;
-		margin-top: 8px;
-		width: 100%;
+		order: 10 !important;
+		display: flex !important;
+		flex-direction: column !important;
+		gap: 10px !important;
+		padding-top: 24px !important;
+		margin-top: auto !important;
+		width: 100% !important;
+	}
+}
+
+// ==========================================================================
+// Logged-in user links inside mobile overlay
+// ==========================================================================
+
+// Hide guest CTAs inside overlay when logged in
+body.logged-in .wp-block-navigation__responsive-container.is-menu-open {
+	.doo-header__mobile-ctas {
+		display: none !important;
+	}
+}
+
+// User links injected by JS into the mobile overlay — only visible in hamburger mode
+.doo-header__mobile-user-links {
+	display: none;
+}
+
+// Inside the overlay, show user links (injected by JS) at the bottom
+.wp-block-navigation__responsive-container.is-menu-open .doo-header__mobile-user-links {
+	order: 10 !important;
+	display: flex !important;
+	flex-direction: column !important;
+	width: 100% !important;
+	padding-top: 24px !important;
+	margin-top: auto !important;
+}
+
+.doo-header__mobile-user-link {
+	font-family:     $font-inter;
+	font-size:       15px;
+	font-weight:     400;
+	color:           #333;
+	text-decoration: none;
+	text-transform:  uppercase;
+	padding:         14px 4px;
+	border-bottom:   1px solid #e2e4e8;
+	display:         block;
+	width:           100%;
+	@include transition( color );
+
+	&.is-active {
+		font-weight:         700;
+		color:               $color-teal;
+		border-bottom-color: $color-teal;
+	}
+
+	&--logout {
+		color: #666;
+
+		&:hover {
+			color: $color-navy;
+		}
 	}
 }
 
@@ -370,66 +444,117 @@
 }
 
 // ==========================================================================
-// Tablet responsive (768px – 1024px)
+// 2-row layout (600px – 1199px)
+// Row 1: logo  +  actions / user-nav pushed right (margin-left: auto)
+// Row 2: nav links full-width
+// Identical behaviour for logged-in and logged-out.
 // ==========================================================================
-@include until( $bp-desktop ) {
+@include until( $bp-wide ) {
 	.doo-header__inner {
-		height: auto;
-		min-height: 0;
-		flex-wrap: wrap !important;
+		height:        auto;
+		min-height:    0;
+		flex-wrap:     wrap !important;
 		padding-block: $space-20;
 
 		.doo-header__sep { display: none; }
 
-		.doo-header__nav {
-			order: 3;
-			width: 100%;
-			justify-content: center;
+		.doo-header__logo {
+			order: 1 !important;
+
+			.wp-block-site-logo img {
+				width:  140px;
+				height: 49px;
+			}
 		}
 
+		// Nav drops to second row
+		.doo-header__nav {
+			order:           3 !important;
+			width:           100% !important;
+			justify-content: center !important;
+			flex:            none !important;
+		}
+
+		// Both states: right-align the row-1 right block
 		.doo-header__actions {
-			margin-left: auto;
+			order: 2 !important;
+			margin-left: auto !important;
+		}
+
+		.doo-header__user-nav {
+			order: 2 !important;
+			margin-left: auto !important;
 		}
 	}
 
 	.doo-header.is-scrolled .doo-header__inner {
 		min-height: 0;
-		padding-block: 10px;
+		padding-block: 8px;
 
 		.doo-header__logo .wp-block-site-logo img {
-			width: 130px;
-			height: 44px;
+			width:  110px;
+			height: 38px;
+		}
+	}
+}
+
+// At narrow tablet (768px – 1199px) hide the language toggle to save space
+@include until( $bp-tablet ) {
+	.doo-header__lang {
+		display: none !important;
+	}
+
+	// Tighten user-nav gap and reduce logo a bit more
+	.doo-header__inner {
+		.doo-header__logo .wp-block-site-logo img {
+			width:  110px;
+			height: 38px;
+		}
+
+		.doo-header__user-nav {
+			gap: 14px;
+		}
+
+		.doo-header__btn {
+			padding:   6px 12px;
+			font-size: 10px;
 		}
 	}
 }
 
 // ==========================================================================
-// Mobile (< 768px): single row, logo left, hamburger right
+// Hamburger (< 600px): single row, logo left, hamburger right
+// Buttons go inside the hamburger overlay
 // ==========================================================================
-@include until( $bp-tablet ) {
+@include until( $bp-mobile ) {
 	.doo-header__inner {
-		flex-wrap: nowrap !important;
+		flex-wrap:     nowrap !important;
 		padding-block: 8px;
 
 		.doo-header__logo {
-			border-right: none;
-			padding-right: 0;
-			margin-right: 0;
+			order: 1;
 
 			.wp-block-site-logo img {
-				width: 120px;
-				height: 42px;
+				width:  96px;
+				height: 34px;
 			}
 		}
 
+		// Nav fills remaining space so hamburger aligns right
 		.doo-header__nav {
-			order: unset !important;
-			width: auto !important;
-			flex: 1 !important;
+			order:           2 !important;
+			width:           auto !important;
+			flex:            1 !important;
 			justify-content: flex-end !important;
 		}
 
+		// Guest buttons hidden — inside the hamburger overlay
 		.doo-header__actions {
+			display: none !important;
+		}
+
+		// Logged-in user nav hidden — injected into overlay by JS
+		.doo-header__user-nav {
 			display: none !important;
 		}
 	}
@@ -438,8 +563,8 @@
 		padding-block: 6px;
 
 		.doo-header__logo .wp-block-site-logo img {
-			width: 100px;
-			height: 36px;
+			width:  80px;
+			height: 28px;
 		}
 	}
 }

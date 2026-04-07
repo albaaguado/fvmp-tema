@@ -41,8 +41,8 @@ $radius-lg: 16px;
 $radius-full: 9999px;
 
 // --- Breakpoints (raw values for mixins) ---
-$bp-mobile: 480px;
-$bp-tablet: 768px;
+$bp-mobile: 600px;   // WordPress nav shows hamburger at ~600px
+$bp-tablet: 760px;   // Reduced from 768px to avoid double-layout issues
 $bp-desktop: 1024px;
 $bp-wide: 1200px;
 $bp-large: 1440px;

@@ -27,6 +27,9 @@ import DooRegistroEdit from './registro/edit.jsx';
 import DooJornadasHeroEdit from './jornadas/hero.jsx';
 import DooJornadasListingEdit from './jornadas/listing.jsx';
 import DooJornadaDetailEdit from './jornadas/detail.jsx';
+import DooMisCursosEdit from './mis-cursos/edit.jsx';
+import DooUserBarEdit from './user-bar/edit.jsx';
+import DooAreaPersonalEdit from './area-personal/edit.jsx';
 
 registerBlockType( 'doo/hero', { edit: DooHeroEdit } );
 registerBlockType( 'doo/presentacion', { edit: DooPresentacionEdit } );
@@ -65,3 +68,8 @@ registerBlockType( 'doo/planes', { edit: DooPlanesEdit } );
 registerBlockType( 'doo/jornadas-hero', { edit: DooJornadasHeroEdit } );
 registerBlockType( 'doo/jornadas-listing', { edit: DooJornadasListingEdit } );
 registerBlockType( 'doo/jornada-detail', { edit: DooJornadaDetailEdit } );
+
+// User area blocks
+registerBlockType( 'doo/user-bar',       { edit: DooUserBarEdit } );
+registerBlockType( 'doo/mis-cursos',     { edit: DooMisCursosEdit } );
+registerBlockType( 'doo/area-personal',  { edit: DooAreaPersonalEdit } );

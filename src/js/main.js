@@ -16,6 +16,9 @@ document.addEventListener( 'DOMContentLoaded', () => {
 	initTestimoniosSlider();
 	initFcFilters();
 	initHomeScrollAnimations();
+	initAreaPersonal();
+	initAreaPersonalCustomSelects();
+	initUserNavMobile();
 } );
 
 /**
@@ -435,4 +438,208 @@ function setActiveNavItem() {
 			item.classList.add( 'current-menu-item' );
 		}
 	} );
+}
+
+/**
+ * Area Personal — tab switching via URL hash.
+ */
+function initAreaPersonal() {
+	const container = document.querySelector( '.doo-area-personal' );
+	if ( ! container ) return;
+
+	const items  = container.querySelectorAll( '.doo-area-personal__sb-item' );
+	const panels = container.querySelectorAll( '.doo-area-personal__panel' );
+
+	if ( ! items.length || ! panels.length ) return;
+
+	function activate( panelId ) {
+		items.forEach( ( item ) => {
+			item.classList.toggle( 'is-active', item.dataset.panel === panelId );
+		} );
+		panels.forEach( ( panel ) => {
+			panel.classList.toggle( 'is-active', panel.dataset.panel === panelId );
+		} );
+	}
+
+	const hash  = window.location.hash.replace( '#', '' );
+	const valid = Array.from( items ).map( ( i ) => i.dataset.panel );
+	activate( valid.includes( hash ) ? hash : valid[ 0 ] );
+
+	items.forEach( ( item ) => {
+		item.addEventListener( 'click', () => {
+			const panel = item.dataset.panel;
+			history.pushState( null, '', '#' + panel );
+			activate( panel );
+		} );
+	} );
+
+	window.addEventListener( 'hashchange', () => {
+		const h = window.location.hash.replace( '#', '' );
+		if ( valid.includes( h ) ) activate( h );
+	} );
+}
+
+/**
+ * Inject logged-in user nav links (MIS CURSOS, ÁREA PERSONAL, SALIR) into
+ * the WordPress Navigation hamburger overlay on mobile.
+ *
+ * WordPress adds `.logged-in` to <body> when a user is authenticated.
+ * On mobile the `.doo-header__user-nav` is hidden via CSS; this function
+ * appends equivalent links to the responsive overlay so they appear inside
+ * the hamburger menu.
+ */
+function initUserNavMobile() {
+	const userNav = document.querySelector( '.doo-header__user-nav' );
+	if ( ! userNav ) return;
+
+	const overlayContent = document.querySelector(
+		'.wp-block-navigation__responsive-container-content'
+	);
+	if ( ! overlayContent ) return;
+
+	const links = Array.from( userNav.querySelectorAll( '.doo-header__user-link' ) );
+	if ( ! links.length ) return;
+
+	const section = document.createElement( 'div' );
+	section.className = 'doo-header__mobile-user-links';
+
+	links.forEach( ( link ) => {
+		const a = document.createElement( 'a' );
+		a.href             = link.getAttribute( 'href' ) || '#';
+		a.className        = 'doo-header__mobile-user-link';
+		a.textContent      = link.textContent.trim();
+
+		if ( link.classList.contains( 'doo-header__user-link--logout' ) ) {
+			a.classList.add( 'doo-header__mobile-user-link--logout' );
+		}
+		if ( link.classList.contains( 'is-active' ) ) {
+			a.classList.add( 'is-active' );
+		}
+
+		section.appendChild( a );
+	} );
+
+	overlayContent.appendChild( section );
+}
+
+/**
+ * Replace native <select> elements inside .doo-area-personal with a custom
+ * dropdown that always opens downward, regardless of viewport position.
+ *
+ * The native <select> is hidden but kept in the DOM so the form still submits
+ * its value correctly.
+ */
+function initAreaPersonalCustomSelects() {
+	const container = document.querySelector( '.doo-area-personal' );
+	if ( ! container ) return;
+
+	const chevronSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+
+	/**
+	 * Build a custom dropdown for a single <select> element.
+	 *
+	 * @param {HTMLSelectElement} select The native select to replace.
+	 */
+	function buildCustomSelect( select ) {
+		const wrap = select.closest( '.doo-area-personal__select-wrap' );
+		if ( ! wrap ) return;
+
+		// Wrapper div.
+		const csWrap = document.createElement( 'div' );
+		csWrap.className = 'doo-area-personal__custom-select';
+
+		// Trigger button.
+		const trigger = document.createElement( 'button' );
+		trigger.type = 'button';
+		trigger.className = 'doo-area-personal__cs-trigger';
+		trigger.setAttribute( 'aria-haspopup', 'listbox' );
+		trigger.setAttribute( 'aria-expanded', 'false' );
+
+		// Dropdown list.
+		const dropdown = document.createElement( 'div' );
+		dropdown.className = 'doo-area-personal__cs-dropdown';
+		dropdown.setAttribute( 'role', 'listbox' );
+
+		/**
+		 * Sync trigger label and state from the native select value.
+		 */
+		function syncTrigger() {
+			const selected = select.options[ select.selectedIndex ];
+			const hasValue = selected && selected.value;
+			trigger.innerHTML = ( hasValue ? selected.text : select.options[ 0 ].text ) + chevronSvg;
+			trigger.classList.toggle( 'has-value', !! hasValue );
+		}
+
+		/**
+		 * Rebuild dropdown options from current native select options.
+		 */
+		function rebuildOptions() {
+			dropdown.innerHTML = '';
+			Array.from( select.options ).forEach( ( opt ) => {
+				if ( ! opt.value ) return;
+				const btn = document.createElement( 'button' );
+				btn.type = 'button';
+				btn.className = 'doo-area-personal__cs-option';
+				btn.setAttribute( 'role', 'option' );
+				btn.textContent = opt.text;
+				btn.dataset.value = opt.value;
+				btn.classList.toggle( 'is-selected', opt.value === select.value );
+
+				btn.addEventListener( 'click', () => {
+					select.value = opt.value;
+					select.dispatchEvent( new Event( 'change', { bubbles: true } ) );
+					syncTrigger();
+					close();
+				} );
+
+				dropdown.appendChild( btn );
+			} );
+		}
+
+		function open() {
+			rebuildOptions();
+			dropdown.classList.add( 'is-open' );
+			trigger.setAttribute( 'aria-expanded', 'true' );
+		}
+
+		function close() {
+			dropdown.classList.remove( 'is-open' );
+			trigger.setAttribute( 'aria-expanded', 'false' );
+		}
+
+		trigger.addEventListener( 'click', ( e ) => {
+			e.stopPropagation();
+			if ( dropdown.classList.contains( 'is-open' ) ) {
+				close();
+			} else {
+				// Close any other open dropdowns first.
+				container.querySelectorAll( '.doo-area-personal__cs-dropdown.is-open' ).forEach( ( d ) => {
+					d.classList.remove( 'is-open' );
+					d.previousElementSibling.setAttribute( 'aria-expanded', 'false' );
+				} );
+				open();
+			}
+		} );
+
+		// Close on outside click.
+		document.addEventListener( 'click', close );
+
+		// Re-sync when the native select changes programmatically (e.g. category rebuild).
+		select.addEventListener( 'change', syncTrigger );
+
+		// Hide native select visually (keep in DOM for form submission).
+		select.classList.add( 'doo-ap-select--hidden' );
+
+		// Remove the SVG chevron that was rendered server-side (now handled by trigger).
+		const existingSvg = wrap.querySelector( 'svg' );
+		if ( existingSvg ) existingSvg.remove();
+
+		csWrap.appendChild( trigger );
+		csWrap.appendChild( dropdown );
+		wrap.appendChild( csWrap );
+
+		syncTrigger();
+	}
+
+	container.querySelectorAll( '.doo-area-personal__input--select' ).forEach( buildCustomSelect );
 }
