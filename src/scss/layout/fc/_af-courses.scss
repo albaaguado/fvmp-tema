@@ -12,13 +12,14 @@
 	--fc-accent-bg: rgba(0, 169, 165, 0.08);
 
 	background: #fff !important;
-	padding: 40px 0 80px !important;
-	padding-block: 40px 80px !important;
+	padding: 40px 0 96px !important;
+	padding-block: 40px 96px !important;
 	padding-inline: var(--doo-layout-pad) !important;
 	margin: 0 !important;
 	margin-block: 0 !important;
-	width: 100% !important;
+	width: 100vw !important;
 	max-width: none !important;
+	margin-inline: calc(50% - 50vw) !important;
 	box-sizing: border-box !important;
 
 	// ── Layout ──
@@ -431,10 +432,17 @@
 	}
 }
 
+// Editor: reset full-bleed
+.editor-styles-wrapper .doo-af-courses {
+	width: 100% !important;
+	margin-inline: 0 !important;
+}
+
 // ==========================================================================
 // Responsive
 // ==========================================================================
 
+// Desktop to tablet breakpoint
 @include until($bp-desktop) {
 	.doo-af-courses .doo-af-courses__layout {
 		flex-direction: column !important;
@@ -445,10 +453,44 @@
 	}
 }
 
+// Mobile small (< 600px)
+@include until($bp-mobile) {
+	.doo-af-courses {
+		padding: 20px 0 40px !important;
+		padding-block: 20px 40px !important;
+		padding-inline: var(--doo-layout-pad) !important;
+	}
+
+	.doo-af-courses .doo-af-sidebar {
+		display: none !important;
+	}
+
+	.doo-af-courses .doo-af-card {
+		flex-direction: column !important;
+		align-items: stretch !important;
+		min-height: auto !important;
+	}
+
+	.doo-af-courses .doo-af-card__attrs {
+		gap: 16px !important;
+	}
+
+	.doo-af-courses .doo-af-card__btn {
+		width: 100% !important;
+		justify-content: center !important;
+	}
+
+	.doo-af-courses .doo-af-attr {
+		min-width: calc(50% - 8px) !important;
+	}
+}
+
+// Tablet (600px - 1024px)
 @include until($bp-tablet) {
 	.doo-af-courses {
-		padding: 24px 0 48px !important;
-		padding-block: 24px 48px !important;
+		padding: 24px 0 64px !important;
+		padding-block: 24px 64px !important;
+		padding-inline: var(--doo-layout-pad) !important;
 	}
 
 	.doo-af-courses .doo-af-sidebar {

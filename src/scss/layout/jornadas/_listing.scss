@@ -7,13 +7,14 @@
 @use '../../abstracts/mixins' as *;
 
 .doo-jornadas-listing {
-	padding: 64px 0 !important;
-	padding-block: 64px !important;
+	padding: 64px 0 96px !important;
+	padding-block: 64px 96px !important;
 	padding-inline: var(--doo-layout-pad) !important;
 	margin: 0 !important;
 	margin-block: 0 !important;
-	width: 100% !important;
+	width: 100vw !important;
 	max-width: none !important;
+	margin-inline: calc(50% - 50vw) !important;
 	box-sizing: border-box !important;
 
 	&__container {
@@ -38,7 +39,7 @@
 
 	&__grid {
 		display: grid !important;
-		grid-template-columns: repeat(2, 1fr) !important;
+		grid-template-columns: repeat(3, 1fr) !important;
 		gap: 24px !important;
 	}
 
@@ -81,7 +82,8 @@
 
 	&__image {
 		width: 100% !important;
-		height: 240px !important;
+		aspect-ratio: 768 / 472 !important;
+		height: auto !important;
 		overflow: hidden !important;
 		background: #d9d9de !important;
 		flex-shrink: 0 !important;
@@ -101,10 +103,10 @@
 	}
 
 	&__content {
-		padding: 20px 24px !important;
+		padding: 16px 20px !important;
 		display: flex !important;
 		flex-direction: column !important;
-		gap: 12px !important;
+		gap: 8px !important;
 	}
 
 	&__badge {
@@ -170,14 +172,39 @@
 	}
 }
 
+
 // ==========================================================================
-// Responsive
+// Responsive — Mobile (< 600px)
+// ==========================================================================
+
+@include until($bp-mobile) {
+	.doo-jornadas-listing {
+		padding: 40px 0 !important;
+		padding-block: 40px !important;
+		padding-inline: var(--doo-layout-pad) !important;
+
+		.doo-jornadas-listing__title {
+			font-size: 22px !important;
+			margin-bottom: 24px !important;
+			margin-block-end: 24px !important;
+		}
+
+		.doo-jornadas-listing__grid {
+			grid-template-columns: 1fr !important;
+			gap: 16px !important;
+		}
+	}
+}
+
+// ==========================================================================
+// Responsive — Tablet (600px – 760px)
 // ==========================================================================
 
 @include until($bp-tablet) {
 	.doo-jornadas-listing {
 		padding: 40px 0 !important;
 		padding-block: 40px !important;
+		padding-inline: var(--doo-layout-pad) !important;
 
 		.doo-jornadas-listing__title {
 			font-size: 24px !important;
@@ -186,14 +213,13 @@
 		}
 
 		.doo-jornadas-listing__grid {
-			grid-template-columns: 1fr !important;
+			grid-template-columns: repeat(2, 1fr) !important;
 		}
 	}
 }
 
-// Editor adjustments
-.editor-styles-wrapper {
-	.doo-jornadas-listing {
-		margin: 0 -14px;
-	}
+// Editor: reset full-bleed
+.editor-styles-wrapper .doo-jornadas-listing {
+	width: 100% !important;
+	margin-inline: 0 !important;
 }

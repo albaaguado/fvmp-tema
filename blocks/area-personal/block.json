@@ -1,0 +1,14 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "doo/area-personal",
+  "version": "1.0.0",
+  "title": "Área Personal",
+  "category": "doo-blocks",
+  "icon": "admin-users",
+  "description": "Personal area with tabbed sections: account, work data and password.",
+  "supports": { "html": false, "align": false, "multiple": false },
+  "textdomain": "dw-tema",
+  "editorScript": "doo-blocks-editor",
+  "render": "file:./render.php"
+}

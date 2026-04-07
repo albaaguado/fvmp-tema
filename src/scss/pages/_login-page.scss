@@ -21,6 +21,10 @@ $login-helper:        #636e80;
 	padding:         80px 20px;
 	background:      $color-white;
 	min-height:      60vh;
+
+	@include until( $bp-tablet ) {
+		padding: 40px 16px;
+	}
 }
 
 // ===== Card =====

@@ -85,15 +85,7 @@ function doo_enqueue_assets() {
 	// --- Development mode: Vite dev server ---
 	if ( doo_is_vite_dev() ) {
 
-		// Load CSS as a real stylesheet to avoid flash of unstyled content.
-		wp_enqueue_style(
-			'doo-main-style-dev',
-			'http://localhost:5173/src/scss/main.scss',
-			array(),
-			null
-		);
-
-		// Vite client for HMR.
+		// Vite client for HMR — must load before the entry point.
 		wp_enqueue_script(
 			'doo-vite-client',
 			'http://localhost:5173/@vite/client',
@@ -102,7 +94,8 @@ function doo_enqueue_assets() {
 			false
 		);
 
-		// Main entry point (Vite serves SCSS through JS).
+		// Main entry point. Vite injects CSS via JS (HMR).
+		// Do NOT enqueue main.scss separately — WP adds ?ver= which breaks the Vite module.
 		wp_enqueue_script(
 			'doo-main-script',
 			'http://localhost:5173/src/js/main.js',
@@ -270,6 +263,11 @@ function doo_enqueue_editor_styles() {
 		return;
 	}
 
+	// In dev mode, CSS is injected by main.js via HMR — nothing extra needed here.
+	if ( doo_is_vite_dev() ) {
+		return;
+	}
+
 	$manifest = doo_get_vite_manifest();
 
 	if ( isset( $manifest['src/js/main.js']['css'] ) ) {
@@ -346,3 +344,81 @@ function doo_login_form_labels( $defaults ) {
 	return $defaults;
 }
 add_filter( 'login_form_defaults', 'doo_login_form_labels' );
+
+// ==========================================================================
+// Front Page — Force the page-home template page as the static front page
+// ==========================================================================
+
+/**
+ * Set the front page to the page using the page-home template if not already
+ * configured in Settings > Reading.
+ */
+function doo_set_front_page() {
+	if ( 'page' === get_option( 'show_on_front' ) && (int) get_option( 'page_on_front' ) > 0 ) {
+		return;
+	}
+
+	$pages = get_posts(
+		array(
+			'post_type'      => 'page',
+			'meta_key'       => '_wp_page_template',
+			'meta_value'     => 'page-home',
+			'posts_per_page' => 1,
+			'post_status'    => 'publish',
+		)
+	);
+
+	if ( empty( $pages ) ) {
+		$pages = get_posts(
+			array(
+				'post_type'      => 'page',
+				'name'           => 'home',
+				'posts_per_page' => 1,
+				'post_status'    => 'publish',
+			)
+		);
+	}
+
+	if ( empty( $pages ) ) {
+		return;
+	}
+
+	update_option( 'show_on_front', 'page' );
+	update_option( 'page_on_front', $pages[0]->ID );
+}
+add_action( 'init', 'doo_set_front_page' );
+
+// ==========================================================================
+// Logout — Redirect to current page unless it requires login
+// ==========================================================================
+
+/**
+ * Slugs of pages that require an active session.
+ * Logging out from these redirects to home instead.
+ */
+function doo_protected_slugs() {
+	return array( 'mis-cursos', 'area-personal' );
+}
+
+/**
+ * After logout, stay on the current page unless it is protected.
+ *
+ * @param string  $redirect_to           Default redirect URL.
+ * @param string  $requested_redirect_to The URL passed to wp_logout_url().
+ * @param WP_User $user                  The user that just logged out.
+ * @return string Redirect URL.
+ */
+function doo_logout_redirect( $redirect_to, $requested_redirect_to, $user ) {
+	if ( ! $requested_redirect_to ) {
+		return home_url( '/' );
+	}
+
+	$path = trim( parse_url( $requested_redirect_to, PHP_URL_PATH ), '/' );
+
+	if ( in_array( $path, doo_protected_slugs(), true ) ) {
+		return home_url( '/' );
+	}
+
+	return $requested_redirect_to;
+}
+add_filter( 'logout_redirect', 'doo_logout_redirect', 10, 3 );

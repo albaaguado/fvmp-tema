@@ -15,7 +15,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 $is_logged_in = is_user_logged_in();
 
 if ( $is_logged_in ) :
-	$logout_url       = wp_logout_url( home_url( '/' ) );
+	$current_url      = esc_url_raw( home_url( isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '/' ) );
+	$logout_url       = wp_logout_url( $current_url );
 	$mis_cursos_url   = home_url( '/mis-cursos/' );
 	$area_personal_url = home_url( '/area-personal/' );
 

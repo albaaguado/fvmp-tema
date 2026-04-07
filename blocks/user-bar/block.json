@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "doo/user-bar",
+	"version": "1.0.0",
+	"title": "User Bar",
+	"category": "doo-blocks",
+	"icon": "admin-users",
+	"description": "Compact bar showing the logged-in user identity.",
+	"supports": {
+		"html": false,
+		"align": false,
+		"multiple": false
+	},
+	"attributes": {
+		"subtitle": {
+			"type": "string",
+			"default": "Mi área personal"
+		}
+	},
+	"textdomain": "dw-tema",
+	"editorScript": "doo-blocks-editor",
+	"render": "file:./render.php"
+}
