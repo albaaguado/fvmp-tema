@@ -37,8 +37,9 @@
 		margin: 0;
 
 		img {
-			height: 96px;
-			width: auto;
+			width: 276px;
+			height: auto;
+			max-height: 96px;
 			object-fit: contain;
 		}
 	}
@@ -106,7 +107,9 @@
 			margin: 0 auto;
 
 			img {
-				height: 80px !important;
+				width: 200px !important;
+				height: auto !important;
+				max-height: 80px !important;
 			}
 		}
 

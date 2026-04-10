@@ -10,7 +10,37 @@
 		"html": false,
 		"anchor": true
 	},
-	"attributes": {},
+	"attributes": {
+		"location": {
+			"type": "string",
+			"default": "Valencia"
+		},
+		"presentations": {
+			"type": "array",
+			"default": [
+				{ "title": "00_Presentación_DG", "fileType": "PDF", "url": "#" },
+				{ "title": "01_Riba-Roja del Turia — Ribalicita", "fileType": "PDF", "url": "#" },
+				{ "title": "02_Alzira — La Clau al carrer", "fileType": "PDF", "url": "#" },
+				{ "title": "03_Alcoy — Kit Ciudadano & SmartSocial", "fileType": "PDF", "url": "#" },
+				{ "title": "04_Alicante — IA en la Atención Ciudadana", "fileType": "PDF", "url": "#" },
+				{ "title": "05_Vinaròs — Automatización Robótica", "fileType": "PDF", "url": "#" },
+				{ "title": "06_València — Gemelos Digitales & CitiVerso", "fileType": "PDF", "url": "#" }
+			],
+			"items": {
+				"type": "object"
+			}
+		},
+		"videos": {
+			"type": "array",
+			"default": [
+				{ "title": "innCVal 26-09-2024 — 001 inauguración", "url": "" },
+				{ "title": "innCVal 26-09-2024 — 002 metodologías", "url": "" }
+			],
+			"items": {
+				"type": "object"
+			}
+		}
+	},
 	"editorScript": "doo-blocks-editor",
 	"render": "file:./render.php"
 }
